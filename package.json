@@ -1,6 +1,7 @@
 {
 	"name": "@studentsphere/linksign",
 	"version": "0.0.1",
+	"packageManager": "pnpm@11.12.0",
 	"description": "A Wrapper for Edusign",
 	"author": "Kaelian Baudelet <contact@kaelian.dev> (https://github.com/kaelianbaudelet)",
 	"license": "GPL-3.0",
