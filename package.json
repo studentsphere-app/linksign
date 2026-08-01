@@ -38,6 +38,7 @@
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
 		"typecheck": "tsc --noEmit",
+		"example:auth:whitelabel": "tsx examples/auth/whitelabel.example.ts",
 		"example:auth:sso": "tsx examples/auth/sso.example.ts",
 		"example:auth:microsoft": "tsx examples/auth/microsoft-oauth.example.ts",
 		"example:auth:credentials": "tsx examples/auth/credentials.example.ts",

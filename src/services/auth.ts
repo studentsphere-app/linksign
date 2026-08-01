@@ -8,9 +8,11 @@ import { handleResponse } from "@/core/handler";
 import type {
 	AuthSession,
 	CasSsoAuthSession,
+	CasSsoConfig,
 	MicrosoftOauthAuthSession,
 	MicrosoftSsoAuthSession,
 	OauthSsoAuthSession,
+	OauthSsoConfig,
 	PinVerification,
 	RefreshedSession,
 	SsoConfig,
@@ -75,7 +77,7 @@ export async function loginWhitelabelAppWithCredentials(
 				EMAIL: identifier,
 				PASSWORD: password,
 				LANGUAGE: language ?? "fr",
-				SCHOOL_ID: schoolId,
+				schoolId: schoolId,
 			}),
 		},
 	);
@@ -271,10 +273,7 @@ export async function getWhiteLabelSsoConfig(
 	return handleResponse<WhiteLabelSsoConfig>(response);
 }
 
-export function createSsoAuthURL(
-	config: SsoConfig,
-	isWhitelabel: boolean = false,
-): string {
+export function createSsoAuthURL(config: SsoConfig): string {
 	switch (config.type) {
 		case "microsoft":
 			return "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=54e3c166-704f-4ee3-a102-618b1de5f055&response_type=code&redirect_uri=https://edusign.app/student/microsoft-v2-sso&response_mode=query&scope=user.read&state=microsoftv2";
@@ -300,7 +299,7 @@ export function createSsoAuthURL(
 			const params = new URLSearchParams({
 				schoolId: config.SCHOOL_ID,
 				type: "student",
-				whiteLabelActive: String(isWhitelabel),
+				whiteLabelActive: "false",
 			});
 			return `${EDUSIGN_API_BASE}/integrations/saml/connection?${params.toString()}`;
 		}
@@ -308,6 +307,50 @@ export function createSsoAuthURL(
 		default:
 			throw new UnsupportedSsoTypeError(
 				`Type de SSO non supporté: ${(config as SsoConfig).type}`,
+			);
+	}
+}
+
+export function createWhiteLabelSsoAuthURL(
+	config: WhiteLabelSsoConfig,
+): string {
+	const data = config.DATA;
+
+	switch (config.type) {
+		case "microsoft":
+			return "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=54e3c166-704f-4ee3-a102-618b1de5f055&response_type=code&redirect_uri=https://edusign.app/student/microsoft-v2-sso&response_mode=query&scope=user.read&state=microsoftv2";
+
+		case "oauth": {
+			const oauthData = data as OauthSsoConfig["data"];
+			const params = new URLSearchParams({
+				response_type: oauthData.responseType,
+				client_id: oauthData.clientId,
+				scope: oauthData.scope,
+				redirect_uri: "https://edusign.app/student",
+			});
+			return `${oauthData.authority}?${params.toString().replace(/%20/g, "+")}`;
+		}
+
+		case "cas": {
+			const casData = data as CasSsoConfig["data"];
+			const params = new URLSearchParams({
+				service: "https://edusign.app/student",
+			});
+			return `${casData.webCasClientUrl}?${params.toString()}`;
+		}
+
+		case "saml": {
+			const params = new URLSearchParams({
+				schoolId: config.SCHOOL_ID,
+				type: "student",
+				whiteLabelActive: "true",
+			});
+			return `${EDUSIGN_API_BASE}/integrations/saml/connection?${params.toString()}`;
+		}
+
+		default:
+			throw new UnsupportedSsoTypeError(
+				`Type de SSO non supporté: ${(config as WhiteLabelSsoConfig).type}`,
 			);
 	}
 }
