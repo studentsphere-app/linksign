@@ -1,0 +1,66 @@
+{
+	"name": "@studentsphere/linksign",
+	"version": "0.0.1",
+	"description": "A Wrapper for Edusign",
+	"author": "Kaelian Baudelet <contact@kaelian.dev> (https://github.com/kaelianbaudelet)",
+	"license": "GPL-3.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/studentsphere-app/linksign.git"
+	},
+	"keywords": [
+		"javascript",
+		"typescript",
+		"wrapper",
+		"edusign",
+		"studentsphere"
+	],
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsup src/index.ts --format esm,cjs --dts --clean",
+		"dev": "tsup src/index.ts --format esm,cjs --watch --dts",
+		"docs": "typedoc",
+		"prepare": "lefthook install",
+		"format": "biome format --write .",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"typecheck": "tsc --noEmit",
+		"example:auth:sso": "tsx examples/auth/sso.example.ts",
+		"example:auth:microsoft": "tsx examples/auth/microsoft-oauth.example.ts",
+		"example:auth:credentials": "tsx examples/auth/credentials.example.ts",
+		"example:auth": "tsx examples/auth/index.example.ts",
+		"example:profile": "tsx examples/profile/index.example.ts",
+		"example:attendance": "tsx examples/attendance/index.example.ts",
+		"example:planning": "tsx examples/planning/index.example.ts",
+		"example:campusmap": "tsx examples/campusmap/index.example.ts",
+		"example:documents": "tsx examples/documents/index.example.ts",
+		"example:newsfeed": "tsx examples/newsfeed/index.example.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.16",
+		"@commitlint/cli": "^21.0.2",
+		"@commitlint/config-conventional": "^21.0.2",
+		"@inquirer/prompts": "^8.5.2",
+		"@types/node": "^26.0.1",
+		"barrelsby": "^2.8.1",
+		"chalk": "^5.6.2",
+		"lefthook": "^2.1.9",
+		"playwright": "^1.62.0",
+		"tsup": "^8.5.1",
+		"tsx": "^4.22.4",
+		"typedoc": "^0.28.19",
+		"typescript": "^6.0.3"
+	}
+}

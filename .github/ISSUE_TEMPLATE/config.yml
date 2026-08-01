@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Security Vulnerability?
+    url: https://github.com/studentsphere-app/linksign/security/advisories/new
+    about: We take security very seriously. If you discover a vulnerability, please fill out this form.
+
+  - name: Contact StudentSphere
+    url: https://studentsphere.app
+    about: Need direct help? Visit the StudentSphere website to get in touch.
+
+  - name: Need help? Ask the community!
+    url: https://discord.gg/xn3NstgjuT
+    about: Join the Papillon Discord. They have an active community implementing school services. You'll likely find help there.
