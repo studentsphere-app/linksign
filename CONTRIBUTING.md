@@ -35,15 +35,19 @@ This project uses `pnpm` as its package manager. Please ensure you have Node.js 
 You can run the interactive example scripts to test changes:
 - Run authentication example:
   ```bash
-  pnpm run exemple:auth
+  pnpm run example:auth
   ```
-- Run timetable/planning example:
+- Run planning example:
   ```bash
-  pnpm run exemple:timetable
+  pnpm run example:planning
   ```
-- Run profile attributes example:
+- Run attendance example:
   ```bash
-  pnpm run exemple:profile
+  pnpm run example:attendance
+  ```
+- Run profile example:
+  ```bash
+  pnpm run example:profile
   ```
 
 ### Development Watch Mode
@@ -64,7 +68,7 @@ To keep the codebase clean, robust, and maintainable, please follow these rules:
    - For catch clauses, use `error instanceof Error ? error.message : error` rather than `error: any`.
 2. **Code Style**:
    - Use clean, semantic naming conventions.
-   - Maintain the existing architecture (separate business logic like `timetable.ts` or `profile.ts` from type interfaces).
+   - Maintain the existing architecture (separate business logic like `planning.ts` or `profile.ts` from type interfaces).
 
 ---
 
