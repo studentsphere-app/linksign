@@ -8,16 +8,16 @@ export async function authenticate() {
 	console.log(chalk.bold.cyan("\n--- Edusign Credentials Authentication ---"));
 
 	const identifier = await input({
-		message: "Email ou identifiant :",
+		message: "Email or identifier:",
 		required: true,
 	});
 
 	const pwd = await password({
-		message: "Mot de passe :",
+		message: "Password:",
 		mask: "*",
 	});
 
-	console.log(chalk.blue("\nConnexion en cours..."));
+	console.log(chalk.blue("\nLogging in..."));
 
 	try {
 		const user = await loginWithCredentials(identifier, pwd, "fr");
@@ -27,19 +27,19 @@ export async function authenticate() {
 
 			console.log(
 				chalk.green(
-					`\n✔ Connexion réussie pour ${profile.FIRSTNAME} ${profile.LASTNAME} !`,
+					`\n✔ Login successful for ${profile.FIRSTNAME} ${profile.LASTNAME}!`,
 				),
 			);
-			console.log(chalk.cyan("\n--- Informations du Profil ---"));
-			console.log(chalk.white(`Email : ${chalk.gray(profile.EMAIL)}`));
-			console.log(chalk.white(`Username : ${chalk.gray(profile.USERNAME)}`));
-			console.log(chalk.white(`Langue : ${chalk.gray(profile.LANGUAGE)}`));
+			console.log(chalk.cyan("\n--- Profile Information ---"));
+			console.log(chalk.white(`Email: ${chalk.gray(profile.EMAIL)}`));
+			console.log(chalk.white(`Username: ${chalk.gray(profile.USERNAME)}`));
+			console.log(chalk.white(`Language: ${chalk.gray(profile.LANGUAGE)}`));
 			if (profile.PHOTO) {
-				console.log(chalk.white(`Avatar : ${chalk.gray(profile.PHOTO)}`));
+				console.log(chalk.white(`Avatar: ${chalk.gray(profile.PHOTO)}`));
 			}
 			console.log(
 				chalk.white(
-					`École : ${chalk.gray(profile.SCHOOL?.NAME || "Non définie")}`,
+					`School: ${chalk.gray(profile.SCHOOL?.NAME || "Not defined")}`,
 				),
 			);
 
@@ -56,28 +56,26 @@ export async function authenticate() {
 
 		console.log(
 			chalk.yellow(
-				"\nUn code de vérification a été envoyé à votre adresse email.",
+				"\nA verification code has been sent to your email address.",
 			),
 		);
 
 		const pin = await input({
-			message: "Code de vérification :",
+			message: "Verification code:",
 			required: true,
 		});
 
-		console.log(chalk.blue("\nVérification du code..."));
+		console.log(chalk.blue("\nVerifying code..."));
 		const pinResult = await verifyPin(identifier, pin);
 
-		console.log(chalk.blue("\nRécupération des écoles..."));
+		console.log(chalk.blue("\nFetching schools..."));
 		const schools = await getSchools(pinResult.v2Token);
 
 		const selectedAccount =
 			schools.length === 1
 				? schools[0]
 				: await select({
-						message: chalk.cyan(
-							"Sélectionnez l'école avec laquelle vous souhaitez vous connecter :",
-						),
+						message: chalk.cyan("Select the school you want to log in with:"),
 						choices: schools.map((school) => ({
 							name: `${school.SCHOOL.NAME} — ${chalk.dim(school.USERNAME)}`,
 							value: school,
@@ -88,19 +86,19 @@ export async function authenticate() {
 
 		console.log(
 			chalk.green(
-				`\n✔ Connexion réussie pour ${profile.FIRSTNAME} ${profile.LASTNAME} !`,
+				`\n✔ Login successful for ${profile.FIRSTNAME} ${profile.LASTNAME}!`,
 			),
 		);
-		console.log(chalk.cyan("\n--- Informations du Profil ---"));
-		console.log(chalk.white(`Email : ${chalk.gray(profile.EMAIL)}`));
-		console.log(chalk.white(`Username : ${chalk.gray(profile.USERNAME)}`));
-		console.log(chalk.white(`Langue : ${chalk.gray(profile.LANGUAGE)}`));
+		console.log(chalk.cyan("\n--- Profile Information ---"));
+		console.log(chalk.white(`Email: ${chalk.gray(profile.EMAIL)}`));
+		console.log(chalk.white(`Username: ${chalk.gray(profile.USERNAME)}`));
+		console.log(chalk.white(`Language: ${chalk.gray(profile.LANGUAGE)}`));
 		if (profile.PHOTO) {
-			console.log(chalk.white(`Avatar : ${chalk.gray(profile.PHOTO)}`));
+			console.log(chalk.white(`Avatar: ${chalk.gray(profile.PHOTO)}`));
 		}
 		console.log(
 			chalk.white(
-				`École : ${chalk.gray(profile.SCHOOL?.NAME || "Non définie")}`,
+				`School: ${chalk.gray(profile.SCHOOL?.NAME || "Not defined")}`,
 			),
 		);
 
@@ -117,7 +115,7 @@ export async function authenticate() {
 		return selectedAccount;
 	} catch (err) {
 		const errorMessage = err instanceof Error ? err.message : String(err);
-		console.error(chalk.red("\nErreur :"), errorMessage);
+		console.error(chalk.red("\nError:"), errorMessage);
 		process.exit(1);
 	}
 }

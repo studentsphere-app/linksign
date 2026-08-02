@@ -11,28 +11,24 @@ async function runDocumentsExample() {
 	const user = await authenticate();
 	const token = user.TOKEN;
 
-	console.log(
-		chalk.blue("\nRécupération des documents (à signer & terminés)..."),
-	);
+	console.log(chalk.blue("\nFetching documents (to sign & completed)..."));
 	const documents = await getDocuments(token);
 	console.log(
 		chalk.green(
-			`✔ ${documents.toSign.length} document(s) à signer, ${documents.complete.length} document(s) terminé(s)`,
+			`✔ ${documents.toSign.length} document(s) to sign, ${documents.complete.length} completed document(s)`,
 		),
 	);
 
 	if (documents.toSign.length > 0) {
-		console.log(chalk.cyan("\nDocuments à signer :"));
+		console.log(chalk.cyan("\nDocuments to sign:"));
 		for (const doc of documents.toSign) {
 			console.log(chalk.white(`- ${doc.NAME}`));
 		}
 	}
 
-	console.log(chalk.blue("\nRécupération des pièces jointes..."));
+	console.log(chalk.blue("\nFetching attachments..."));
 	const attachments = await getStudentAttachments(token);
-	console.log(
-		chalk.green(`✔ ${attachments.length} pièce(s) jointe(s) trouvée(s)`),
-	);
+	console.log(chalk.green(`✔ ${attachments.length} attachment(s) found`));
 	for (const att of attachments) {
 		console.log(chalk.white(`- ${att.NAME}`));
 	}

@@ -11,21 +11,21 @@ async function runProfileExample() {
 	const user = await authenticate();
 	const token = user.TOKEN;
 
-	console.log(chalk.blue("\nRécupération du profil..."));
+	console.log(chalk.blue("\nFetching profile..."));
 	const profile = await getProfile(token);
-	console.log(chalk.green("✔ Profil récupéré"));
-	console.log(chalk.white(`Nom : ${profile.FIRSTNAME} ${profile.LASTNAME}`));
-	console.log(chalk.white(`Username : ${profile.USERNAME}`));
-	console.log(chalk.white(`Email : ${profile.EMAIL}`));
+	console.log(chalk.green("✔ Profile fetched"));
+	console.log(chalk.white(`Name: ${profile.FIRSTNAME} ${profile.LASTNAME}`));
+	console.log(chalk.white(`Username: ${profile.USERNAME}`));
+	console.log(chalk.white(`Email: ${profile.EMAIL}`));
 
 	if (profile.SCHOOL) {
-		console.log(chalk.blue("\nÉcole associée :"));
+		console.log(chalk.blue("\nAssociated school:"));
 		console.log(chalk.white(`- ${profile.SCHOOL.NAME}`));
 	}
 
-	console.log(chalk.blue("\nRécupération des préférences de notifications..."));
+	console.log(chalk.blue("\nFetching notification preferences..."));
 	const prefs = await getNotificationsPreferences(token);
-	console.log(chalk.green("✔ Préférences récupérées"));
+	console.log(chalk.green("✔ Preferences fetched"));
 	console.log(prefs);
 }
 

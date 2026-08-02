@@ -8,25 +8,23 @@ async function main() {
 	console.log(chalk.bold.magenta("\n--- Edusign Auth Examples ---"));
 
 	const authType = await select({
-		message: chalk.cyan(
-			"Quelle méthode d'authentification souhaitez-vous tester ?",
-		),
+		message: chalk.cyan("Which authentication method would you like to test?"),
 		choices: [
 			{
-				name: "Identifiants (Email & Mot de passe)",
+				name: "Credentials (Email & Password)",
 				value: "credentials",
 				description:
-					"Test de l'authentification classique (gère les comptes multiples/OTP).",
+					"Test classic authentication (handles multi-accounts/OTP).",
 			},
 			{
 				name: "SSO (Single Sign-On)",
 				value: "sso",
-				description: "Test de la récupération du lien SSO.",
+				description: "Test SSO link retrieval.",
 			},
 			{
 				name: "Microsoft OAuth",
 				value: "microsoft",
-				description: "Test de l'authentification via Microsoft OAuth.",
+				description: "Test Microsoft OAuth authentication.",
 			},
 		],
 	});
@@ -42,7 +40,7 @@ async function main() {
 			await authMicrosoft();
 			break;
 		default:
-			console.log(chalk.red("Choix invalide."));
+			console.log(chalk.red("Invalid choice."));
 	}
 }
 

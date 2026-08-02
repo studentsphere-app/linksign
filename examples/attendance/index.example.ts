@@ -26,24 +26,24 @@ async function runAttendanceExample() {
 
 	console.log(
 		chalk.blue(
-			`\nRécupération des statistiques d'assiduité du mois (${startOfMonth.split("T")[0]} au ${endOfMonth.split("T")[0]})...`,
+			`\nFetching attendance statistics for the month (${startOfMonth.split("T")[0]} to ${endOfMonth.split("T")[0]})...`,
 		),
 	);
 	const stats = await getAttendanceStatistics(token, startOfMonth, endOfMonth);
-	console.log(chalk.green("✔ Statistiques récupérées"));
-	console.log(chalk.white(`Présences : ${stats.presences}`));
-	console.log(chalk.white(`Absences : ${stats.absences}`));
+	console.log(chalk.green("✔ Statistics fetched"));
+	console.log(chalk.white(`Presences: ${stats.presences}`));
+	console.log(chalk.white(`Absences: ${stats.absences}`));
 
-	console.log(chalk.blue("\nRécupération des types d'absences..."));
+	console.log(chalk.blue("\nFetching absence types..."));
 	const types = await getSchoolAbsenceTypes(token);
-	console.log(chalk.green(`✔ ${types.length} type(s) d'absences trouvé(s)`));
+	console.log(chalk.green(`✔ ${types.length} absence type(s) found`));
 	for (const t of types) {
 		console.log(chalk.white(`- ${t.NAME}`));
 	}
 
-	console.log(chalk.blue("\nRécupération des absences du mois..."));
+	console.log(chalk.blue("\nFetching absences for the month..."));
 	const absences = await getAbsences(token, startOfMonth, endOfMonth);
-	console.log(chalk.green(`✔ ${absences.length} absence(s) trouvée(s)`));
+	console.log(chalk.green(`✔ ${absences.length} absence(s) found`));
 }
 
 const isMain = process.argv[1]?.includes("index.example");

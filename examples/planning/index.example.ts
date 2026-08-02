@@ -15,20 +15,18 @@ async function runPlanningExample() {
 	const start = now.toISOString();
 	const end = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString();
 
-	console.log(
-		chalk.blue(`\nRécupération du planning pour les 7 prochains jours...`),
-	);
+	console.log(chalk.blue(`\nFetching planning for the next 7 days...`));
 	const planning = await getPlanning(token, start, end);
-	console.log(chalk.green(`✔ ${planning.length} événement(s) au planning`));
+	console.log(chalk.green(`✔ ${planning.length} event(s) in planning`));
 
-	console.log(chalk.blue(`\nRécupération des cours...`));
+	console.log(chalk.blue(`\nFetching courses...`));
 	const courses = await getCoursesBetweenDates(token, start, end);
-	console.log(chalk.green(`✔ ${courses.length} cours trouvé(s)`));
+	console.log(chalk.green(`✔ ${courses.length} course(s) found`));
 
 	for (const course of courses) {
 		console.log(
 			chalk.white(
-				`- ${course.NAME} (Le ${new Date(course.START).toLocaleString()})`,
+				`- ${course.NAME} (On ${new Date(course.START).toLocaleString()})`,
 			),
 		);
 	}

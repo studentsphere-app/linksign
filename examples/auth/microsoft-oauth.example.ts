@@ -50,7 +50,7 @@ async function getOAuthCodeViaWebview(): Promise<string> {
 				if (page.isClosed()) throw new PageClosedError();
 				console.warn(
 					chalk.yellow(
-						`\nAttention : Problème réseau détecté lors du chargement (${e instanceof Error ? e.message.split("\n")[0] : String(e)}).`,
+						`\nWarning: Network issue detected during loading (${e instanceof Error ? e.message.split("\n")[0] : String(e)}).`,
 					),
 				);
 			}
@@ -71,9 +71,7 @@ async function getOAuthCodeViaWebview(): Promise<string> {
 		await browser.close();
 
 		if (!code) {
-			throw new Error(
-				"Aucun paramètre 'code' trouvé dans l'URL de callback Microsoft.",
-			);
+			throw new Error("No 'code' parameter found in Microsoft callback URL.");
 		}
 
 		return code;
@@ -92,12 +90,10 @@ export async function authenticateMicrosoft() {
 	);
 
 	try {
-		console.log(
-			chalk.blue("\nOuverture de la fenêtre de connexion Microsoft..."),
-		);
+		console.log(chalk.blue("\nOpening Microsoft login window..."));
 		const oauthCode = await getOAuthCodeViaWebview();
 
-		console.log(chalk.blue("\nConnexion en cours avec le code OAuth..."));
+		console.log(chalk.blue("\nLogging in with OAuth code..."));
 		const user = await loginWithMicrosoft(oauthCode);
 
 		if (!user.HAS_MULTI_ACCOUNTS) {
@@ -105,19 +101,19 @@ export async function authenticateMicrosoft() {
 
 			console.log(
 				chalk.green(
-					`\n✔ Connexion réussie pour ${profile.FIRSTNAME} ${profile.LASTNAME} !`,
+					`\n✔ Login successful for ${profile.FIRSTNAME} ${profile.LASTNAME}!`,
 				),
 			);
-			console.log(chalk.cyan("\n--- Informations du Profil ---"));
-			console.log(chalk.white(`Email : ${chalk.gray(profile.EMAIL)}`));
-			console.log(chalk.white(`Username : ${chalk.gray(profile.USERNAME)}`));
-			console.log(chalk.white(`Langue : ${chalk.gray(profile.LANGUAGE)}`));
+			console.log(chalk.cyan("\n--- Profile Information ---"));
+			console.log(chalk.white(`Email: ${chalk.gray(profile.EMAIL)}`));
+			console.log(chalk.white(`Username: ${chalk.gray(profile.USERNAME)}`));
+			console.log(chalk.white(`Language: ${chalk.gray(profile.LANGUAGE)}`));
 			if (profile.PHOTO) {
-				console.log(chalk.white(`Avatar : ${chalk.gray(profile.PHOTO)}`));
+				console.log(chalk.white(`Avatar: ${chalk.gray(profile.PHOTO)}`));
 			}
 			console.log(
 				chalk.white(
-					`École : ${chalk.gray(profile.SCHOOL?.NAME || "Non définie")}`,
+					`School: ${chalk.gray(profile.SCHOOL?.NAME || "Not defined")}`,
 				),
 			);
 
@@ -136,28 +132,26 @@ export async function authenticateMicrosoft() {
 
 		console.log(
 			chalk.yellow(
-				"\nUn code de vérification a été envoyé à votre adresse email.",
+				"\nA verification code has been sent to your email address.",
 			),
 		);
 
 		const pin = await input({
-			message: "Code de vérification :",
+			message: "Verification code:",
 			required: true,
 		});
 
-		console.log(chalk.blue("\nVérification du code..."));
+		console.log(chalk.blue("\nVerifying code..."));
 		const pinResult = await verifyPin(user.EMAIL, pin);
 
-		console.log(chalk.blue("\nRécupération des écoles..."));
+		console.log(chalk.blue("\nFetching schools..."));
 		const schools = await getSchools(pinResult.v2Token);
 
 		const selectedAccount =
 			schools.length === 1
 				? schools[0]
 				: await select({
-						message: chalk.cyan(
-							"Sélectionnez l'école avec laquelle vous souhaitez vous connecter :",
-						),
+						message: chalk.cyan("Select the school you want to log in with:"),
 						choices: schools.map((school) => ({
 							name: `${school.SCHOOL.NAME} — ${chalk.dim(school.USERNAME)}`,
 							value: school,
@@ -168,19 +162,19 @@ export async function authenticateMicrosoft() {
 
 		console.log(
 			chalk.green(
-				`\n✔ Connexion réussie pour ${profile.FIRSTNAME} ${profile.LASTNAME} !`,
+				`\n✔ Login successful for ${profile.FIRSTNAME} ${profile.LASTNAME}!`,
 			),
 		);
-		console.log(chalk.cyan("\n--- Informations du Profil ---"));
-		console.log(chalk.white(`Email : ${chalk.gray(profile.EMAIL)}`));
-		console.log(chalk.white(`Username : ${chalk.gray(profile.USERNAME)}`));
-		console.log(chalk.white(`Langue : ${chalk.gray(profile.LANGUAGE)}`));
+		console.log(chalk.cyan("\n--- Profile Information ---"));
+		console.log(chalk.white(`Email: ${chalk.gray(profile.EMAIL)}`));
+		console.log(chalk.white(`Username: ${chalk.gray(profile.USERNAME)}`));
+		console.log(chalk.white(`Language: ${chalk.gray(profile.LANGUAGE)}`));
 		if (profile.PHOTO) {
-			console.log(chalk.white(`Avatar : ${chalk.gray(profile.PHOTO)}`));
+			console.log(chalk.white(`Avatar: ${chalk.gray(profile.PHOTO)}`));
 		}
 		console.log(
 			chalk.white(
-				`École : ${chalk.gray(profile.SCHOOL?.NAME || "Non définie")}`,
+				`School: ${chalk.gray(profile.SCHOOL?.NAME || "Not defined")}`,
 			),
 		);
 
@@ -199,21 +193,16 @@ export async function authenticateMicrosoft() {
 		if (err instanceof PageClosedError) {
 			console.error(
 				chalk.red(
-					"\nErreur : La fenêtre de connexion a été fermée avant la fin de l'authentification.",
+					"\nError: Login window was closed before authentication finished.",
 				),
 			);
 		} else if (err instanceof NetworkNavigationError) {
 			console.error(
-				chalk.red(
-					`\nErreur : Impossible de charger la page SSO (${err.originalMessage}).`,
-				),
+				chalk.red(`\nError: Failed to load SSO page (${err.originalMessage}).`),
 			);
 		} else {
 			const errorMessage = err instanceof Error ? err.message : String(err);
-			console.error(
-				chalk.red("\nErreur lors de l'authentification :"),
-				errorMessage,
-			);
+			console.error(chalk.red("\nError during authentication:"), errorMessage);
 		}
 		process.exit(1);
 	}

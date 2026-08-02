@@ -13,23 +13,23 @@ async function runCampusMapExample() {
 	const schoolId = user.SCHOOL_ID;
 
 	if (!schoolId) {
-		console.error(chalk.red("Erreur: ID de l'école non trouvé."));
+		console.error(chalk.red("Error: School ID not found."));
 		return;
 	}
 
-	console.log(chalk.blue(`\nRécupération de la carte publique du campus...`));
+	console.log(chalk.blue(`\nFetching public campus map...`));
 	const publicLocations = await getPublicCampusMapBySchool(schoolId);
 	console.log(
-		chalk.green(`✔ ${publicLocations.length} lieu(x) public(s) trouvé(s)`),
+		chalk.green(`✔ ${publicLocations.length} public location(s) found`),
 	);
 	for (const loc of publicLocations) {
 		console.log(chalk.white(`- ${loc.name}`));
 	}
 
-	console.log(chalk.blue(`\nRécupération de la carte privée du campus...`));
+	console.log(chalk.blue(`\nFetching private campus map...`));
 	const privateLocations = await getPrivateCampusMapBySchool(schoolId, token);
 	console.log(
-		chalk.green(`✔ ${privateLocations.length} lieu(x) privé(s) trouvé(s)`),
+		chalk.green(`✔ ${privateLocations.length} private location(s) found`),
 	);
 	for (const loc of privateLocations) {
 		console.log(chalk.white(`- ${loc.name}`));

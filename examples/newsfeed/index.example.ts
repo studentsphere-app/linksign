@@ -15,45 +15,45 @@ async function runNewsFeedExample() {
 	const schoolId = user.SCHOOL_ID;
 
 	if (!schoolId) {
-		console.error(chalk.red("Erreur: ID de l'école non trouvé."));
+		console.error(chalk.red("Error: School ID not found."));
 		return;
 	}
 
-	console.log(chalk.blue("\nRécupération des channels publics..."));
+	console.log(chalk.blue("\nFetching public channels..."));
 	const publicChannels = await getPublicNewsFeedChannels(schoolId);
 	console.log(
-		chalk.green(`✔ ${publicChannels.length} channel(s) public(s) trouvé(s)`),
+		chalk.green(`✔ ${publicChannels.length} public channel(s) found`),
 	);
 	for (const c of publicChannels) {
 		console.log(chalk.white(`- ${c.title}`));
 	}
 
-	console.log(chalk.blue("\nRécupération des channels privés..."));
+	console.log(chalk.blue("\nFetching private channels..."));
 	const privateChannels = await getPrivateNewsFeedChannels(schoolId, token);
 	console.log(
-		chalk.green(`✔ ${privateChannels.length} channel(s) privé(s) trouvé(s)`),
+		chalk.green(`✔ ${privateChannels.length} private channel(s) found`),
 	);
 	for (const c of privateChannels) {
 		console.log(chalk.white(`- ${c.title}`));
 	}
 
-	console.log(chalk.blue("\nRécupération des posts publics (limite 5)..."));
+	console.log(chalk.blue("\nFetching public posts (limit 5)..."));
 	const publicPosts = await getPublicNewsFeedPosts(schoolId, {
 		limit: 5,
 	});
 	console.log(
-		chalk.green(`✔ ${publicPosts.data.length} post(s) public(s) récupéré(s)`),
+		chalk.green(`✔ ${publicPosts.data.length} public post(s) fetched`),
 	);
 	for (const p of publicPosts.data) {
 		console.log(chalk.white(`- ${p.title}`));
 	}
 
-	console.log(chalk.blue("\nRécupération des posts privés (limite 5)..."));
+	console.log(chalk.blue("\nFetching private posts (limit 5)..."));
 	const privatePosts = await getPrivateNewsFeedPosts(schoolId, token, {
 		limit: 5,
 	});
 	console.log(
-		chalk.green(`✔ ${privatePosts.data.length} post(s) privé(s) récupéré(s)`),
+		chalk.green(`✔ ${privatePosts.data.length} private post(s) fetched`),
 	);
 	for (const p of privatePosts.data) {
 		console.log(chalk.white(`- ${p.title}`));

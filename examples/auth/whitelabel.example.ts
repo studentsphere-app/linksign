@@ -31,29 +31,25 @@ class NetworkNavigationError extends Error {
 
 async function handleMultiAccount(email: string) {
 	console.log(
-		chalk.yellow(
-			"\nUn code de vérification a été envoyé à votre adresse email.",
-		),
+		chalk.yellow("\nA verification code has been sent to your email address."),
 	);
 
 	const pin = await input({
-		message: "Code de vérification :",
+		message: "Verification code:",
 		required: true,
 	});
 
-	console.log(chalk.blue("\nVérification du code..."));
+	console.log(chalk.blue("\nVerifying code..."));
 	const pinResult = await verifyPin(email, pin);
 
-	console.log(chalk.blue("\nRécupération des écoles..."));
+	console.log(chalk.blue("\nFetching schools..."));
 	const schools = await getSchools(pinResult.v2Token);
 
 	const selectedAccount =
 		schools.length === 1
 			? schools[0]
 			: await select({
-					message: chalk.cyan(
-						"Sélectionnez l'école avec laquelle vous souhaitez vous connecter :",
-					),
+					message: chalk.cyan("Select the school you want to log in with:"),
 					choices: schools.map((school) => ({
 						name: `${school.SCHOOL.NAME} — ${chalk.dim(school.USERNAME)}`,
 						value: school,
@@ -64,23 +60,23 @@ async function handleMultiAccount(email: string) {
 }
 
 async function printProfileAndTokens(token: string, refreshToken?: string) {
-	console.log(chalk.blue("\nRécupération du profil final..."));
+	console.log(chalk.blue("\nFetching final profile..."));
 	const profile = await getProfile(token);
 
 	console.log(
 		chalk.green(
-			`\n✔ Connexion réussie pour ${profile.FIRSTNAME} ${profile.LASTNAME} !`,
+			`\n✔ Login successful for ${profile.FIRSTNAME} ${profile.LASTNAME}!`,
 		),
 	);
-	console.log(chalk.cyan("\n--- Informations du Profil ---"));
-	console.log(chalk.white(`Email : ${chalk.gray(profile.EMAIL)}`));
-	console.log(chalk.white(`Username : ${chalk.gray(profile.USERNAME)}`));
-	console.log(chalk.white(`Langue : ${chalk.gray(profile.LANGUAGE)}`));
+	console.log(chalk.cyan("\n--- Profile Information ---"));
+	console.log(chalk.white(`Email: ${chalk.gray(profile.EMAIL)}`));
+	console.log(chalk.white(`Username: ${chalk.gray(profile.USERNAME)}`));
+	console.log(chalk.white(`Language: ${chalk.gray(profile.LANGUAGE)}`));
 	if (profile.PHOTO) {
-		console.log(chalk.white(`Avatar : ${chalk.gray(profile.PHOTO)}`));
+		console.log(chalk.white(`Avatar: ${chalk.gray(profile.PHOTO)}`));
 	}
 	console.log(
-		chalk.white(`École : ${chalk.gray(profile.SCHOOL?.NAME || "Non définie")}`),
+		chalk.white(`School: ${chalk.gray(profile.SCHOOL?.NAME || "Not defined")}`),
 	);
 
 	console.log(chalk.cyan("\n--- Tokens ---"));
@@ -96,18 +92,18 @@ export async function authenticateWhitelabel() {
 	console.log(chalk.bold.cyan("\n--- Edusign White-Label Authentication ---"));
 
 	const selectedApp = await select({
-		message: "Sélectionnez l'application White Label :",
+		message: "Select the White Label application:",
 		choices: WHITE_LABEL_APPS.map((app) => ({
 			name: `${app.appName} (${app.package})`,
 			value: app,
 		})),
 	});
 
-	console.log(chalk.blue("\nRécupération des écoles de l'application..."));
+	console.log(chalk.blue("\nFetching application schools..."));
 	const schools = await getWhiteLabelSchools(selectedApp.package);
 
 	if (schools.length === 0) {
-		console.error(chalk.red("\nAucune école trouvée pour cette application."));
+		console.error(chalk.red("\nNo school found for this application."));
 		process.exit(1);
 	}
 
@@ -115,7 +111,7 @@ export async function authenticateWhitelabel() {
 		schools.length === 1
 			? schools[0]
 			: await select({
-					message: "Sélectionnez l'école :",
+					message: "Select the school:",
 					choices: schools.map((s) => ({
 						name: s.name,
 						value: s,
@@ -124,7 +120,7 @@ export async function authenticateWhitelabel() {
 
 	console.log(
 		chalk.blue(
-			`\nVérification de la configuration SSO pour l'école : ${selectedSchool.name}...`,
+			`\nChecking SSO configuration for school: ${selectedSchool.name}...`,
 		),
 	);
 
@@ -138,21 +134,21 @@ export async function authenticateWhitelabel() {
 	if (!ssoConfig) {
 		console.log(
 			chalk.yellow(
-				"\nAucune configuration SSO trouvée, retour à la connexion classique par email/mot de passe.",
+				"\nNo SSO configuration found, falling back to classic email/password login.",
 			),
 		);
 
 		const identifier = await input({
-			message: "Email ou identifiant :",
+			message: "Email or identifier:",
 			required: true,
 		});
 
 		const pwd = await password({
-			message: "Mot de passe :",
+			message: "Password:",
 			mask: "*",
 		});
 
-		console.log(chalk.blue("\nConnexion en cours..."));
+		console.log(chalk.blue("\nLogging in..."));
 		try {
 			const user = await loginWhitelabelAppWithCredentials(
 				identifier,
@@ -171,18 +167,18 @@ export async function authenticateWhitelabel() {
 			return acc;
 		} catch (err) {
 			const errorMessage = err instanceof Error ? err.message : String(err);
-			console.error(chalk.red("\nErreur :"), errorMessage);
+			console.error(chalk.red("\nError:"), errorMessage);
 			process.exit(1);
 		}
 	}
 
 	console.log(
-		chalk.green(`\n✔ Configuration SSO trouvée ! Type : ${ssoConfig.type}`),
+		chalk.green(`\n✔ SSO configuration found! Type: ${ssoConfig.type}`),
 	);
 
 	const authUrl = createWhiteLabelSsoAuthURL(ssoConfig);
-	console.log(chalk.gray(`\nURL générée : ${authUrl}`));
-	console.log(chalk.blue("\nOuverture de la fenêtre de connexion SSO..."));
+	console.log(chalk.gray(`\nGenerated URL: ${authUrl}`));
+	console.log(chalk.blue("\nOpening SSO login window..."));
 
 	const browser = await chromium.launch({
 		headless: false,
@@ -202,7 +198,7 @@ export async function authenticateWhitelabel() {
 			if (page.isClosed()) throw new PageClosedError();
 			console.warn(
 				chalk.yellow(
-					`\nAttention : Problème réseau détecté lors du chargement (${
+					`\nWarning: Network issue detected during loading (${
 						e instanceof Error ? e.message.split("\n")[0] : String(e)
 					}).`,
 				),
@@ -232,9 +228,9 @@ export async function authenticateWhitelabel() {
 
 			await browser.close();
 
-			if (!ticket) throw new Error("Aucun paramètre 'ticket' trouvé.");
+			if (!ticket) throw new Error("No 'ticket' parameter found.");
 
-			console.log(chalk.blue("\nConnexion CAS en cours..."));
+			console.log(chalk.blue("\nLogging in with CAS..."));
 			const user = await loginWithCasSso(ticket, ssoConfig.SCHOOL_ID, true);
 
 			if (user.HAS_MULTI_ACCOUNTS) {
@@ -271,9 +267,9 @@ export async function authenticateWhitelabel() {
 
 			await browser.close();
 
-			if (!code) throw new Error("Aucun paramètre 'code' trouvé.");
+			if (!code) throw new Error("No 'code' parameter found.");
 
-			console.log(chalk.blue("\nConnexion OAuth en cours..."));
+			console.log(chalk.blue("\nLogging in with OAuth..."));
 			const user = await loginWithOauthSso(code, ssoConfig.SCHOOL_ID);
 
 			if (user.HAS_MULTI_ACCOUNTS) {
@@ -310,9 +306,9 @@ export async function authenticateWhitelabel() {
 
 			await browser.close();
 
-			if (!code) throw new Error("Aucun paramètre 'code' trouvé.");
+			if (!code) throw new Error("No 'code' parameter found.");
 
-			console.log(chalk.blue("\nConnexion Microsoft SSO en cours..."));
+			console.log(chalk.blue("\nLogging in with Microsoft SSO..."));
 			const user = await loginWithMicrosoftSso(code, true);
 
 			if (user.HAS_MULTI_ACCOUNTS) {
@@ -351,7 +347,7 @@ export async function authenticateWhitelabel() {
 
 			await browser.close();
 
-			if (!hotlogin) throw new Error("Aucun paramètre 'hotlogin' trouvé.");
+			if (!hotlogin) throw new Error("No 'hotlogin' parameter found.");
 
 			if (multi === "true" && email) {
 				const acc = await handleMultiAccount(email);
@@ -361,8 +357,8 @@ export async function authenticateWhitelabel() {
 
 			console.log(
 				chalk.yellow(
-					"\nAttention : En authentification SAML avec un compte unique, aucun Refresh Token n'est fourni par Edusign.\n" +
-						"Vous ne pourrez pas renouveler le token après son expiration (généralement 8h) et il faudra vous reconnecter.\n",
+					"\nWarning: In SAML authentication with a single account, no Refresh Token is provided by Edusign.\n" +
+						"You will not be able to renew the token after it expires (usually 8h) and will need to log in again.\n",
 				),
 			);
 
@@ -377,21 +373,18 @@ export async function authenticateWhitelabel() {
 		if (wasClosed) {
 			console.error(
 				chalk.red(
-					"\nErreur : La fenêtre de connexion a été fermée avant la fin de l'authentification.",
+					"\nError: Login window was closed before authentication finished.",
 				),
 			);
 		} else if (err instanceof NetworkNavigationError) {
 			console.error(
 				chalk.red(
-					`\nErreur : Impossible de charger la page SSO (${err.originalMessage}). Le domaine semble invalide ou inaccessible.`,
+					`\nError: Failed to load SSO page (${err.originalMessage}). The domain seems invalid or inaccessible.`,
 				),
 			);
 		} else {
 			const errorMessage = err instanceof Error ? err.message : String(err);
-			console.error(
-				chalk.red("\nErreur lors de l'authentification :"),
-				errorMessage,
-			);
+			console.error(chalk.red("\nError during authentication:"), errorMessage);
 		}
 		process.exit(1);
 	}

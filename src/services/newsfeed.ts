@@ -32,6 +32,7 @@ function buildNewsFeedQuery(query?: NewsFeedPostsQuery): string {
  */
 export async function getPublicNewsFeedChannels(
 	schoolId: string,
+	lang: string = "fr",
 ): Promise<NewsFeedChannel[]> {
 	const response = await fetch(
 		`${EDUSIGN_API_BASE}/student/news-feed/public/channels`,
@@ -39,6 +40,7 @@ export async function getPublicNewsFeedChannels(
 			method: "GET",
 			headers: {
 				"x-edusign-school-id": schoolId,
+				"x-edusign-lang": lang,
 			},
 		},
 	);
@@ -50,9 +52,11 @@ export async function getPrivateNewsFeedChannels(
 	schoolId: string,
 	token: string,
 	deviceId?: string,
+	lang: string = "fr",
 ): Promise<NewsFeedChannel[]> {
 	const headers: Record<string, string> = {
 		"x-edusign-school-id": schoolId,
+		"x-edusign-lang": lang,
 		Authorization: `Bearer ${token}`,
 	};
 
@@ -74,6 +78,7 @@ export async function getPrivateNewsFeedChannels(
 export async function getPublicNewsFeedPosts(
 	schoolId: string,
 	query?: NewsFeedPostsQuery,
+	lang: string = "fr",
 ): Promise<NewsFeedPostsResponse> {
 	const queryString = buildNewsFeedQuery(query);
 
@@ -83,6 +88,7 @@ export async function getPublicNewsFeedPosts(
 			method: "GET",
 			headers: {
 				"x-edusign-school-id": schoolId,
+				"x-edusign-lang": lang,
 			},
 		},
 	);
@@ -95,9 +101,11 @@ export async function getPrivateNewsFeedPosts(
 	token: string,
 	query?: NewsFeedPostsQuery,
 	deviceId?: string,
+	lang: string = "fr",
 ): Promise<NewsFeedPostsResponse> {
 	const headers: Record<string, string> = {
 		"x-edusign-school-id": schoolId,
+		"x-edusign-lang": lang,
 		Authorization: `Bearer ${token}`,
 	};
 
