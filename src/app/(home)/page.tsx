@@ -857,9 +857,9 @@ runDocuments('your_token_here');`,
 			</div>
 
 			{/* Footer */}
-			<footer className="pt-10 pb-8 border-t border-fd-border bg-fd-background/50 relative z-10 text-[11px] text-fd-muted-foreground/80 leading-relaxed">
+			<footer className="pt-10 pb-8 px-4 border-t border-fd-border bg-fd-background/50 relative z-10 text-[11px] text-fd-muted-foreground/80 leading-relaxed">
 				{/* Legal Disclaimer */}
-				<div className="max-w-(--fd-layout-width) mx-auto px-4 space-y-3.5 mb-8 text-fd-muted-foreground/80">
+				<div className="max-w-(--fd-layout-width) mx-auto space-y-3.5 mb-8 text-fd-muted-foreground/80">
 					<p>
 						This project,{" "}
 						<code className="px-1.5 py-0.5 rounded bg-fd-muted text-fd-foreground font-mono text-[10px] border border-fd-border/50">
@@ -879,7 +879,7 @@ runDocuments('your_token_here');`,
 						terms of service. The software is provided &quot;as is&quot;,
 						without warranty of any kind. The developer assumes no liability for
 						account suspensions, access blocks, or any legal actions taken by
-						Edusign resulting from the use of this tool.
+						the aforementioned groups resulting from the use of this tool.
 					</p>
 					<p>
 						This project is meant to help users interact with their own data
@@ -909,11 +909,8 @@ runDocuments('your_token_here');`,
 					</p>
 				</div>
 
-				{/* Divider */}
-				<div className="border-t border-fd-border max-w-6xl mx-auto my-6 opacity-60" />
-
 				{/* Original Footer Links & Copyright */}
-				<div className="max-w-(--fd-layout-width) mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-fd-muted-foreground">
+				<div className="pt-6 border-t border-fd-border max-w-(--fd-layout-width) mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-fd-muted-foreground">
 					<div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
 						<p>© {new Date().getFullYear()} StudentSphere</p>
 						<span className="hidden sm:inline text-fd-border">|</span>
