@@ -1,0 +1,36 @@
+---
+title: getWhiteLabelSsoConfig
+description: Documentation for the getWhiteLabelSsoConfig function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getWhiteLabelSsoConfig` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getWhiteLabelSsoConfig } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getWhiteLabelSsoConfig('SCHOOL_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[WhiteLabelSsoConfig](/docs/types/auth#whitelabelssoconfig-type)** object.

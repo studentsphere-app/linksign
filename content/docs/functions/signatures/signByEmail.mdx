@@ -1,0 +1,53 @@
+---
+title: signByEmail
+description: Documentation for the signByEmail function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `signByEmail` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    courseId: {
+      type: `string`,
+      description: "Course id",
+    },
+    verificationToken: {
+      type: `string`,
+      description: "Verification token",
+    },
+    body: {
+      type: `SignByEmailRequest`,
+      description: "Body",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { signByEmail } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await signByEmail('YOUR_TOKEN', 'COURSE_ID', 'verificationToken', { studentId: 'STUDENT_ID', schoolId: 'SCHOOL_ID', base64Signature: 'BASE64_STRING' }, 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **unknown** object.

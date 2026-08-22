@@ -1,0 +1,41 @@
+---
+title: getStudentAttachments
+description: Documentation for the getStudentAttachments function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getStudentAttachments` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getStudentAttachments } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getStudentAttachments('YOUR_TOKEN', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[StudentAttachment](/docs/types/documents#studentattachment-interface)[]** object.

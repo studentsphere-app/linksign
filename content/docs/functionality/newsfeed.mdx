@@ -1,15 +1,35 @@
 ---
 title: Newsfeed
-description: Retrieve the school newsfeed.
+description: Documentation for the newsfeed service.
 ---
 
-# Newsfeed
+This page documents the functionalities provided by the `newsfeed.ts` file.
 
-Retrieve the newsfeed items available in Edusign.
+## Exported Functions
 
-```ts
-import { getNewsfeed } from '@studentsphere/linksign';
+- `getPublicNewsFeedChannels`
+- `getPrivateNewsFeedChannels`
+- `getPublicNewsFeedPosts`
+- `getPrivateNewsFeedPosts`
 
-const news = await getNewsfeed(instance);
-console.log(news);
+## Example Usage
+
+```typescript
+import { getPublicNewsFeedChannels, getPrivateNewsFeedChannels, getPublicNewsFeedPosts, getPrivateNewsFeedPosts } from "@studentsphere/linksign";
+
+async function run() {
+  const publicNewsFeedChannels = await getPublicNewsFeedChannels('YOUR_TOKEN');
+  console.log(publicNewsFeedChannels);
+
+  const privateNewsFeedChannels = await getPrivateNewsFeedChannels('YOUR_TOKEN');
+  console.log(privateNewsFeedChannels);
+
+  const publicNewsFeedPosts = await getPublicNewsFeedPosts('YOUR_TOKEN');
+  console.log(publicNewsFeedPosts);
+
+  const privateNewsFeedPosts = await getPrivateNewsFeedPosts('YOUR_TOKEN');
+  console.log(privateNewsFeedPosts);
+}
+
+run().catch(console.error);
 ```

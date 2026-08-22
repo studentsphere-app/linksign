@@ -1,0 +1,4 @@
+{
+	"title": "Contactsdirectory",
+	"pages": ["getPrivateContactsDirectory", "getPublicContactsDirectory"]
+}

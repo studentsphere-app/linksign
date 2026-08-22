@@ -1,0 +1,41 @@
+---
+title: getDocuments
+description: Documentation for the getDocuments function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getDocuments` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getDocuments } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getDocuments('YOUR_TOKEN', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[Documents](/docs/types/documents#documents-interface)&lt;[SchoolDocument](/docs/types/documents#schooldocument-interface)&gt;** object.

@@ -1,0 +1,36 @@
+---
+title: isSsoEnabled
+description: Documentation for the isSsoEnabled function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `isSsoEnabled` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    email: {
+      type: `string`,
+      description: "Email",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { isSsoEnabled } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await isSsoEnabled('student@school.com');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **boolean** object.

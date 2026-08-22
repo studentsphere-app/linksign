@@ -1,16 +1,60 @@
 ---
-title: Trainings API
-description: Functions and types for the trainings module.
+title: Trainings
+description: Types and interfaces for the trainings module.
 ---
 
-# Trainings API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `trainings` module.
+This section documents the types and interfaces available in the `trainings` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `Training` (Interface)
+
+```typescript
+export interface Training {
+  ID: string;
+  NAME: string;
+  START: string;
+  END: string;
+  ARCHIVED: number;
+  GOALS: string;
+  COURSES_COUNT: number;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for trainings functions will be populated here)*
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    START: {
+      type: `string`,
+      description: "Start",
+    },
+    END: {
+      type: `string`,
+      description: "End",
+    },
+    ARCHIVED: {
+      type: `number`,
+      description: "Archived",
+    },
+    GOALS: {
+      type: `string`,
+      description: "Goals",
+    },
+    COURSES_COUNT: {
+      type: `number`,
+      description: "Courses count",
+    },
+  }}
+/>
+
+---
+

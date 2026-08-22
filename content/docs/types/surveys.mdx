@@ -1,16 +1,521 @@
 ---
-title: Surveys API
-description: Functions and types for the surveys module.
+title: Surveys
+description: Types and interfaces for the surveys module.
 ---
 
-# Surveys API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `surveys` module.
+This section documents the types and interfaces available in the `surveys` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `SurveyPageElement` (Interface)
+
+```typescript
+export interface SurveyPageElement {
+  type: string;
+  name: string;
+  title: string;
+  description?: string;
+  inputTextAlignment?: string;
+  maskType?: string;
+  options?: string[];
+  required?: boolean;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for surveys functions will be populated here)*
+<TypeTable
+  type={{
+    type: {
+      type: `string`,
+      description: "Type",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    title: {
+      type: `string`,
+      description: "Title",
+    },
+    description: {
+      type: `string`,
+      description: "Description",
+      optional: true,
+    },
+    inputTextAlignment: {
+      type: `string`,
+      description: "Input text alignment",
+      optional: true,
+    },
+    maskType: {
+      type: `string`,
+      description: "Mask type",
+      optional: true,
+    },
+    options: {
+      type: `string[]`,
+      description: "Options",
+      optional: true,
+    },
+    required: {
+      type: `boolean`,
+      description: "Required",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `SurveyPage` (Interface)
+
+```typescript
+export interface SurveyPage {
+  name: string;
+  title: string;
+  description?: string;
+  elements: SurveyPageElement[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    title: {
+      type: `string`,
+      description: "Title",
+    },
+    description: {
+      type: `string`,
+      description: "Description",
+      optional: true,
+    },
+    elements: {
+      type: `SurveyPageElement[]`,
+      description: "Elements",
+    },
+  }}
+/>
+
+---
+
+## `SurveyTemplate` (Interface)
+
+```typescript
+export interface SurveyTemplate {
+  title: string;
+  description?: string;
+  pages: SurveyPage[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    title: {
+      type: `string`,
+      description: "Title",
+    },
+    description: {
+      type: `string`,
+      description: "Description",
+      optional: true,
+    },
+    pages: {
+      type: `SurveyPage[]`,
+      description: "Pages",
+    },
+  }}
+/>
+
+---
+
+## `SurveyEntry` (Interface)
+
+```typescript
+export interface SurveyEntry {
+  ID: string;
+  NAME: string;
+  AUTOMATIC_SEND_DATE: string | null;
+  DATE_CREATED: string;
+  SCHOOL_ID: string;
+  RECIPIENT_TYPE: number;
+  TRAINING_ID: string | null;
+  TEMPLATE: SurveyTemplate;
+  isAnswered: boolean;
+  toFill: boolean;
+  date: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    AUTOMATIC_SEND_DATE: {
+      type: `string | null`,
+      description: "Automatic send date",
+    },
+    DATE_CREATED: {
+      type: `string`,
+      description: "Date created",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    RECIPIENT_TYPE: {
+      type: `number`,
+      description: "Recipient type",
+    },
+    TRAINING_ID: {
+      type: `string | null`,
+      description: "Training id",
+    },
+    TEMPLATE: {
+      type: `SurveyTemplate`,
+      description: "Template",
+    },
+    isAnswered: {
+      type: `boolean`,
+      description: "Is answered",
+    },
+    toFill: {
+      type: `boolean`,
+      description: "To fill",
+    },
+    date: {
+      type: `string`,
+      description: "Date",
+    },
+  }}
+/>
+
+---
+
+## `Surveys` (Interface)
+
+```typescript
+export interface Surveys {
+  past: T[];
+  current: T[];
+  toFill: T[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    past: {
+      type: `T[]`,
+      description: "Past",
+    },
+    current: {
+      type: `T[]`,
+      description: "Current",
+    },
+    toFill: {
+      type: `T[]`,
+      description: "To fill",
+    },
+  }}
+/>
+
+---
+
+## `SurveyDetail` (Interface)
+
+```typescript
+export interface SurveyDetail {
+  ID: string;
+  NAME: string;
+  TEMPLATE: SurveyTemplate;
+  OLD_STUDENT_ANSWERS: string;
+  RECIPIENT_IDS: string[];
+  REMINDER_EMAILS_NB_SENT: number;
+  ANONYMOUS: number;
+  TYPE: number;
+  SCHOOL_ID: string;
+  COURSE_ID: string;
+  TEMPLATE_ID: string;
+  AUTOMATIC_SEND_DATE: string | null;
+  SURVEY_SENT: number;
+  RECIPIENT_TYPE: string;
+  DATE_CREATED: string;
+  DATE_UPDATED: string;
+  STUDENT_INSCRIPTION_HASH: string;
+  HIDDEN: number;
+  MESSAGE: string;
+  SEND_TO_ABSENTS: number;
+  TRAINING_ID: string | null;
+  TRAINING_SCHEDULE: unknown | null;
+  STUDENT_ANSWERS: unknown[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    TEMPLATE: {
+      type: `SurveyTemplate`,
+      description: "Template",
+    },
+    OLD_STUDENT_ANSWERS: {
+      type: `string`,
+      description: "Old student answers",
+    },
+    RECIPIENT_IDS: {
+      type: `string[]`,
+      description: "Recipient ids",
+    },
+    REMINDER_EMAILS_NB_SENT: {
+      type: `number`,
+      description: "Reminder emails nb sent",
+    },
+    ANONYMOUS: {
+      type: `number`,
+      description: "Anonymous",
+    },
+    TYPE: {
+      type: `number`,
+      description: "Type",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    COURSE_ID: {
+      type: `string`,
+      description: "Course id",
+    },
+    TEMPLATE_ID: {
+      type: `string`,
+      description: "Template id",
+    },
+    AUTOMATIC_SEND_DATE: {
+      type: `string | null`,
+      description: "Automatic send date",
+    },
+    SURVEY_SENT: {
+      type: `number`,
+      description: "Survey sent",
+    },
+    RECIPIENT_TYPE: {
+      type: `string`,
+      description: "Recipient type",
+    },
+    DATE_CREATED: {
+      type: `string`,
+      description: "Date created",
+    },
+    DATE_UPDATED: {
+      type: `string`,
+      description: "Date updated",
+    },
+    STUDENT_INSCRIPTION_HASH: {
+      type: `string`,
+      description: "Student inscription hash",
+    },
+    HIDDEN: {
+      type: `number`,
+      description: "Hidden",
+    },
+    MESSAGE: {
+      type: `string`,
+      description: "Message",
+    },
+    SEND_TO_ABSENTS: {
+      type: `number`,
+      description: "Send to absents",
+    },
+    TRAINING_ID: {
+      type: `string | null`,
+      description: "Training id",
+    },
+    TRAINING_SCHEDULE: {
+      type: `unknown | null`,
+      description: "Training schedule",
+    },
+    STUDENT_ANSWERS: {
+      type: `unknown[]`,
+      description: "Student answers",
+    },
+  }}
+/>
+
+---
+
+## `SurveySchoolInfo` (Interface)
+
+```typescript
+export interface SurveySchoolInfo {
+  ID: string;
+  NAME: string;
+  LOGO: string;
+  STREET_ADDRESS: string;
+  CITY: string;
+  POSTALCODE: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    LOGO: {
+      type: `string`,
+      description: "Logo",
+    },
+    STREET_ADDRESS: {
+      type: `string`,
+      description: "Street address",
+    },
+    CITY: {
+      type: `string`,
+      description: "City",
+    },
+    POSTALCODE: {
+      type: `string`,
+      description: "Postalcode",
+    },
+  }}
+/>
+
+---
+
+## `SurveyStudentInfo` (Interface)
+
+```typescript
+export interface SurveyStudentInfo {
+  FIRSTNAME: string;
+  LASTNAME: string;
+  TRAINING_NAME: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    FIRSTNAME: {
+      type: `string`,
+      description: "Firstname",
+    },
+    LASTNAME: {
+      type: `string`,
+      description: "Lastname",
+    },
+    TRAINING_NAME: {
+      type: `string`,
+      description: "Training name",
+    },
+  }}
+/>
+
+---
+
+## `SurveyDetails` (Interface)
+
+```typescript
+export interface SurveyDetails {
+  course: Record<string, unknown>;
+  training: Record<string, unknown>;
+  survey: SurveyDetail;
+  school: SurveySchoolInfo;
+  student: SurveyStudentInfo;
+  alreadyAnswered: boolean;
+  answers: Record<string, unknown>;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    course: {
+      type: `Record<string, unknown>`,
+      description: "Course",
+    },
+    training: {
+      type: `Record<string, unknown>`,
+      description: "Training",
+    },
+    survey: {
+      type: `SurveyDetail`,
+      description: "Survey",
+    },
+    school: {
+      type: `SurveySchoolInfo`,
+      description: "School",
+    },
+    student: {
+      type: `SurveyStudentInfo`,
+      description: "Student",
+    },
+    alreadyAnswered: {
+      type: `boolean`,
+      description: "Already answered",
+    },
+    answers: {
+      type: `Record<string, unknown>`,
+      description: "Answers",
+    },
+  }}
+/>
+
+---
+
+## `SurveyAnswersRequest` (Interface)
+
+```typescript
+export interface SurveyAnswersRequest {
+  answers: Record<string, unknown>;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    answers: {
+      type: `Record<string, unknown>`,
+      description: "Answers",
+    },
+  }}
+/>
+
+---
+

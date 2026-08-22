@@ -1,0 +1,62 @@
+---
+title: Whitelabel
+description: Documentation for the whitelabel service.
+---
+
+Edusign offers some schools a dedicated application that is essentially a white-labeled version of Edusign, branded with the school's colors and logo. 
+
+This service allows you to retrieve the specific configuration of a white-label application and its SSO (Single Sign-On) configurations, making it easy to authenticate users through their specific institution's portal.
+
+## Supported White Label School Apps
+
+<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-6">
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/edhec.jpg" width="50" alt="My EDHEC" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">My EDHEC</span>
+  </div>
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/ipparis.jpg" width="50" alt="IP Paris Campus" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">IP Paris Campus</span>
+  </div>
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/ccihautdefrance.jpg" width="50" alt="MyLAHO" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">MyLAHO</span>
+  </div>
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/mbs.jpg" width="50" alt="my MBS 2.0" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">my MBS 2.0</span>
+  </div>
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/campusdesmetierssaintnicolas.jpg" width="50" alt="Campus Saint Nicolas" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">Campus Saint Nicolas</span>
+  </div>
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/epp.jpg" width="50" alt="MyEPP" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">MyEPP</span>
+  </div>
+  <div className="flex flex-col items-center text-center">
+    <img src="https://raw.githubusercontent.com/studentsphere-app/linksign/main/.github/assets/whitelabel-apps/icn.jpg" width="50" alt="ICN Student" style={{ borderRadius: "10px" }} />
+    <span className="text-sm mt-2 text-fd-muted-foreground">ICN Student</span>
+  </div>
+</div>
+
+## Exported Functions
+
+- `getWhiteLabelConfiguration`
+- `getWhiteLabelSchools`
+
+## Example Usage
+
+```typescript
+import { getWhiteLabelConfiguration, getWhiteLabelSchools } from "@studentsphere/linksign";
+
+async function run() {
+  const whiteLabelConfiguration = await getWhiteLabelConfiguration('YOUR_TOKEN');
+  console.log(whiteLabelConfiguration);
+
+  const whiteLabelSchools = await getWhiteLabelSchools('YOUR_TOKEN');
+  console.log(whiteLabelSchools);
+}
+
+run().catch(console.error);
+```

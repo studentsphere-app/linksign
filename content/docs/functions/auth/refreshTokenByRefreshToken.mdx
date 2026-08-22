@@ -1,0 +1,41 @@
+---
+title: refreshTokenByRefreshToken
+description: Documentation for the refreshTokenByRefreshToken function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `refreshTokenByRefreshToken` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    refreshToken: {
+      type: `string`,
+      description: "Refresh token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { refreshTokenByRefreshToken } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await refreshTokenByRefreshToken('refreshToken', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[RefreshedSession](/docs/types/auth#refreshedsession-interface)** object.

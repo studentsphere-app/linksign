@@ -1,16 +1,174 @@
 ---
-title: Campusmap API
-description: Functions and types for the campusmap module.
+title: Campusmap
+description: Types and interfaces for the campusmap module.
 ---
 
-# Campusmap API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `campusmap` module.
+This section documents the types and interfaces available in the `campusmap` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `CampusMapContact` (Interface)
+
+```typescript
+export interface CampusMapContact {
+  id: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  website: string | null;
+  color: string | null;
+  gradient: string | null;
+  imageUrl: string | null;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for campusmap functions will be populated here)*
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    email: {
+      type: `string | null`,
+      description: "Email",
+    },
+    phone: {
+      type: `string | null`,
+      description: "Phone",
+    },
+    website: {
+      type: `string | null`,
+      description: "Website",
+    },
+    color: {
+      type: `string | null`,
+      description: "Color",
+    },
+    gradient: {
+      type: `string | null`,
+      description: "Gradient",
+    },
+    imageUrl: {
+      type: `string | null`,
+      description: "Image url",
+    },
+  }}
+/>
+
+---
+
+## `CampusMapParent` (Interface)
+
+```typescript
+export interface CampusMapParent {
+  id: string;
+  name: string;
+  visibility: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    visibility: {
+      type: `string`,
+      description: "Visibility",
+    },
+  }}
+/>
+
+---
+
+## `CampusMapLocation` (Interface)
+
+```typescript
+export interface CampusMapLocation {
+  id: string;
+  order: number;
+  name: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  schoolId: string;
+  address: string;
+  parent: CampusMapParent | null;
+  imageCoverUrl?: string | null;
+  contacts: CampusMapContact[];
+  children?: CampusMapLocation[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    order: {
+      type: `number`,
+      description: "Order",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    description: {
+      type: `string`,
+      description: "Description",
+    },
+    latitude: {
+      type: `number`,
+      description: "Latitude",
+    },
+    longitude: {
+      type: `number`,
+      description: "Longitude",
+    },
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    address: {
+      type: `string`,
+      description: "Address",
+    },
+    parent: {
+      type: `CampusMapParent | null`,
+      description: "Parent",
+    },
+    imageCoverUrl: {
+      type: `string | null`,
+      description: "Image cover url",
+      optional: true,
+    },
+    contacts: {
+      type: `CampusMapContact[]`,
+      description: "Contacts",
+    },
+    children: {
+      type: `CampusMapLocation[]`,
+      description: "Children",
+      optional: true,
+    },
+  }}
+/>
+
+---
+

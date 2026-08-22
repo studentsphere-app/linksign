@@ -1,16 +1,156 @@
 ---
-title: Newsfeed API
-description: Functions and types for the newsfeed module.
+title: Newsfeed
+description: Types and interfaces for the newsfeed module.
 ---
 
-# Newsfeed API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `newsfeed` module.
+This section documents the types and interfaces available in the `newsfeed` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `NewsFeedChannel` (Interface)
+
+```typescript
+export interface NewsFeedChannel {
+  id: string;
+  title: string;
+  type: "rss" | "youtube" | string;
+  locale: string;
+  alwaysDisplayed: boolean;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for newsfeed functions will be populated here)*
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    title: {
+      type: `string`,
+      description: "Title",
+    },
+    type: {
+      type: `"rss" | "youtube" | string`,
+      description: "Type",
+    },
+    locale: {
+      type: `string`,
+      description: "Locale",
+    },
+    alwaysDisplayed: {
+      type: `boolean`,
+      description: "Always displayed",
+    },
+  }}
+/>
+
+---
+
+## `NewsFeedPost` (Interface)
+
+```typescript
+export interface NewsFeedPost {
+  id: string;
+  url: string;
+  channelType: "rss" | "youtube" | string;
+  channelId: string;
+  title: string;
+  content?: string | Record<string, string | null>;
+  availableLanguages?: string[];
+  createdAt: string;
+  imageCoverUrl?: string | null;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    url: {
+      type: `string`,
+      description: "Url",
+    },
+    channelType: {
+      type: `"rss" | "youtube" | string`,
+      description: "Channel type",
+    },
+    channelId: {
+      type: `string`,
+      description: "Channel id",
+    },
+    title: {
+      type: `string`,
+      description: "Title",
+    },
+    content: {
+      type: `string | Record<string, string | null>`,
+      description: "Content",
+      optional: true,
+    },
+    availableLanguages: {
+      type: `string[]`,
+      description: "Available languages",
+      optional: true,
+    },
+    createdAt: {
+      type: `string`,
+      description: "Created at",
+    },
+    imageCoverUrl: {
+      type: `string | null`,
+      description: "Image cover url",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `NewsFeedPostsResponse` (Type)
+
+```typescript
+CursorPaginatedData<NewsFeedPost>
+```
+
+---
+
+## `NewsFeedPostsQuery` (Interface)
+
+```typescript
+export interface NewsFeedPostsQuery {
+  channels?: string[];
+  cursor?: string;
+  limit?: number;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    channels: {
+      type: `string[]`,
+      description: "Channels",
+      optional: true,
+    },
+    cursor: {
+      type: `string`,
+      description: "Cursor",
+      optional: true,
+    },
+    limit: {
+      type: `number`,
+      description: "Limit",
+      optional: true,
+    },
+  }}
+/>
+
+---
+

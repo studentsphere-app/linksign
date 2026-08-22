@@ -1,69 +1,31 @@
 ---
-title: Profile Parsing
-description: Fetch and parse student profile attributes from Edusign
+title: Profile
+description: Documentation for the profile service.
 ---
 
-`linksign` allows you to retrieve student metadata (such as campus location, email address, and full name) from the Central Authentication Service (CAS) attributes.
+This page documents the functionalities provided by the `profile.ts` file.
 
-## How it Works
+## Exported Functions
 
-Upon successful authentication, the CAS server returns an HTML table containing user-specific attributes. `linksign` contains a built-in regex-based HTML table parser that processes these attributes into a clean, typed JavaScript object.
+- `getProfile`
+- `getSchoolsByToken`
+- `getNotificationsPreferences`
 
-## API Reference
-
-### `getProfile`
-
-Retrieves the student's profile information from the CAS server.
+## Example Usage
 
 ```typescript
-import { getProfile } from 'linksign';
+import { getProfile, getSchoolsByToken, getNotificationsPreferences } from "@studentsphere/linksign";
 
-const profile = await getProfile(
-  instanceId, // string: the ID of the school instance (e.g. 'epsi', '3a')
-  token       // string: the session token from loginWithCredentials
-);
-```
+async function run() {
+  const profile = await getProfile('YOUR_TOKEN');
+  console.log(profile);
 
-#### Parameters
+  const schoolsByToken = await getSchoolsByToken('YOUR_TOKEN');
+  console.log(schoolsByToken);
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `instanceId` | `string` | The unique identifier of the school instance (e.g. `epsi`, `3a`). |
-| `token` | `string` | The session token. |
-
-#### Return Value
-
-Returns a Promise resolving to a `Profile` object.
-
-```typescript
-interface Profile {
-  firstname: string;
-  lastname: string;
-  email: string;
-  username: string; // The student's login username (e.g. firstname.lastname)
-  cn: string;       // Common Name (e.g. "Jean DUPONT")
-  city: string;     // The student's campus location (e.g. "Lyon", "Paris", "Nantes")
-  country: string;  // Country of the campus
+  const notificationsPreferences = await getNotificationsPreferences('YOUR_TOKEN');
+  console.log(notificationsPreferences);
 }
-```
 
-## Code Example
-
-```typescript
-import { getProfile } from 'linksign';
-
-const instanceId = 'epsi';
-const sessionToken = "..."; // Token stored after login
-
-try {
-  const profile = await getProfile(instanceId, sessionToken);
-  
-  console.log(`Student Details:`);
-  console.log(`- Full Name: ${profile.cn}`);
-  console.log(`- Email: ${profile.email}`);
-  console.log(`- Campus: ${profile.city}, ${profile.country}`);
-  console.log(`- Username: ${profile.username}`);
-} catch (error) {
-  console.error("Failed to parse profile:", error.message);
-}
+run().catch(console.error);
 ```

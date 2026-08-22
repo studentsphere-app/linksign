@@ -1,0 +1,49 @@
+---
+title: getAbsences
+description: Documentation for the getAbsences function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getAbsences` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    start: {
+      type: `string`,
+      description: "Start",
+    },
+    end: {
+      type: `string`,
+      description: "End",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getAbsences } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getAbsences('YOUR_TOKEN', 'start', 'end', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[Absence](/docs/types/attendance#absence-interface)[]** object.

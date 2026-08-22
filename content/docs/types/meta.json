@@ -1,20 +1,21 @@
 {
-  "title": "Types & API",
-  "pages": [
-    "assessments",
-    "attendance",
-    "auth",
-    "campusmap",
-    "contactsdirectory",
-    "documents",
-    "knowledgebase",
-    "newsfeed",
-    "planning",
-    "profile",
-    "schools",
-    "signatures",
-    "surveys",
-    "trainings",
-    "whitelabel"
-  ]
+	"title": "Types",
+	"pages": [
+		"common",
+		"assessments",
+		"attendance",
+		"auth",
+		"campusmap",
+		"contactsdirectory",
+		"documents",
+		"knowledgebase",
+		"newsfeed",
+		"planning",
+		"profile",
+		"schools",
+		"signatures",
+		"surveys",
+		"trainings",
+		"whitelabel"
+	]
 }

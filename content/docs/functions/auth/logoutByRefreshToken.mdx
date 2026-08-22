@@ -1,0 +1,41 @@
+---
+title: logoutByRefreshToken
+description: Documentation for the logoutByRefreshToken function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `logoutByRefreshToken` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    refreshToken: {
+      type: `string`,
+      description: "Refresh token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { logoutByRefreshToken } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await logoutByRefreshToken('refreshToken', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **boolean** object.

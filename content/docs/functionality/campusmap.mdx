@@ -1,15 +1,27 @@
 ---
-title: Campus Map
-description: Retrieve the campus map.
+title: Campusmap
+description: Documentation for the campusmap service.
 ---
 
-# Campus Map
+This page documents the functionalities provided by the `campusmap.ts` file.
 
-Retrieve campus map information.
+## Exported Functions
 
-```ts
-import { getCampusMap } from '@studentsphere/linksign';
+- `getPublicCampusMapBySchool`
+- `getPrivateCampusMapBySchool`
 
-const map = await getCampusMap(instance);
-console.log(map);
+## Example Usage
+
+```typescript
+import { getPublicCampusMapBySchool, getPrivateCampusMapBySchool } from "@studentsphere/linksign";
+
+async function run() {
+  const publicCampusMapBySchool = await getPublicCampusMapBySchool('YOUR_TOKEN');
+  console.log(publicCampusMapBySchool);
+
+  const privateCampusMapBySchool = await getPrivateCampusMapBySchool('YOUR_TOKEN');
+  console.log(privateCampusMapBySchool);
+}
+
+run().catch(console.error);
 ```

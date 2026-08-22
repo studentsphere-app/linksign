@@ -1,0 +1,46 @@
+---
+title: loginWithMicrosoftSso
+description: Documentation for the loginWithMicrosoftSso function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `loginWithMicrosoftSso` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    code: {
+      type: `string`,
+      description: "Code",
+    },
+    isWhitelabelApp: {
+      type: `boolean`,
+      description: "Is whitelabel app",
+      optional: true,
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { loginWithMicrosoftSso } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await loginWithMicrosoftSso('AUTH_CODE', true, 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[MicrosoftSsoAuthSession](/docs/types/auth#microsoftssoauthsession-type)** object.

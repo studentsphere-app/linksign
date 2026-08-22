@@ -1,0 +1,46 @@
+---
+title: getPublicNewsFeedPosts
+description: Documentation for the getPublicNewsFeedPosts function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPublicNewsFeedPosts` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    query: {
+      type: `NewsFeedPostsQuery`,
+      description: "Query",
+      optional: true,
+    },
+    lang: {
+      type: `string`,
+      description: "Lang",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPublicNewsFeedPosts } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPublicNewsFeedPosts('SCHOOL_ID', { channels: ['1', '2'], limit: 10 }, 'lang');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[NewsFeedPostsResponse](/docs/types/newsfeed#newsfeedpostsresponse-type)** object.

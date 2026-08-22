@@ -1,16 +1,584 @@
 ---
-title: Schools API
-description: Functions and types for the schools module.
+title: Schools
+description: Types and interfaces for the schools module.
 ---
 
-# Schools API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `schools` module.
+This section documents the types and interfaces available in the `schools` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `School` (Interface)
+
+```typescript
+export interface School {
+  ID: string;
+  NAME: string;
+  LOGO: string;
+  STREET_ADDRESS: string;
+  CITY: string;
+  POSTALCODE: string;
+  PHONE: string;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for schools functions will be populated here)*
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    LOGO: {
+      type: `string`,
+      description: "Logo",
+    },
+    STREET_ADDRESS: {
+      type: `string`,
+      description: "Street address",
+    },
+    CITY: {
+      type: `string`,
+      description: "City",
+    },
+    POSTALCODE: {
+      type: `string`,
+      description: "Postalcode",
+    },
+    PHONE: {
+      type: `string`,
+      description: "Phone",
+    },
+  }}
+/>
+
+---
+
+## `SchoolInfo` (Interface)
+
+```typescript
+export interface SchoolInfo {
+  ID: string;
+  NAME: string;
+  LOGO: string;
+  CLASSROOMS: string[];
+  STREET_ADDRESS: string;
+  CITY: string;
+  POSTALCODE: string;
+  PHONE: string;
+  ENABLE_STUDENT_TO_EDIT_PROFILE_PICTURE: number;
+  TIMEZONE: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    LOGO: {
+      type: `string`,
+      description: "Logo",
+    },
+    CLASSROOMS: {
+      type: `string[]`,
+      description: "Classrooms",
+    },
+    STREET_ADDRESS: {
+      type: `string`,
+      description: "Street address",
+    },
+    CITY: {
+      type: `string`,
+      description: "City",
+    },
+    POSTALCODE: {
+      type: `string`,
+      description: "Postalcode",
+    },
+    PHONE: {
+      type: `string`,
+      description: "Phone",
+    },
+    ENABLE_STUDENT_TO_EDIT_PROFILE_PICTURE: {
+      type: `number`,
+      description: "Enable student to edit profile picture",
+    },
+    TIMEZONE: {
+      type: `string`,
+      description: "Timezone",
+    },
+  }}
+/>
+
+---
+
+## `StudentAccount` (Interface)
+
+```typescript
+export interface StudentAccount {
+  ID: string;
+  EMAIL: string;
+  FIRSTNAME: string;
+  LASTNAME: string;
+  USERNAME: string;
+  PHOTO: string;
+  PHONE: string;
+  TRAINING_NAME: string;
+  FILE_NUMBER: string;
+  COMPANY: string;
+  TAGS: string[];
+  SIGNATURE_ID: string;
+  HIDDEN: number;
+  DATE_CREATED: string;
+  DATE_UPDATED: string;
+  MULTI_ACCOUNT_LOGIN_CODE: number;
+  SCHOOL_ID: string;
+  BADGE_ID: string;
+  PUSH_TOKEN: string;
+  API_ID: string;
+  API_TYPE: string;
+  LANGUAGE: "fr" | "en" | "es";
+  VARIABLES: unknown | null;
+  STUDENT_FOLLOWER_ID: string[];
+  NEW_PASSWORD_NEEDED: number;
+  USER_TYPE: string;
+  TRAINING_IDS: string[];
+  TOKEN: string;
+  ACCESS_TOKEN: string;
+  REFRESH_TOKEN: string;
+  FAMILY_ID: string;
+  SCHOOL: School;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    EMAIL: {
+      type: `string`,
+      description: "Email",
+    },
+    FIRSTNAME: {
+      type: `string`,
+      description: "Firstname",
+    },
+    LASTNAME: {
+      type: `string`,
+      description: "Lastname",
+    },
+    USERNAME: {
+      type: `string`,
+      description: "Username",
+    },
+    PHOTO: {
+      type: `string`,
+      description: "Photo",
+    },
+    PHONE: {
+      type: `string`,
+      description: "Phone",
+    },
+    TRAINING_NAME: {
+      type: `string`,
+      description: "Training name",
+    },
+    FILE_NUMBER: {
+      type: `string`,
+      description: "File number",
+    },
+    COMPANY: {
+      type: `string`,
+      description: "Company",
+    },
+    TAGS: {
+      type: `string[]`,
+      description: "Tags",
+    },
+    SIGNATURE_ID: {
+      type: `string`,
+      description: "Signature id",
+    },
+    HIDDEN: {
+      type: `number`,
+      description: "Hidden",
+    },
+    DATE_CREATED: {
+      type: `string`,
+      description: "Date created",
+    },
+    DATE_UPDATED: {
+      type: `string`,
+      description: "Date updated",
+    },
+    MULTI_ACCOUNT_LOGIN_CODE: {
+      type: `number`,
+      description: "Multi account login code",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    BADGE_ID: {
+      type: `string`,
+      description: "Badge id",
+    },
+    PUSH_TOKEN: {
+      type: `string`,
+      description: "Push token",
+    },
+    API_ID: {
+      type: `string`,
+      description: "Api id",
+    },
+    API_TYPE: {
+      type: `string`,
+      description: "Api type",
+    },
+    LANGUAGE: {
+      type: `"fr" | "en" | "es"`,
+      description: "Language",
+    },
+    VARIABLES: {
+      type: `unknown | null`,
+      description: "Variables",
+    },
+    STUDENT_FOLLOWER_ID: {
+      type: `string[]`,
+      description: "Student follower id",
+    },
+    NEW_PASSWORD_NEEDED: {
+      type: `number`,
+      description: "New password needed",
+    },
+    USER_TYPE: {
+      type: `string`,
+      description: "User type",
+    },
+    TRAINING_IDS: {
+      type: `string[]`,
+      description: "Training ids",
+    },
+    TOKEN: {
+      type: `string`,
+      description: "Token",
+    },
+    ACCESS_TOKEN: {
+      type: `string`,
+      description: "Access token",
+    },
+    REFRESH_TOKEN: {
+      type: `string`,
+      description: "Refresh token",
+    },
+    FAMILY_ID: {
+      type: `string`,
+      description: "Family id",
+    },
+    SCHOOL: {
+      type: `School`,
+      description: "School",
+    },
+  }}
+/>
+
+---
+
+## `SchoolFeaturesEnabled` (Interface)
+
+```typescript
+export interface SchoolFeaturesEnabled {
+  OPTION_ALERTS: boolean;
+  OPTION_STATISTICS: boolean;
+  OPTION_DOCUMENTS: boolean;
+  OPTION_SURVEY: boolean;
+  KNOWLEDGE_BASE: boolean;
+  MAILBOX: boolean;
+  SCHEDULE: boolean;
+  OPTION_ABSENCE_RECORD_ALLOWED: boolean;
+  OPTION_ADD_USER: boolean;
+  OPTION_API: boolean;
+  OPTION_CONNECTORS: boolean;
+  OPTION_CONNEXION_LINK: boolean;
+  OPTION_CUSTOM_EMAILS: boolean;
+  OPTION_GROUPED_SENDING_OF_DOCUMENTS: boolean;
+  OPTION_PREMIUM_SURVEY: boolean;
+  OPTION_ADMIN: number;
+  OPTION_SIGNATURES: number;
+  OPTION_DOCUMENTS_NO_SIGN_TEMPLATE: number;
+  OPTION_SURVEYS_TEMPLATES: number;
+  OPTION_DOC_WITHOUT_TEMPLATE: number;
+  NEWS_FEED: boolean;
+  CAMPUS_MAP: boolean;
+  WEBVIEW: boolean;
+  OPTION_STUDENTS_IP_RESTRICTION: boolean;
+  MESSAGING: boolean;
+  IA_FEATURES: boolean;
+  STUDENT_CARD: boolean;
+  ASSESSMENTS: boolean;
+  GRADES: boolean;
+  ATTENDANCE: boolean;
+  CONTACTS_DIRECTORY: boolean;
+  TRANSPORTS: boolean;
+  CAMPUS_CHATBOT: boolean;
+  NEW_COLLABORATOR_TRIGGER_EMAIL: boolean;
+  AUTOMATIONS: boolean;
+  MAX_TABLE_TEMPLATES: number;
+  BLOCK_ARCHIVE_WITHOUT_TEACHER_SIGNATURE: boolean;
+  AUTOMATIONS_CHATBOT: boolean;
+  TRAINING: boolean;
+  JUSTIFY_ABSENCE: boolean;
+  JUSTIFY_ABSENCES_IA: boolean;
+  SURVEYS: boolean;
+  DOCUMENTS: boolean;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    OPTION_ALERTS: {
+      type: `boolean`,
+      description: "Option alerts",
+    },
+    OPTION_STATISTICS: {
+      type: `boolean`,
+      description: "Option statistics",
+    },
+    OPTION_DOCUMENTS: {
+      type: `boolean`,
+      description: "Option documents",
+    },
+    OPTION_SURVEY: {
+      type: `boolean`,
+      description: "Option survey",
+    },
+    KNOWLEDGE_BASE: {
+      type: `boolean`,
+      description: "Knowledge base",
+    },
+    MAILBOX: {
+      type: `boolean`,
+      description: "Mailbox",
+    },
+    SCHEDULE: {
+      type: `boolean`,
+      description: "Schedule",
+    },
+    OPTION_ABSENCE_RECORD_ALLOWED: {
+      type: `boolean`,
+      description: "Option absence record allowed",
+    },
+    OPTION_ADD_USER: {
+      type: `boolean`,
+      description: "Option add user",
+    },
+    OPTION_API: {
+      type: `boolean`,
+      description: "Option api",
+    },
+    OPTION_CONNECTORS: {
+      type: `boolean`,
+      description: "Option connectors",
+    },
+    OPTION_CONNEXION_LINK: {
+      type: `boolean`,
+      description: "Option connexion link",
+    },
+    OPTION_CUSTOM_EMAILS: {
+      type: `boolean`,
+      description: "Option custom emails",
+    },
+    OPTION_GROUPED_SENDING_OF_DOCUMENTS: {
+      type: `boolean`,
+      description: "Option grouped sending of documents",
+    },
+    OPTION_PREMIUM_SURVEY: {
+      type: `boolean`,
+      description: "Option premium survey",
+    },
+    OPTION_ADMIN: {
+      type: `number`,
+      description: "Option admin",
+    },
+    OPTION_SIGNATURES: {
+      type: `number`,
+      description: "Option signatures",
+    },
+    OPTION_DOCUMENTS_NO_SIGN_TEMPLATE: {
+      type: `number`,
+      description: "Option documents no sign template",
+    },
+    OPTION_SURVEYS_TEMPLATES: {
+      type: `number`,
+      description: "Option surveys templates",
+    },
+    OPTION_DOC_WITHOUT_TEMPLATE: {
+      type: `number`,
+      description: "Option doc without template",
+    },
+    NEWS_FEED: {
+      type: `boolean`,
+      description: "News feed",
+    },
+    CAMPUS_MAP: {
+      type: `boolean`,
+      description: "Campus map",
+    },
+    WEBVIEW: {
+      type: `boolean`,
+      description: "Webview",
+    },
+    OPTION_STUDENTS_IP_RESTRICTION: {
+      type: `boolean`,
+      description: "Option students ip restriction",
+    },
+    MESSAGING: {
+      type: `boolean`,
+      description: "Messaging",
+    },
+    IA_FEATURES: {
+      type: `boolean`,
+      description: "Ia features",
+    },
+    STUDENT_CARD: {
+      type: `boolean`,
+      description: "Student card",
+    },
+    ASSESSMENTS: {
+      type: `boolean`,
+      description: "Assessments",
+    },
+    GRADES: {
+      type: `boolean`,
+      description: "Grades",
+    },
+    ATTENDANCE: {
+      type: `boolean`,
+      description: "Attendance",
+    },
+    CONTACTS_DIRECTORY: {
+      type: `boolean`,
+      description: "Contacts directory",
+    },
+    TRANSPORTS: {
+      type: `boolean`,
+      description: "Transports",
+    },
+    CAMPUS_CHATBOT: {
+      type: `boolean`,
+      description: "Campus chatbot",
+    },
+    NEW_COLLABORATOR_TRIGGER_EMAIL: {
+      type: `boolean`,
+      description: "New collaborator trigger email",
+    },
+    AUTOMATIONS: {
+      type: `boolean`,
+      description: "Automations",
+    },
+    MAX_TABLE_TEMPLATES: {
+      type: `number`,
+      description: "Max table templates",
+    },
+    BLOCK_ARCHIVE_WITHOUT_TEACHER_SIGNATURE: {
+      type: `boolean`,
+      description: "Block archive without teacher signature",
+    },
+    AUTOMATIONS_CHATBOT: {
+      type: `boolean`,
+      description: "Automations chatbot",
+    },
+    TRAINING: {
+      type: `boolean`,
+      description: "Training",
+    },
+    JUSTIFY_ABSENCE: {
+      type: `boolean`,
+      description: "Justify absence",
+    },
+    JUSTIFY_ABSENCES_IA: {
+      type: `boolean`,
+      description: "Justify absences ia",
+    },
+    SURVEYS: {
+      type: `boolean`,
+      description: "Surveys",
+    },
+    DOCUMENTS: {
+      type: `boolean`,
+      description: "Documents",
+    },
+  }}
+/>
+
+---
+
+## `SchoolFeatures` (Interface)
+
+```typescript
+export interface SchoolFeatures {
+  TIMEZONE: string;
+  YOUSIGN_TOKEN: boolean;
+  STUDENT_CARD_MODE: string | null;
+  ISIC_MODE: string | null;
+  ISIC_FIELD: string;
+  STUDENT_CARD_ACTIVATED: number;
+  featuresEnabled: SchoolFeaturesEnabled;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    TIMEZONE: {
+      type: `string`,
+      description: "Timezone",
+    },
+    YOUSIGN_TOKEN: {
+      type: `boolean`,
+      description: "Yousign token",
+    },
+    STUDENT_CARD_MODE: {
+      type: `string | null`,
+      description: "Student card mode",
+    },
+    ISIC_MODE: {
+      type: `string | null`,
+      description: "Isic mode",
+    },
+    ISIC_FIELD: {
+      type: `string`,
+      description: "Isic field",
+    },
+    STUDENT_CARD_ACTIVATED: {
+      type: `number`,
+      description: "Student card activated",
+    },
+    featuresEnabled: {
+      type: `SchoolFeaturesEnabled`,
+      description: "Features enabled",
+    },
+  }}
+/>
+
+---
+

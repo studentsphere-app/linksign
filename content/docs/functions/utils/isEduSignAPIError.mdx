@@ -1,0 +1,41 @@
+---
+title: isEduSignAPIError
+description: Documentation for the isEduSignAPIError function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `isEduSignAPIError` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    error: {
+      type: `unknown`,
+      description: "Error",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { isEduSignAPIError } from "@studentsphere/linksign";
+
+try {
+  // Simulate an API call
+  // const data = await someApiCall();
+  throw new Error("Simulated API failure");
+} catch (e) {
+  if (isEduSignAPIError(e)) {
+    console.log("This is a known Edusign API error!", e);
+  } else {
+    console.log("Unknown error occurred");
+  }
+}
+```
+
+## Return Value
+
+Returns a **error is EduSignAPIError** object.

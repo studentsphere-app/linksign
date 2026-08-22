@@ -1,0 +1,27 @@
+---
+title: Knowledgebase
+description: Documentation for the knowledgebase service.
+---
+
+This page documents the functionalities provided by the `knowledgebase.ts` file.
+
+## Exported Functions
+
+- `getPublicKnowledgeBasePosts`
+- `getPrivateKnowledgeBasePosts`
+
+## Example Usage
+
+```typescript
+import { getPublicKnowledgeBasePosts, getPrivateKnowledgeBasePosts } from "@studentsphere/linksign";
+
+async function run() {
+  const publicKnowledgeBasePosts = await getPublicKnowledgeBasePosts('YOUR_TOKEN');
+  console.log(publicKnowledgeBasePosts);
+
+  const privateKnowledgeBasePosts = await getPrivateKnowledgeBasePosts('YOUR_TOKEN');
+  console.log(privateKnowledgeBasePosts);
+}
+
+run().catch(console.error);
+```

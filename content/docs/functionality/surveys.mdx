@@ -1,0 +1,31 @@
+---
+title: Surveys
+description: Documentation for the surveys service.
+---
+
+This page documents the functionalities provided by the `surveys.ts` file.
+
+## Exported Functions
+
+- `getSurveys`
+- `getSurveyById`
+- `answerSurvey`
+
+## Example Usage
+
+```typescript
+import { getSurveys, getSurveyById, answerSurvey } from "@studentsphere/linksign";
+
+async function run() {
+  const surveys = await getSurveys('YOUR_TOKEN');
+  console.log(surveys);
+
+  const surveyById = await getSurveyById('YOUR_TOKEN');
+  console.log(surveyById);
+
+  const answerSurveyResponse = await answerSurvey('YOUR_TOKEN');
+  console.log(answerSurveyResponse);
+}
+
+run().catch(console.error);
+```

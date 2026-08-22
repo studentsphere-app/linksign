@@ -1,16 +1,141 @@
 ---
-title: Profile API
-description: Functions and types for the profile module.
+title: Profile
+description: Types and interfaces for the profile module.
 ---
 
-# Profile API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `profile` module.
+This section documents the types and interfaces available in the `profile` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `NotificationsPreferences` (Interface)
+
+```typescript
+export interface NotificationsPreferences {
+  messaging: { push: boolean };
+  attendance: { inApp: boolean; push: boolean };
+  assessments: { inApp: boolean; push: boolean };
+  documents: { inApp: boolean; push: boolean };
+  surveys: { inApp: boolean; push: boolean };
+  grades: { inApp: boolean; push: boolean };
+  planning: { inApp: boolean; push: boolean };
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for profile functions will be populated here)*
+<TypeTable
+  type={{
+    messaging: {
+      type: `{ push: boolean }`,
+      description: "Messaging",
+    },
+    attendance: {
+      type: `{ inApp: boolean; push: boolean }`,
+      description: "Attendance",
+    },
+    assessments: {
+      type: `{ inApp: boolean; push: boolean }`,
+      description: "Assessments",
+    },
+    documents: {
+      type: `{ inApp: boolean; push: boolean }`,
+      description: "Documents",
+    },
+    surveys: {
+      type: `{ inApp: boolean; push: boolean }`,
+      description: "Surveys",
+    },
+    grades: {
+      type: `{ inApp: boolean; push: boolean }`,
+      description: "Grades",
+    },
+    planning: {
+      type: `{ inApp: boolean; push: boolean }`,
+      description: "Planning",
+    },
+  }}
+/>
+
+---
+
+## `StudentProfile` (Interface)
+
+```typescript
+export interface StudentProfile {
+  ID: string;
+  EMAIL: string;
+  LASTNAME: string;
+  FIRSTNAME: string;
+  PASSWORD: string;
+  USERNAME: string;
+  LANGUAGE: "fr" | "en" | "es";
+  SCHOOL_ID: string;
+  PHOTO: string;
+  SCHOOL: SchoolInfo;
+  NOTIFICATIONS_PREFERENCES: NotificationsPreferences;
+  AUDIENCE_ID: string | null;
+  isImpersonated: boolean;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    EMAIL: {
+      type: `string`,
+      description: "Email",
+    },
+    LASTNAME: {
+      type: `string`,
+      description: "Lastname",
+    },
+    FIRSTNAME: {
+      type: `string`,
+      description: "Firstname",
+    },
+    PASSWORD: {
+      type: `string`,
+      description: "Password",
+    },
+    USERNAME: {
+      type: `string`,
+      description: "Username",
+    },
+    LANGUAGE: {
+      type: `"fr" | "en" | "es"`,
+      description: "Language",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    PHOTO: {
+      type: `string`,
+      description: "Photo",
+    },
+    SCHOOL: {
+      type: `SchoolInfo`,
+      description: "School",
+    },
+    NOTIFICATIONS_PREFERENCES: {
+      type: `NotificationsPreferences`,
+      description: "Notifications preferences",
+    },
+    AUDIENCE_ID: {
+      type: `string | null`,
+      description: "Audience id",
+    },
+    isImpersonated: {
+      type: `boolean`,
+      description: "Is impersonated",
+    },
+  }}
+/>
+
+---
+

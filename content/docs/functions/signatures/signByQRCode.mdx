@@ -1,0 +1,49 @@
+---
+title: signByQRCode
+description: Documentation for the signByQRCode function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `signByQRCode` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    qrCodeId: {
+      type: `string | number`,
+      description: "Qr code id",
+    },
+    body: {
+      type: `SignByQRCodeRequest`,
+      description: "Body",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { signByQRCode } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await signByQRCode('YOUR_TOKEN', 'QR_CODE_ID', { signature: 'BASE64_STRING', courseId: 'COURSE_ID', UUID: 'UUID', Model: 'DEVICE_MODEL' }, 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **unknown** object.

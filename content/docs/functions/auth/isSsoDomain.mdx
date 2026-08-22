@@ -1,0 +1,36 @@
+---
+title: isSsoDomain
+description: Documentation for the isSsoDomain function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `isSsoDomain` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    domain: {
+      type: `string`,
+      description: "Domain",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { isSsoDomain } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await isSsoDomain('domain');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **boolean** object.

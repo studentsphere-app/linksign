@@ -1,0 +1,32 @@
+---
+title: formatDuration
+description: Documentation for the formatDuration function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `formatDuration` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    minutes: {
+      type: `number`,
+      description: "Minutes",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { formatDuration } from "@studentsphere/linksign";
+
+const result = formatDuration(1);
+console.log(result);
+```
+
+## Return Value
+
+Returns a **string** object.

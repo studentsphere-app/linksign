@@ -1,0 +1,245 @@
+---
+title: Common
+description: Types and interfaces for the common module.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This section documents the types and interfaces available in the `common` module.
+
+## `EduSignSuccessResponse` (Interface)
+
+```typescript
+export interface EduSignSuccessResponse {
+  status: "success";
+  result: T;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    status: {
+      type: `"success"`,
+      description: "Status",
+    },
+    result: {
+      type: `T`,
+      description: "Result",
+    },
+  }}
+/>
+
+---
+
+## `EduSignErrorResponse` (Interface)
+
+```typescript
+export interface EduSignErrorResponse {
+  status: "error";
+  message: string;
+  errorCode: EduSignErrorCode;
+  code: string;
+  path: string;
+  timestamp: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    status: {
+      type: `"error"`,
+      description: "Status",
+    },
+    message: {
+      type: `string`,
+      description: "Message",
+    },
+    errorCode: {
+      type: `EduSignErrorCode`,
+      description: "Error code",
+    },
+    code: {
+      type: `string`,
+      description: "Code",
+    },
+    path: {
+      type: `string`,
+      description: "Path",
+    },
+    timestamp: {
+      type: `string`,
+      description: "Timestamp",
+    },
+  }}
+/>
+
+---
+
+## `EduSignErrorCode` (Type)
+
+```typescript
+| "ERR_INVALID_TOKEN" | "ERROR" | "UNAUTHORIZED" | "ER_WRONG_VALUE" | "ERR_STUDENT_ALREADY_PRESENT" | "ERR_COURSES_NOT_FOUND" | "ERR_STATES_NOT_FOUND" | (string & {})
+```
+
+---
+
+## `Pagination` (Interface)
+
+```typescript
+export interface Pagination {
+  total_records: number;
+  current_page: number;
+  total_pages: number;
+  next_page: number | null;
+  prev_page: number | null;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    total_records: {
+      type: `number`,
+      description: "Total records",
+    },
+    current_page: {
+      type: `number`,
+      description: "Current page",
+    },
+    total_pages: {
+      type: `number`,
+      description: "Total pages",
+    },
+    next_page: {
+      type: `number | null`,
+      description: "Next page",
+    },
+    prev_page: {
+      type: `number | null`,
+      description: "Prev page",
+    },
+  }}
+/>
+
+---
+
+## `PaginatedData` (Interface)
+
+```typescript
+export interface PaginatedData {
+  data: T[];
+  pagination: Pagination;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    data: {
+      type: `T[]`,
+      description: "Data",
+    },
+    pagination: {
+      type: `Pagination`,
+      description: "Pagination",
+    },
+  }}
+/>
+
+---
+
+## `CursorPagination` (Interface)
+
+```typescript
+export interface CursorPagination {
+  current_cursor: string | null;
+  next_page: string | null;
+  next_cursor: string | null;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    current_cursor: {
+      type: `string | null`,
+      description: "Current cursor",
+    },
+    next_page: {
+      type: `string | null`,
+      description: "Next page",
+    },
+    next_cursor: {
+      type: `string | null`,
+      description: "Next cursor",
+    },
+  }}
+/>
+
+---
+
+## `CursorPaginatedData` (Interface)
+
+```typescript
+export interface CursorPaginatedData {
+  data: T[];
+  metadata?: Record<string, unknown>;
+  pagination: CursorPagination;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    data: {
+      type: `T[]`,
+      description: "Data",
+    },
+    metadata: {
+      type: `Record<string, unknown>`,
+      description: "Metadata",
+      optional: true,
+    },
+    pagination: {
+      type: `CursorPagination`,
+      description: "Pagination",
+    },
+  }}
+/>
+
+---
+
+## `DateRange` (Interface)
+
+```typescript
+export interface DateRange {
+  start: string;
+  end: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    start: {
+      type: `string`,
+      description: "Start",
+    },
+    end: {
+      type: `string`,
+      description: "End",
+    },
+  }}
+/>
+
+---
+

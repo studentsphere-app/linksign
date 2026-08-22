@@ -1,0 +1,36 @@
+---
+title: getPublicKnowledgeBasePosts
+description: Documentation for the getPublicKnowledgeBasePosts function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPublicKnowledgeBasePosts` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPublicKnowledgeBasePosts } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPublicKnowledgeBasePosts('SCHOOL_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[KnowledgeBasePost](/docs/types/knowledgebase#knowledgebasepost-interface)[]** object.

@@ -1,0 +1,27 @@
+---
+title: Contactsdirectory
+description: Documentation for the contactsdirectory service.
+---
+
+This page documents the functionalities provided by the `contactsdirectory.ts` file.
+
+## Exported Functions
+
+- `getPublicContactsDirectory`
+- `getPrivateContactsDirectory`
+
+## Example Usage
+
+```typescript
+import { getPublicContactsDirectory, getPrivateContactsDirectory } from "@studentsphere/linksign";
+
+async function run() {
+  const publicContactsDirectory = await getPublicContactsDirectory('YOUR_TOKEN');
+  console.log(publicContactsDirectory);
+
+  const privateContactsDirectory = await getPrivateContactsDirectory('YOUR_TOKEN');
+  console.log(privateContactsDirectory);
+}
+
+run().catch(console.error);
+```

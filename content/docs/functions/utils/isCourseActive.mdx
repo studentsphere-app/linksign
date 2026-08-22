@@ -1,0 +1,36 @@
+---
+title: isCourseActive
+description: Documentation for the isCourseActive function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `isCourseActive` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    courseStart: {
+      type: `string`,
+      description: "Course start",
+    },
+    courseEnd: {
+      type: `string`,
+      description: "Course end",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { isCourseActive } from "@studentsphere/linksign";
+
+const result = isCourseActive('courseStart', 'courseEnd');
+console.log(result);
+```
+
+## Return Value
+
+Returns a **boolean** object.

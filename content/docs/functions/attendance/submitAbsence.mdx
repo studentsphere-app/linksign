@@ -1,0 +1,45 @@
+---
+title: submitAbsence
+description: Documentation for the submitAbsence function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `submitAbsence` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    absence: {
+      type: `NewAbsence`,
+      description: "Absence",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { submitAbsence } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await submitAbsence('YOUR_TOKEN', { TYPE: 1, hasComment: true, COMMENT: 'Sick', START: '2026-09-01T08:00:00Z', END: '2026-09-01T17:00:00Z' }, 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[SubmittedAbsence](/docs/types/attendance#submittedabsence-interface)** object.

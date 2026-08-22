@@ -1,0 +1,45 @@
+---
+title: getProfessors
+description: Documentation for the getProfessors function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getProfessors` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    professorIds: {
+      type: `string[]`,
+      description: "Professor ids",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getProfessors } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getProfessors('YOUR_TOKEN', 'PROFESSOR_IDS', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[Professor](/docs/types/professors#professor-interface)[]** object.

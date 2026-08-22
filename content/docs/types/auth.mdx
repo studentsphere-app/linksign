@@ -1,28 +1,751 @@
 ---
-title: Auth API
-description: Authentication functions.
+title: Auth
+description: Types and interfaces for the auth module.
 ---
 
-# Auth API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This module contains authentication functions.
+This section documents the types and interfaces available in the `auth` module.
 
-## loginWithCredentials
+## `AuthSession` (Interface)
 
-Logs in a user with a username and password.
-
-```ts
-import { loginWithCredentials } from '@studentsphere/linksign';
-
-const session = await loginWithCredentials('email', 'password');
+```typescript
+export interface AuthSession {
+  ID: string;
+  EMAIL: string;
+  LASTNAME: string;
+  FIRSTNAME: string;
+  USERNAME: string;
+  LANGUAGE: string;
+  SCHOOL_ID: string;
+  MULTI_ACCOUNT_LOGIN_CODE: number;
+  NEW_PASSWORD_NEEDED: 0 | 1;
+  USER_TYPE: string;
+  TOKEN: string;
+  NUMBER_OF_ACCOUNTS: number;
+  STUDENT_FOLLOWER_ID: string[];
+  TRAINING_IDS: string[];
+  ACCESS_TOKEN?: string;
+  REFRESH_TOKEN?: string;
+  FAMILY_ID?: string;
+}
 ```
 
-## loginWithSSO
+### Properties
 
-Logs in a user using Single Sign-On.
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    EMAIL: {
+      type: `string`,
+      description: "Email",
+    },
+    LASTNAME: {
+      type: `string`,
+      description: "Lastname",
+    },
+    FIRSTNAME: {
+      type: `string`,
+      description: "Firstname",
+    },
+    USERNAME: {
+      type: `string`,
+      description: "Username",
+    },
+    LANGUAGE: {
+      type: `string`,
+      description: "Language",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    MULTI_ACCOUNT_LOGIN_CODE: {
+      type: `number`,
+      description: "Multi account login code",
+    },
+    NEW_PASSWORD_NEEDED: {
+      type: `0 | 1`,
+      description: "New password needed",
+    },
+    USER_TYPE: {
+      type: `string`,
+      description: "User type",
+    },
+    TOKEN: {
+      type: `string`,
+      description: "Token",
+    },
+    NUMBER_OF_ACCOUNTS: {
+      type: `number`,
+      description: "Number of accounts",
+    },
+    STUDENT_FOLLOWER_ID: {
+      type: `string[]`,
+      description: "Student follower id",
+    },
+    TRAINING_IDS: {
+      type: `string[]`,
+      description: "Training ids",
+    },
+    ACCESS_TOKEN: {
+      type: `string`,
+      description: "Access token",
+      optional: true,
+    },
+    REFRESH_TOKEN: {
+      type: `string`,
+      description: "Refresh token",
+      optional: true,
+    },
+    FAMILY_ID: {
+      type: `string`,
+      description: "Family id",
+      optional: true,
+    },
+  }}
+/>
 
-```ts
-import { loginWithSSO } from '@studentsphere/linksign';
+---
 
-const session = await loginWithSSO('provider', 'token');
+## `PinVerification` (Interface)
+
+```typescript
+export interface PinVerification {
+  v2Token: string;
+}
 ```
+
+### Properties
+
+<TypeTable
+  type={{
+    v2Token: {
+      type: `string`,
+      description: "V2token",
+    },
+  }}
+/>
+
+---
+
+## `MicrosoftOauthAuthSession` (Interface)
+
+```typescript
+export interface MicrosoftOauthAuthSession {
+  ID: string;
+  SCHOOL_ID: string;
+  EMAIL: string;
+  NUMBER_OF_ACCOUNTS: number;
+  TOKEN: string;
+  MICROSOFT_ACCESS_TOKEN: string;
+  MICROSOFT_REFRESH_TOKEN: string;
+  ACCESS_TOKEN: string;
+  REFRESH_TOKEN: string;
+  FAMILY_ID: string;
+  HAS_MULTI_ACCOUNTS: boolean;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    EMAIL: {
+      type: `string`,
+      description: "Email",
+    },
+    NUMBER_OF_ACCOUNTS: {
+      type: `number`,
+      description: "Number of accounts",
+    },
+    TOKEN: {
+      type: `string`,
+      description: "Token",
+    },
+    MICROSOFT_ACCESS_TOKEN: {
+      type: `string`,
+      description: "Microsoft access token",
+    },
+    MICROSOFT_REFRESH_TOKEN: {
+      type: `string`,
+      description: "Microsoft refresh token",
+    },
+    ACCESS_TOKEN: {
+      type: `string`,
+      description: "Access token",
+    },
+    REFRESH_TOKEN: {
+      type: `string`,
+      description: "Refresh token",
+    },
+    FAMILY_ID: {
+      type: `string`,
+      description: "Family id",
+    },
+    HAS_MULTI_ACCOUNTS: {
+      type: `boolean`,
+      description: "Has multi accounts",
+    },
+  }}
+/>
+
+---
+
+## `MicrosoftSsoAuthSession` (Type)
+
+```typescript
+MicrosoftOauthAuthSession
+```
+
+---
+
+## `OauthSsoAuthSession` (Type)
+
+```typescript
+MicrosoftOauthAuthSession
+```
+
+---
+
+## `CasSsoAuthSession` (Type)
+
+```typescript
+MicrosoftOauthAuthSession
+```
+
+---
+
+## `RefreshedSession` (Interface)
+
+```typescript
+export interface RefreshedSession {
+  access_token: string;
+  refresh_token: string;
+  token_type: string;
+  expires_in: number;
+  device_id: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    access_token: {
+      type: `string`,
+      description: "Access token",
+    },
+    refresh_token: {
+      type: `string`,
+      description: "Refresh token",
+    },
+    token_type: {
+      type: `string`,
+      description: "Token type",
+    },
+    expires_in: {
+      type: `number`,
+      description: "Expires in",
+    },
+    device_id: {
+      type: `string`,
+      description: "Device id",
+    },
+  }}
+/>
+
+---
+
+## `SsoConfigBase` (Interface)
+
+```typescript
+export interface SsoConfigBase {
+  SCHOOL_ID: string;
+  SCHOOL_NAME: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    SCHOOL_NAME: {
+      type: `string`,
+      description: "School name",
+    },
+  }}
+/>
+
+---
+
+## `MicrosoftSsoConfig` (Interface)
+
+```typescript
+export interface MicrosoftSsoConfig {
+  type: "microsoft";
+  data: { clientId: string;
+  authority: string;
+  scopes: string[];
+  redirectUriAndroid?: string;
+  redirectUriIos?: string;
+  redirectUri?: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"microsoft"`,
+      description: "Type",
+    },
+    data: {
+      type: `{ clientId: string`,
+      description: "Data",
+    },
+    authority: {
+      type: `string`,
+      description: "Authority",
+    },
+    scopes: {
+      type: `string[]`,
+      description: "Scopes",
+    },
+    redirectUriAndroid: {
+      type: `string`,
+      description: "Redirect uri android",
+      optional: true,
+    },
+    redirectUriIos: {
+      type: `string`,
+      description: "Redirect uri ios",
+      optional: true,
+    },
+    redirectUri: {
+      type: `string`,
+      description: "Redirect uri",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `OauthSsoConfig` (Interface)
+
+```typescript
+export interface OauthSsoConfig {
+  type: "oauth";
+  data: { clientId: string;
+  clientSecret: string;
+  authority: string;
+  scope: string;
+  responseType: string;
+  redirectUri: string;
+  token_auth: string;
+  user_auth: string;
+  grant_type: string;
+  token_req_mode?: string;
+  attributePath?: string;
+  cert?: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"oauth"`,
+      description: "Type",
+    },
+    data: {
+      type: `{ clientId: string`,
+      description: "Data",
+    },
+    clientSecret: {
+      type: `string`,
+      description: "Client secret",
+    },
+    authority: {
+      type: `string`,
+      description: "Authority",
+    },
+    scope: {
+      type: `string`,
+      description: "Scope",
+    },
+    responseType: {
+      type: `string`,
+      description: "Response type",
+    },
+    redirectUri: {
+      type: `string`,
+      description: "Redirect uri",
+    },
+    token_auth: {
+      type: `string`,
+      description: "Token auth",
+    },
+    user_auth: {
+      type: `string`,
+      description: "User auth",
+    },
+    grant_type: {
+      type: `string`,
+      description: "Grant type",
+    },
+    token_req_mode: {
+      type: `string`,
+      description: "Token req mode",
+      optional: true,
+    },
+    attributePath: {
+      type: `string`,
+      description: "Attribute path",
+      optional: true,
+    },
+    cert: {
+      type: `string`,
+      description: "Cert",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `CasSsoConfig` (Interface)
+
+```typescript
+export interface CasSsoConfig {
+  type: "cas";
+  data: { webCasClientUrl: string;
+  webValidationService: string;
+  casClientUrl: string;
+  attributePath?: string;
+  cert?: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"cas"`,
+      description: "Type",
+    },
+    data: {
+      type: `{ webCasClientUrl: string`,
+      description: "Data",
+    },
+    webValidationService: {
+      type: `string`,
+      description: "Web validation service",
+    },
+    casClientUrl: {
+      type: `string`,
+      description: "Cas client url",
+    },
+    attributePath: {
+      type: `string`,
+      description: "Attribute path",
+      optional: true,
+    },
+    cert: {
+      type: `string`,
+      description: "Cert",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `SamlSsoConfig` (Interface)
+
+```typescript
+export interface SamlSsoConfig {
+  type: "saml";
+  data: { entryPoint: string;
+  callbackUrl: string;
+  issuer: string;
+  idpIssuer: string;
+  signatureAlgorithm: string;
+  identifierFormat?: string;
+  matchingStrategy?: string;
+  cert?: string;
+  pltType?: string;
+  attributePath?: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"saml"`,
+      description: "Type",
+    },
+    data: {
+      type: `{ entryPoint: string`,
+      description: "Data",
+    },
+    callbackUrl: {
+      type: `string`,
+      description: "Callback url",
+    },
+    issuer: {
+      type: `string`,
+      description: "Issuer",
+    },
+    idpIssuer: {
+      type: `string`,
+      description: "Idp issuer",
+    },
+    signatureAlgorithm: {
+      type: `string`,
+      description: "Signature algorithm",
+    },
+    identifierFormat: {
+      type: `string`,
+      description: "Identifier format",
+      optional: true,
+    },
+    matchingStrategy: {
+      type: `string`,
+      description: "Matching strategy",
+      optional: true,
+    },
+    cert: {
+      type: `string`,
+      description: "Cert",
+      optional: true,
+    },
+    pltType: {
+      type: `string`,
+      description: "Plt type",
+      optional: true,
+    },
+    attributePath: {
+      type: `string`,
+      description: "Attribute path",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `SsoConfig` (Type)
+
+```typescript
+| MicrosoftSsoConfig | OauthSsoConfig | CasSsoConfig | SamlSsoConfig
+```
+
+---
+
+## `WhiteLabelSsoConfigBase` (Interface)
+
+```typescript
+export interface WhiteLabelSsoConfigBase {
+  ID: number;
+  SCHOOL_ID: string;
+  domain: string;
+  CERTIFICATE?: string;
+  DESCRIPTION?: string;
+  SCHOOL_NAME?: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `number`,
+      description: "Unique identifier",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    domain: {
+      type: `string`,
+      description: "Domain",
+    },
+    CERTIFICATE: {
+      type: `string`,
+      description: "Certificate",
+      optional: true,
+    },
+    DESCRIPTION: {
+      type: `string`,
+      description: "Description",
+      optional: true,
+    },
+    SCHOOL_NAME: {
+      type: `string`,
+      description: "School name",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelMicrosoftSsoConfig` (Interface)
+
+```typescript
+export interface WhiteLabelMicrosoftSsoConfig {
+  type: "microsoft";
+  DATA: MicrosoftSsoConfig["data"];
+  data?: Partial<MicrosoftSsoConfig["data"]>;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"microsoft"`,
+      description: "Type",
+    },
+    DATA: {
+      type: `MicrosoftSsoConfig["data"]`,
+      description: "Data",
+    },
+    data: {
+      type: `Partial<MicrosoftSsoConfig["data"]>`,
+      description: "Data",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelOauthSsoConfig` (Interface)
+
+```typescript
+export interface WhiteLabelOauthSsoConfig {
+  type: "oauth";
+  DATA: OauthSsoConfig["data"];
+  data?: Partial<OauthSsoConfig["data"]>;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"oauth"`,
+      description: "Type",
+    },
+    DATA: {
+      type: `OauthSsoConfig["data"]`,
+      description: "Data",
+    },
+    data: {
+      type: `Partial<OauthSsoConfig["data"]>`,
+      description: "Data",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelCasSsoConfig` (Interface)
+
+```typescript
+export interface WhiteLabelCasSsoConfig {
+  type: "cas";
+  DATA: CasSsoConfig["data"];
+  data?: Partial<CasSsoConfig["data"]>;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"cas"`,
+      description: "Type",
+    },
+    DATA: {
+      type: `CasSsoConfig["data"]`,
+      description: "Data",
+    },
+    data: {
+      type: `Partial<CasSsoConfig["data"]>`,
+      description: "Data",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelSamlSsoConfig` (Interface)
+
+```typescript
+export interface WhiteLabelSamlSsoConfig {
+  type: "saml";
+  DATA: SamlSsoConfig["data"];
+  data?: Partial<SamlSsoConfig["data"]>;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    type: {
+      type: `"saml"`,
+      description: "Type",
+    },
+    DATA: {
+      type: `SamlSsoConfig["data"]`,
+      description: "Data",
+    },
+    data: {
+      type: `Partial<SamlSsoConfig["data"]>`,
+      description: "Data",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelSsoConfig` (Type)
+
+```typescript
+| WhiteLabelMicrosoftSsoConfig | WhiteLabelOauthSsoConfig | WhiteLabelCasSsoConfig | WhiteLabelSamlSsoConfig
+```
+
+---
+

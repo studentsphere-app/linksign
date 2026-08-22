@@ -1,0 +1,53 @@
+---
+title: getSurveyById
+description: Documentation for the getSurveyById function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getSurveyById` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    studentId: {
+      type: `string`,
+      description: "Student id",
+    },
+    surveyId: {
+      type: `string`,
+      description: "Survey id",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getSurveyById } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getSurveyById('YOUR_TOKEN', 'SCHOOL_ID', 'STUDENT_ID', 'SURVEY_ID', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[SurveyDetails](/docs/types/surveys#surveydetails-interface)** object.

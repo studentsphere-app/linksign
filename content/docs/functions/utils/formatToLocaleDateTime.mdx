@@ -1,0 +1,37 @@
+---
+title: formatToLocaleDateTime
+description: Documentation for the formatToLocaleDateTime function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `formatToLocaleDateTime` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    isoString: {
+      type: `string`,
+      description: "Iso string",
+    },
+    locale: {
+      type: `string`,
+      description: "Locale",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { formatToLocaleDateTime } from "@studentsphere/linksign";
+
+const result = formatToLocaleDateTime('isoString', 'locale');
+console.log(result);
+```
+
+## Return Value
+
+Returns a **string** object.

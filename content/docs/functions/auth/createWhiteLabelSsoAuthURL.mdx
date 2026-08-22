@@ -1,0 +1,32 @@
+---
+title: createWhiteLabelSsoAuthURL
+description: Documentation for the createWhiteLabelSsoAuthURL function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `createWhiteLabelSsoAuthURL` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    config: {
+      type: `WhiteLabelSsoConfig`,
+      description: "Config",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { createWhiteLabelSsoAuthURL } from "@studentsphere/linksign";
+
+const result = createWhiteLabelSsoAuthURL({ ID: 1, SCHOOL_ID: 'SCHOOL_ID', domain: 'example.com' });
+console.log(result);
+```
+
+## Return Value
+
+Returns a **string** object.

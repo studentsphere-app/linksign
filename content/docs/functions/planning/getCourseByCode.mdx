@@ -1,0 +1,45 @@
+---
+title: getCourseByCode
+description: Documentation for the getCourseByCode function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getCourseByCode` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    code: {
+      type: `string`,
+      description: "Code",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getCourseByCode } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getCourseByCode('YOUR_TOKEN', 'AUTH_CODE', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[CourseEntry](/docs/types/planning#courseentry-interface)** object.

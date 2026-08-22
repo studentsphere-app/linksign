@@ -1,0 +1,20 @@
+{
+	"title": "Utils",
+	"pages": [
+		"capitalize",
+		"extractDomainFromEmail",
+		"formatDuration",
+		"formatToLocaleDateTime",
+		"generateDeviceId",
+		"getTodayCourses",
+		"isCourseActive",
+		"isEduSignAPIError",
+		"isUnauthorizedError",
+		"lastSevenDays",
+		"lastThirtyDays",
+		"lastThreeMonths",
+		"lastYear",
+		"sortCoursesByDate",
+		"splitCoursesByPastAndUpcoming"
+	]
+}

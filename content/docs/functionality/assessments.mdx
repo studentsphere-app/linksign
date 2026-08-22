@@ -1,0 +1,27 @@
+---
+title: Assessments
+description: Documentation for the assessments service.
+---
+
+This page documents the functionalities provided by the `assessments.ts` file.
+
+## Exported Functions
+
+- `getAssessments`
+- `getAssessmentDetailById`
+
+## Example Usage
+
+```typescript
+import { getAssessments, getAssessmentDetailById } from "@studentsphere/linksign";
+
+async function run() {
+  const assessments = await getAssessments('YOUR_TOKEN');
+  console.log(assessments);
+
+  const assessmentDetailById = await getAssessmentDetailById('YOUR_TOKEN');
+  console.log(assessmentDetailById);
+}
+
+run().catch(console.error);
+```

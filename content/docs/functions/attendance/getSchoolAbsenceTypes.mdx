@@ -1,0 +1,41 @@
+---
+title: getSchoolAbsenceTypes
+description: Documentation for the getSchoolAbsenceTypes function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getSchoolAbsenceTypes` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getSchoolAbsenceTypes } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getSchoolAbsenceTypes('YOUR_TOKEN', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[SchoolAbsenceType](/docs/types/attendance#schoolabsencetype-interface)[]** object.

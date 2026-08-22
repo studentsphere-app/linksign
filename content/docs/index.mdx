@@ -3,40 +3,43 @@ title: Introduction
 description: A lightweight TypeScript wrapper for Edusign services
 ---
 
-![Banner](/assets/banner.svg)
+Welcome to the documentation for linksign, a modern, lightweight, and zero-dependency TypeScript wrapper designed to interact with Edusign portals.
 
-Welcome to the documentation for **`linksign`**, a modern, lightweight, and zero-dependency TypeScript wrapper designed to interact with Edusign portals.
-
-This project is entirely maintained by the **[StudentSphere](https://github.com/studentsphere-app)** team with the goal of providing open interoperability of digital student tools for everyone.
-
-## Compatibility
-
-`linksign` is designed to interface with the **[Edusign](https://www.edusign.com/)** platform.
+This project is entirely maintained by the [StudentSphere](https://github.com/studentsphere-app) team with the goal of providing open interoperability of digital student tools for everyone.
 
 ## Key Features
 
-- 🔑 **CAS Authentication** - Built-in Central Authentication Service flow automation.
-- 📅 **Planning Retrieval** - Retrieve student timetable/schedules within date ranges.
-- 👤 **Profile Parsing** - Retrieve student profile attributes (name, email, city, etc.) from CAS attributes.
-- 🪶 **Zero Dependencies** - Light package footprint relying on standard Web APIs (like native `fetch`).
-- 📳 **TypeScript First** - Built with TypeScript for full typing support and robust editor autocomplete.
-- 🏫 **Multi-School Support** - Easy routing and configuration of endpoints for multiple campus instances.
+* 🔑 **Authentication**
+* 📅 **Planning & Timetable Retrieval**
+* ✔️ **Attendance Statistics & Presences**
+* 🗺️ **Campus Map & Document Access**
+* 🪶 **Zero Dependencies**
+* ⚡ **TypeScript First**
+* 🏫 **White Label Apps Support**
 
 ## Installation
 
-Install `linksign` using your preferred package manager:
+### With npm
 
 ```bash
-# With pnpm
-pnpm add @studentsphere/linksign
-
-# With npm
 npm install @studentsphere/linksign
+```
 
-# With yarn
+### With pnpm
+
+```bash
+pnpm add @studentsphere/linksign
+```
+
+### With yarn
+
+```bash
 yarn add @studentsphere/linksign
+```
 
-# With bun
+### With bun
+
+```bash
 bun add @studentsphere/linksign
 ```
 
@@ -70,15 +73,15 @@ To dive deeper into how `linksign` works and explore its API, check out these se
 
 <Cards>
   <Card title="CAS Authentication Guide" href="./functionality/auth" />
+
   <Card title="Planning Retrieval Guide" href="./functionality/planning" />
+
   <Card title="Profile Parsing Guide" href="./functionality/profile" />
-  </Cards>
+</Cards>
 
 ## Contributing
 
 `linksign` is an open-source project, and we welcome contributions from the community! If you would like to help:
 
-- 🐛 **Report Issues:** Submit bug reports or request features on our [GitHub Issues](https://github.com/studentsphere-app/linksign/issues).
-- 🛠️ **Pull Requests:** Fork the repository, create a branch, and submit a PR with your fixes or improvements.
-- 🏫 **School Portals:** Check our [Supported Schools](./schools) list and open a PR if you want to help add or update configurations for a campus.
-
+* 🐛 **Report Issues:** Submit bug reports or request features on our [GitHub Issues](https://github.com/studentsphere-app/linksign/issues).
+* 🛠️ **Pull Requests:** Fork the repository, create a branch, and submit a PR with your fixes or improvements.

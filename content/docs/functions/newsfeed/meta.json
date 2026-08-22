@@ -1,0 +1,9 @@
+{
+	"title": "Newsfeed",
+	"pages": [
+		"getPrivateNewsFeedChannels",
+		"getPrivateNewsFeedPosts",
+		"getPublicNewsFeedChannels",
+		"getPublicNewsFeedPosts"
+	]
+}

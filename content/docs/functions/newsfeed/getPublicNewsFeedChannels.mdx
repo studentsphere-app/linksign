@@ -1,0 +1,41 @@
+---
+title: getPublicNewsFeedChannels
+description: Documentation for the getPublicNewsFeedChannels function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPublicNewsFeedChannels` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    lang: {
+      type: `string`,
+      description: "Lang",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPublicNewsFeedChannels } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPublicNewsFeedChannels('SCHOOL_ID', 'lang');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[NewsFeedChannel](/docs/types/newsfeed#newsfeedchannel-interface)[]** object.

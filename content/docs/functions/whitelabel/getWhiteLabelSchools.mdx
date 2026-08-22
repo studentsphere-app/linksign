@@ -1,0 +1,36 @@
+---
+title: getWhiteLabelSchools
+description: Documentation for the getWhiteLabelSchools function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getWhiteLabelSchools` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    appPackage: {
+      type: `string`,
+      description: "App package",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getWhiteLabelSchools } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getWhiteLabelSchools('appPackage');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[WhiteLabelAppSchool](/docs/types/whitelabel#whitelabelappschool-interface)[]** object.

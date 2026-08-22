@@ -1,0 +1,36 @@
+---
+title: getSsoConfig
+description: Documentation for the getSsoConfig function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getSsoConfig` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    domain: {
+      type: `string`,
+      description: "Domain",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getSsoConfig } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getSsoConfig('domain');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[SsoConfig](/docs/types/auth#ssoconfig-type)** object.

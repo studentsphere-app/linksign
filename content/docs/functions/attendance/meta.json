@@ -1,0 +1,9 @@
+{
+	"title": "Attendance",
+	"pages": [
+		"getAbsences",
+		"getAttendanceStatistics",
+		"getSchoolAbsenceTypes",
+		"submitAbsence"
+	]
+}

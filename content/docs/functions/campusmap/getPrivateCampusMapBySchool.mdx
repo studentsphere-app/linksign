@@ -1,0 +1,45 @@
+---
+title: getPrivateCampusMapBySchool
+description: Documentation for the getPrivateCampusMapBySchool function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPrivateCampusMapBySchool` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPrivateCampusMapBySchool } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPrivateCampusMapBySchool('SCHOOL_ID', 'YOUR_TOKEN', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[CampusMapLocation](/docs/types/campusmap#campusmaplocation-interface)[]** object.

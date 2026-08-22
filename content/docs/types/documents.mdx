@@ -1,16 +1,223 @@
 ---
-title: Documents API
-description: Functions and types for the documents module.
+title: Documents
+description: Types and interfaces for the documents module.
 ---
 
-# Documents API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `documents` module.
+This section documents the types and interfaces available in the `documents` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `DocumentRecipient` (Interface)
+
+```typescript
+export interface DocumentRecipient {
+  id: string;
+  category: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  name: string;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for documents functions will be populated here)*
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    category: {
+      type: `string`,
+      description: "Category",
+    },
+    firstname: {
+      type: `string`,
+      description: "Firstname",
+    },
+    lastname: {
+      type: `string`,
+      description: "Lastname",
+    },
+    email: {
+      type: `string`,
+      description: "Email",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+  }}
+/>
+
+---
+
+## `SchoolDocument` (Interface)
+
+```typescript
+export interface SchoolDocument {
+  ID: string;
+  NAME: string;
+  SCHOOL_ID: string;
+  RECIPIENT_ID: string;
+  RECIPIENT_TYPE: string;
+  DIRECTORY_ID: string | null;
+  CREATOR_ID: string;
+  TEMPLATE_ID: string;
+  DOCUMENT_URL: string;
+  DOCUMENT_SENT: boolean;
+  DATE_CREATED: string;
+  RECIPIENTS: DocumentRecipient[];
+  TO_DELETE: boolean;
+  TRAINING_ID: string;
+  TYPE: number;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    RECIPIENT_ID: {
+      type: `string`,
+      description: "Recipient id",
+    },
+    RECIPIENT_TYPE: {
+      type: `string`,
+      description: "Recipient type",
+    },
+    DIRECTORY_ID: {
+      type: `string | null`,
+      description: "Directory id",
+    },
+    CREATOR_ID: {
+      type: `string`,
+      description: "Creator id",
+    },
+    TEMPLATE_ID: {
+      type: `string`,
+      description: "Template id",
+    },
+    DOCUMENT_URL: {
+      type: `string`,
+      description: "Document url",
+    },
+    DOCUMENT_SENT: {
+      type: `boolean`,
+      description: "Document sent",
+    },
+    DATE_CREATED: {
+      type: `string`,
+      description: "Date created",
+    },
+    RECIPIENTS: {
+      type: `DocumentRecipient[]`,
+      description: "Recipients",
+    },
+    TO_DELETE: {
+      type: `boolean`,
+      description: "To delete",
+    },
+    TRAINING_ID: {
+      type: `string`,
+      description: "Training id",
+    },
+    TYPE: {
+      type: `number`,
+      description: "Type",
+    },
+  }}
+/>
+
+---
+
+## `Documents` (Interface)
+
+```typescript
+export interface Documents {
+  toSign: T[];
+  complete: T[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    toSign: {
+      type: `T[]`,
+      description: "To sign",
+    },
+    complete: {
+      type: `T[]`,
+      description: "Complete",
+    },
+  }}
+/>
+
+---
+
+## `StudentAttachment` (Interface)
+
+```typescript
+export interface StudentAttachment {
+  ID: string;
+  NAME: string;
+  URL: string;
+  DATE_CREATED: string;
+  SCHOOL_ID: string;
+  STUDENT_ID: string;
+  TYPE: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    URL: {
+      type: `string`,
+      description: "Url",
+    },
+    DATE_CREATED: {
+      type: `string`,
+      description: "Date created",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    STUDENT_ID: {
+      type: `string`,
+      description: "Student id",
+    },
+    TYPE: {
+      type: `string`,
+      description: "Type",
+    },
+  }}
+/>
+
+---
+

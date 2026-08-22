@@ -1,16 +1,259 @@
 ---
-title: Whitelabel API
-description: Functions and types for the whitelabel module.
+title: Whitelabel
+description: Types and interfaces for the whitelabel module.
 ---
 
-# Whitelabel API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `whitelabel` module.
+This section documents the types and interfaces available in the `whitelabel` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `WhiteLabelApp` (Interface)
+
+```typescript
+export interface WhiteLabelApp {
+  id: string;
+  package: string;
+  appName: string;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for whitelabel functions will be populated here)*
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    package: {
+      type: `string`,
+      description: "Package",
+    },
+    appName: {
+      type: `string`,
+      description: "App name",
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelAppTheme` (Interface)
+
+```typescript
+export interface WhiteLabelAppTheme {
+  primaryColor?: string;
+  secondaryColor?: string;
+  tabBarColor?: string;
+  tabBarIconColor?: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    primaryColor: {
+      type: `string`,
+      description: "Primary color",
+      optional: true,
+    },
+    secondaryColor: {
+      type: `string`,
+      description: "Secondary color",
+      optional: true,
+    },
+    tabBarColor: {
+      type: `string`,
+      description: "Tab bar color",
+      optional: true,
+    },
+    tabBarIconColor: {
+      type: `string`,
+      description: "Tab bar icon color",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelAppMenu` (Interface)
+
+```typescript
+export interface WhiteLabelAppMenu {
+  key: string;
+  enabled: boolean;
+  order: number;
+  type?: string;
+  icon?: string[] | null;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    key: {
+      type: `string`,
+      description: "Key",
+    },
+    enabled: {
+      type: `boolean`,
+      description: "Enabled",
+    },
+    order: {
+      type: `number`,
+      description: "Order",
+    },
+    type: {
+      type: `string`,
+      description: "Type",
+      optional: true,
+    },
+    icon: {
+      type: `string[] | null`,
+      description: "Icon",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelAppMenus` (Interface)
+
+```typescript
+export interface WhiteLabelAppMenus {
+  principal?: WhiteLabelAppMenu[];
+  plus?: WhiteLabelAppMenu[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    principal: {
+      type: `WhiteLabelAppMenu[]`,
+      description: "Principal",
+      optional: true,
+    },
+    plus: {
+      type: `WhiteLabelAppMenu[]`,
+      description: "Plus",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelAppSchool` (Interface)
+
+```typescript
+export interface WhiteLabelAppSchool {
+  schoolId: string;
+  name: string;
+  logoUrl?: string | null;
+  theme?: WhiteLabelAppTheme;
+  whiteLabelEnabled: boolean;
+  menus?: WhiteLabelAppMenus;
+  publicMenus?: WhiteLabelAppMenus;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    logoUrl: {
+      type: `string | null`,
+      description: "Logo url",
+      optional: true,
+    },
+    theme: {
+      type: `WhiteLabelAppTheme`,
+      description: "Theme",
+      optional: true,
+    },
+    whiteLabelEnabled: {
+      type: `boolean`,
+      description: "White label enabled",
+    },
+    menus: {
+      type: `WhiteLabelAppMenus`,
+      description: "Menus",
+      optional: true,
+    },
+    publicMenus: {
+      type: `WhiteLabelAppMenus`,
+      description: "Public menus",
+      optional: true,
+    },
+  }}
+/>
+
+---
+
+## `WhiteLabelAppConfiguration` (Interface)
+
+```typescript
+export interface WhiteLabelAppConfiguration {
+  packageId: string;
+  name: string;
+  logoUrl?: string | null;
+  theme?: WhiteLabelAppTheme;
+  whiteLabelEnabled: boolean;
+  publicEnabled: boolean;
+  schoolIds: WhiteLabelAppSchool[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    packageId: {
+      type: `string`,
+      description: "Package id",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    logoUrl: {
+      type: `string | null`,
+      description: "Logo url",
+      optional: true,
+    },
+    theme: {
+      type: `WhiteLabelAppTheme`,
+      description: "Theme",
+      optional: true,
+    },
+    whiteLabelEnabled: {
+      type: `boolean`,
+      description: "White label enabled",
+    },
+    publicEnabled: {
+      type: `boolean`,
+      description: "Public enabled",
+    },
+    schoolIds: {
+      type: `WhiteLabelAppSchool[]`,
+      description: "School ids",
+    },
+  }}
+/>
+
+---
+

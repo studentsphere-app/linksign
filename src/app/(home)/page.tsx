@@ -3,103 +3,32 @@
 import {
 	ArrowRight,
 	ArrowUpRight,
+	BookOpen,
+	Briefcase,
 	Calendar,
 	Check,
+	ClipboardCheck,
 	Copy,
-	Globe,
+	FileText,
 	Layers,
+	Library,
 	Lock,
-	Sparkles,
+	MapIcon,
+	Newspaper,
+	PenTool,
+	PieChart,
+	School,
+	Tag,
 	Terminal,
+	User,
+	Users,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { GithubIcon } from "../../components/icons";
 
-type Tab = "quickstart" | "auth" | "planning";
-
-const schoolsList = [
-	{ name: "3A", logo: "/schools/3a.png", url: "https://ecole3a.edu/" },
-	{
-		name: "American Business School Paris",
-		logo: "/schools/abcp.png",
-		url: "https://www.absparis.org/",
-	},
-	{
-		name: "Business Science Institute",
-		logo: "/schools/bsi.png",
-		url: "https://www.business-science-institute.com/",
-	},
-	{
-		name: "CNVA",
-		logo: "/schools/cnva.png",
-		url: "https://le-conservatoire.com/",
-	},
-	{ name: "ECM", logo: "/schools/ecm.png", url: "https://ecm-france.fr/" },
-	{ name: "EMI", logo: "/schools/emi.png", url: "https://www.emi-ecoles.com/" },
-	{ name: "EPSI", logo: "/schools/epsi.png", url: "https://www.epsi.fr/" },
-	{ name: "ESA", logo: "/schools/esa.png", url: "https://www.esa-igensia.ma/" },
-	{ name: "ESAIL", logo: "/schools/esail.png", url: "https://www.esail.fr/" },
-	{
-		name: "ESAM",
-		logo: "/schools/esam.png",
-		url: "https://www.esam-ecoles.com/",
-	},
-	{ name: "ICD", logo: "/schools/icd.png", url: "https://www.icd-ecoles.com/" },
-	{ name: "ICL", logo: "/schools/icl.png", url: "https://www.icl.fr/" },
-	{
-		name: "IDRAC",
-		logo: "/schools/idrac.png",
-		url: "https://www.ecoles-idrac.com/",
-	},
-	{
-		name: "IEFT",
-		logo: "/schools/ieft.png",
-		url: "https://www.ieftourisme.com/",
-	},
-	{ name: "IET", logo: "/schools/iet.png", url: "https://www.iet.fr/" },
-	{ name: "IFAG", logo: "/schools/ifag.png", url: "https://www.ifag.com/" },
-	{ name: "IGEFI", logo: "/schools/igefi.png", url: "https://www.igefi.fr/" },
-	{
-		name: "IGENSIA RH",
-		logo: "/schools/igensiarh.png",
-		url: "https://www.igensia-rh.fr/",
-	},
-	{
-		name: "IHEDREA",
-		logo: "/schools/ihedrea.png",
-		url: "https://www.ihedrea.org/",
-	},
-	{ name: "ILERI", logo: "/schools/ileri.png", url: "https://www.ileri.fr/" },
-	{ name: "IMIS", logo: "/schools/imis.png", url: "https://www.imislyon.com/" },
-	{
-		name: "IMSI",
-		logo: "/schools/imsi.png",
-		url: "https://www.imsi-ecoles.com/",
-	},
-	{ name: "IPI", logo: "/schools/ipi.png", url: "https://www.ipi-ecoles.com/" },
-	{
-		name: "ISCPA",
-		logo: "/schools/iscpa.png",
-		url: "https://www.iscpa-ecoles.com/",
-	},
-	{
-		name: "ISMM",
-		logo: "/schools/ismm.png",
-		url: "https://www.formation-montessori.fr/",
-	},
-	{
-		name: "SUP DE COM",
-		logo: "/schools/supdecom.png",
-		url: "https://www.ecoles-supdecom.com/",
-	},
-	{
-		name: "VIVA MUNDI",
-		logo: "/schools/vivamundi.png",
-		url: "https://vivamundi.fr/",
-	},
-	{ name: "WIS", logo: "/schools/wis.png", url: "https://www.wis-ecoles.com/" },
-];
+type Tab = "quickstart" | "auth" | "planning" | "attendance" | "documents";
 
 export default function HomePage() {
 	const [copiedInstall, setCopiedInstall] = useState(false);
@@ -117,44 +46,114 @@ export default function HomePage() {
 	};
 
 	const codeSnippets: Record<Tab, string> = {
-		quickstart: `import { loginWithCredentials, getPlanning, getProfile } from 'linksign';
+		quickstart: `import { loginWithCredentials, getProfile, getPlanning } from 'linksign';
  
 async function run() {
-  // 1. Authenticate with Edusign CAS
-  const user = await loginWithCredentials('epsi', 'jean.dupont', 'password');
-  console.log(\`Hello, \${user.firstname}!\`);
+  // 1. Authenticate with Edusign
+  const session = await loginWithCredentials('exemple@exemple.com', 'password');
  
   // 2. Fetch student profile details
-  const profile = await getProfile('epsi', user.token);
-  console.log(\`Campus: \${profile.city}\`);
+  const profile = await getProfile(session.TOKEN);
+  console.log(\`Hello, \${profile.FIRSTNAME} \${profile.LASTNAME}!\`);
+  console.log(\`School: \${profile.SCHOOL?.NAME}\`);
  
   // 3. Retrieve student schedule
-  const lessons = await getPlanning('epsi', user.token);
+  const lessons = await getPlanning(
+    session.TOKEN,
+    new Date('2026-09-01').toISOString(),
+    new Date('2026-09-30').toISOString()
+  );
   console.log(\`Retrieved \${lessons.length} courses\`);
 }
  
 run();`,
-		auth: `import { loginWithCredentials } from 'linksign';
+		auth: `import { loginWithCredentials, verifyPin, getSchools } from 'linksign';
+import * as readline from 'node:readline/promises';
  
-// Authenticate and retrieve a Edusign session
-const session = await loginWithCredentials(
-  'idrac', // school id
-  'jean.dupont', // student email
-  'my_secure_password' // password
-);
+async function runAuth() {
+  // 1. Initial login (supports multi-accounts)
+  const session = await loginWithCredentials('aconique@gmail.com', 'password');
  
-console.log('Session token:', session.token);`,
-		planning: `import { getPlanning } from 'linksign';
+  if (session.NUMBER_OF_ACCOUNTS > 1) {
+    console.log('Verification code sent to email!');
+    
+    // 2. Prompt for PIN via terminal
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    const pin = await rl.question('Enter PIN: ');
+    rl.close();
  
-// Retrieve timetable planning within a custom date range
-const lessons = await getPlanning('epsi', session.token, {
-  start: new Date('2026-09-01'),
-  end: new Date('2026-09-30')
-});
+    // 3. Verify with email OTP code
+    const verified = await verifyPin('aconique@gmail.com', pin);
  
-for (const lesson of lessons) {
-  console.log(\`[\${lesson.start}] \${lesson.subject} by \${lesson.teacher}\`);
-}`,
+    // 3. Get available schools and select one
+    const schools = await getSchools(verified.v2Token);
+    console.log(\`Available schools: \${schools.map(s => s.SCHOOL.NAME).join(', ')}\`);
+ 
+    // The selected school object contains the final tokens
+    console.log('Token:', schools[0].TOKEN);
+    console.log('Refresh Token:', schools[0].REFRESH_TOKEN);
+  } else {
+    console.log('Token:', session.TOKEN);
+    console.log('Refresh Token:', session.REFRESH_TOKEN);
+  }
+}
+ 
+runAuth();`,
+		planning: `import { getPlanning, getCoursesBetweenDates } from 'linksign';
+ 
+async function runPlanning(token: string) {
+  const start = new Date('2026-09-01').toISOString();
+  const end = new Date('2026-09-07').toISOString();
+ 
+  // 1. Fetch raw planning events
+  const events = await getPlanning(token, start, end);
+  console.log(\`Found \${events.length} events in planning\`);
+ 
+  // 2. Fetch detailed courses
+  const courses = await getCoursesBetweenDates(token, start, end);
+ 
+  for (const course of courses) {
+    const date = new Date(course.START).toLocaleString();
+    console.log(\`[\${date}] \${course.NAME}\`);
+  }
+}
+ 
+runPlanning('your_token_here');`,
+		attendance: `import { getAttendanceStatistics, getAbsences } from 'linksign';
+ 
+async function runAttendance(token: string) {
+  const start = new Date('2026-09-01').toISOString();
+  const end = new Date('2026-09-30').toISOString();
+ 
+  // 1. Get presence/absence counts
+  const stats = await getAttendanceStatistics(token, start, end);
+  console.log(\`Presences: \${stats.presences}\`);
+  console.log(\`Absences: \${stats.absences}\`);
+ 
+  // 2. Get detailed absences list
+  const absences = await getAbsences(token, start, end);
+  console.log(\`Found \${absences.length} absence(s)\`);
+}
+ 
+runAttendance('your_token_here');`,
+		documents: `import { getDocuments, getStudentAttachments } from 'linksign';
+ 
+async function runDocuments(token: string) {
+  // 1. Get documents to sign and completed documents
+  const documents = await getDocuments(token);
+  console.log(\`\${documents.toSign.length} document(s) to sign\`);
+  console.log(\`\${documents.complete.length} completed document(s)\`);
+ 
+  for (const doc of documents.toSign) {
+    console.log(\`- Action required: \${doc.NAME}\`);
+  }
+ 
+  // 2. Get student attachments
+  const attachments = await getStudentAttachments(token);
+  console.log(\`Found \${attachments.length} student attachment(s)\`);
+}
+ 
+runDocuments('your_token_here');`,
 	};
 
 	const terminalOutputs: Record<Tab, React.ReactNode> = {
@@ -164,11 +163,11 @@ for (const lesson of lessons) {
 					$ npx tsx quickstart.ts
 				</div>
 				<div className="text-zinc-700 dark:text-zinc-300">
-					Hello, Jean Dupont!
+					Hello, Jules Martin!
 				</div>
-				<div className="text-zinc-700 dark:text-zinc-300">Campus: Lille</div>
+				<div className="text-zinc-700 dark:text-zinc-300">School: Exemple</div>
 				<div className="text-zinc-700 dark:text-zinc-300">
-					Retrieved 14 courses
+					Retrieved 10 courses
 				</div>
 			</div>
 		),
@@ -177,10 +176,26 @@ for (const lesson of lessons) {
 				<div className="text-zinc-500 font-medium select-none">
 					$ npx tsx authentication.ts
 				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					Verification code sent to email!
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					Enter PIN:{" "}
+					<span className="text-zinc-400 dark:text-zinc-500">894321</span>
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					Available schools: Exemple, EPSI Paris, WIS Paris
+				</div>
 				<div className="text-zinc-700 dark:text-zinc-300 break-all">
-					Session token:{" "}
+					Token:{" "}
 					<span className="text-amber-600 dark:text-amber-300">
-						eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.W2siY2FzLXAiLCJq...
+						eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+					</span>
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300 break-all">
+					Refresh Token:{" "}
+					<span className="text-amber-600 dark:text-amber-300">
+						def50200543f8e53a510c592237e...
 					</span>
 				</div>
 			</div>
@@ -191,13 +206,62 @@ for (const lesson of lessons) {
 					$ npx tsx planning.ts
 				</div>
 				<div className="text-zinc-700 dark:text-zinc-300">
-					[2026-09-01T08:30:00Z] Algorithmique by Jean DUPONT
+					Found 6 events in planning
 				</div>
 				<div className="text-zinc-700 dark:text-zinc-300">
-					[2026-09-01T10:30:00Z] Bases de données by Marie MARTIN
+					[2026-09-01, 08:30:00] Développement Web Avancé
 				</div>
 				<div className="text-zinc-700 dark:text-zinc-300">
-					[2026-09-02T13:30:00Z] Développement Web by Pierre LEROY
+					[2026-09-01, 13:30:00] Architecture des SI
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					[2026-09-02, 09:00:00] Gestion de Projet Agile
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					[2026-09-02, 14:00:00] Design UX/UI
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					[2026-09-03, 10:00:00] Sécurité des Applications
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					[2026-09-03, 15:30:00] Masterclass IA
+				</div>
+			</div>
+		),
+		attendance: (
+			<div className="flex flex-col gap-1.5">
+				<div className="text-zinc-500 font-medium select-none">
+					$ npx tsx attendance.ts
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">Presences: 128</div>
+				<div className="text-zinc-700 dark:text-zinc-300">Absences: 3</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					Found 3 absence(s)
+				</div>
+			</div>
+		),
+		documents: (
+			<div className="flex flex-col gap-1.5">
+				<div className="text-zinc-500 font-medium select-none">
+					$ npx tsx documents.ts
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					3 document(s) to sign
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					12 completed document(s)
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					- Action required: Règlement intérieur 2026-2027
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					- Action required: Charte informatique
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					- Action required: Contrat d'alternance
+				</div>
+				<div className="text-zinc-700 dark:text-zinc-300">
+					Found 5 student attachment(s)
 				</div>
 			</div>
 		),
@@ -267,32 +331,27 @@ for (const lesson of lessons) {
 					</div>
 
 					{/* Heading */}
-					<h1 className="text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-fd-foreground mb-6 max-w-3xl mx-auto leading-[1.1]">
-						A simple wrapper for{" "}
-						<span className="text-fd-primary">Edusign</span>
+					<h1 className="text-4xl sm:text-5xl md:text-7xl font-medium tracking-tight text-fd-foreground mb-6 max-w-3xl mx-auto leading-[1.1] flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+						<span>A simple wrapper for</span>
+						<img
+							src="/logos/edusign.svg"
+							alt="edusign logo"
+							className="h-10 sm:h-12 md:h-16 lg:h-20 dark:invert"
+						/>
 					</h1>
 
-					{/* Subtitle */}
 					<p className="text-base sm:text-lg text-fd-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-						Interact programmatically with school portals in the{" "}
+						Build powerful integrations directly with{" "}
 						<a
-							href="https://www.competences-developpement.com"
+							href="https://www.edusign.com"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="text-fd-foreground font-medium underline underline-offset-4 hover:text-fd-primary transition-colors"
 						>
-							Compétences & Développement (C&D)
-						</a>{" "}
-						and{" "}
-						<a
-							href="https://www.igensia.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-fd-foreground font-medium underline underline-offset-4 hover:text-fd-primary transition-colors"
-						>
-							IGENSIA Education
-						</a>{" "}
-						groups.
+							Edusign
+						</a>
+						. Handle authentication, planning, attendance, and more with a
+						fully-typed, zero-dependency wrapper.
 					</p>
 
 					{/* CTA Buttons */}
@@ -395,11 +454,19 @@ for (const lesson of lessons) {
 
 						{/* IDE Tabs */}
 						<div className="flex bg-fd-card/25 border-b border-fd-border text-xs font-mono overflow-x-auto">
-							{(["quickstart", "auth", "planning"] as Tab[]).map((tab) => (
+							{(
+								[
+									"quickstart",
+									"auth",
+									"planning",
+									"attendance",
+									"documents",
+								] as Tab[]
+							).map((tab) => (
 								<button
 									key={tab}
 									onClick={() => setActiveTab(tab)}
-									className={`px-4 py-2.5 border-r border-fd-border transition-colors flex items-center gap-2 cursor-pointer ${
+									className={`px-4 py-2.5 border-r border-fd-border transition-colors flex items-center gap-2 cursor-pointer whitespace-nowrap ${
 										activeTab === tab
 											? "bg-fd-background text-fd-foreground border-b border-b-fd-primary"
 											: "text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-card/20"
@@ -411,17 +478,19 @@ for (const lesson of lessons) {
 									{tab === "quickstart" && "quickstart.ts"}
 									{tab === "auth" && "authentication.ts"}
 									{tab === "planning" && "planning.ts"}
+									{tab === "attendance" && "attendance.ts"}
+									{tab === "documents" && "documents.ts"}
 								</button>
 							))}
 						</div>
 
 						{/* IDE Code Content */}
-						<div className="p-5 font-mono text-[13px] md:text-sm text-fd-foreground bg-fd-card/40 overflow-x-auto leading-relaxed max-h-[380px] transition-colors duration-200">
+						<div className="p-5 font-mono text-[13px] md:text-sm text-fd-foreground bg-fd-card/40 overflow-x-auto leading-relaxed max-h-95 transition-colors duration-200">
 							<pre>
 								{codeSnippets[activeTab].split("\n").map((line, i) => {
 									const tokenize = (lineText: string) => {
 										const regex =
-											/(\/\/.*)|('(?:\\.|[^'])*'|"(?:\\.|[^"])*"|`(?:\\.|[^`])*`)|([a-zA-Z_$][a-zA-Z0-9_$]*)|(\s+)|([^\s\w])/g;
+											/(\/\/.*)|('(?:\\.|[^'])*'|"(?:\\.|[^"])*"|`(?:\\.|[^`])*`)|([a-zA-Z_$][a-zA-Z0-9_$]*)|([0-9]+(?:\.[0-9]+)?)|(\s+)|([^\s\w])/g;
 										let match;
 										const elements = [];
 										let key = 0;
@@ -432,7 +501,8 @@ for (const lesson of lessons) {
 										}
 
 										while ((match = regex.exec(lineText)) !== null) {
-											const [full, comment, str, word, space, symbol] = match;
+											const [full, comment, str, word, num, space, symbol] =
+												match;
 											if (comment) {
 												elements.push(
 													<span
@@ -463,7 +533,7 @@ for (const lesson of lessons) {
 														</span>,
 													);
 												} else if (
-													/^(loginWithCredentials|getPlanning|getProfile|log)$/.test(
+													/^(loginWithCredentials|getPlanning|getProfile|log|verifyPin|getSchools|getCoursesBetweenDates|getAttendanceStatistics|getAbsences|getDocuments|getStudentAttachments)$/.test(
 														word,
 													)
 												) {
@@ -482,6 +552,15 @@ for (const lesson of lessons) {
 														</span>,
 													);
 												}
+											} else if (num) {
+												elements.push(
+													<span
+														key={key++}
+														className="text-blue-500 dark:text-blue-400"
+													>
+														{num}
+													</span>,
+												);
 											} else if (space) {
 												elements.push(<span key={key++}>{space}</span>);
 											} else if (symbol) {
@@ -518,7 +597,7 @@ for (const lesson of lessons) {
 							<Terminal className="w-3.5 h-3.5" />
 							<span>Terminal Output</span>
 						</div>
-						<div className="p-5 font-mono text-[12px] bg-zinc-950/5 dark:bg-black/40 text-zinc-800 dark:text-zinc-300 border-t border-fd-border overflow-x-auto min-h-[110px] leading-relaxed transition-colors duration-200">
+						<div className="p-5 font-mono text-[12px] bg-zinc-950/5 dark:bg-black/40 text-zinc-800 dark:text-zinc-300 border-t border-fd-border overflow-x-auto min-h-27.5 leading-relaxed transition-colors duration-200">
 							{terminalOutputs[activeTab]}
 						</div>
 					</div>
@@ -528,45 +607,41 @@ for (const lesson of lessons) {
 				<div className="max-w-(--fd-layout-width) w-full mx-auto mt-8 relative z-10">
 					<div className="text-center mb-12">
 						<h2 className="text-2xl md:text-3xl font-medium tracking-tight text-fd-foreground">
-							Built with modern, lightweight design principles
+							Unlock the full power of Edusign
 						</h2>
 						<p className="text-fd-muted-foreground text-sm mt-2 max-w-lg mx-auto">
-							A zero-dependency library designed to integrate with school
-							portals from the Compétences & Développement and IGENSIA Education
-							groups.
+							A zero-dependency library designed to be the ultimate,
+							comprehensive wrapper for Edusign.
 						</p>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 text-left border border-fd-border bg-fd-card/25 p-8 md:p-12 rounded-2xl transition-colors duration-200">
-						<div className="flex gap-4">
-							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
-								<Lock className="w-4 h-4 text-fd-primary" />
-							</div>
-							<div>
-								<h3 className="font-semibold text-fd-foreground text-sm">
-									CAS Authentication Automation
-								</h3>
-								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
-									Handles programmatic authentication flows, parses redirect
-									sequences, and retrieves session tokens to access school
-									portal services.
-								</p>
-							</div>
-						</div>
-
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 text-left border border-fd-border bg-fd-card/25 p-8 md:p-12 rounded-2xl transition-colors duration-200">
 						<div className="flex gap-4">
 							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
 								<Layers className="w-4 h-4 text-fd-primary" />
 							</div>
 							<div>
 								<h3 className="font-semibold text-fd-foreground text-sm">
-									Zero Runtime Dependencies
+									Zero Dependencies
 								</h3>
 								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
-									No third-party packages or native Node-only packages required.
-									It is built strictly on standard Web APIs (like native fetch)
-									to guarantee it imports, initializes, and runs instantly in
-									any JavaScript or TypeScript project environment.
+									Zero runtime dependencies. Built strictly on native Web APIs
+									(fetch) to run instantly anywhere.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<Lock className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Universal Authentication
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Universal Authentication supporting Passwords, Microsoft
+									OAuth, CAS, and custom SSO domains.
 								</p>
 							</div>
 						</div>
@@ -577,99 +652,206 @@ for (const lesson of lessons) {
 							</div>
 							<div>
 								<h3 className="font-semibold text-fd-foreground text-sm">
-									Timetable & Schedule Parser
+									Planning & Schedule
 								</h3>
 								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
-									Queries academic planning and schedule APIs with dynamic
-									custom date ranges. It parses and resolves the timetable
-									endpoints into fully typed TypeScript lists of course modules,
-									teacher names, and classroom locations.
+									Timetable & schedule parser to query academic courses with
+									custom date ranges.
 								</p>
 							</div>
 						</div>
 
 						<div className="flex gap-4">
 							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
-								<Globe className="w-4 h-4 text-fd-primary" />
+								<ClipboardCheck className="w-4 h-4 text-fd-primary" />
 							</div>
 							<div>
 								<h3 className="font-semibold text-fd-foreground text-sm">
-									C&D and Igensia Compatibility
+									Attendance & Lateness
 								</h3>
 								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
-									Designed exclusively to route logins and payloads for all 28
-									compatible schools: 3A, American Business School Paris,
-									Business Science Institute, CNVA, ECM, EMI, EPSI, ESA, ESAIL,
-									ESAM, ICD, ICL, IDRAC, IEFT, IET, IFAG, IGEFI, IGENSIA RH,
-									IHEDREA, ILERI, IMIS, IMSI, IPI, ISCPA, ISMM, SUP DE COM, VIVA
-									MUNDI, and WIS.
+									Monitor detailed presence, absences, and lateness records
+									typed via TypeScript.
 								</p>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				{/* Supported Schools Grid */}
-				<div className="max-w-(--fd-layout-width) w-full mx-auto mt-20 text-center relative z-10">
-					<div className="text-center mb-12">
-						<h2 className="text-2xl md:text-3xl font-medium tracking-tight text-fd-foreground">
-							Compatible with 20+ school
-						</h2>
-						<p className="text-fd-muted-foreground text-sm mt-2 max-w-lg mx-auto">
-							Easily route authentication and planning requests across C&D and
-							Igensia educational groups.
-						</p>
-					</div>
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<PenTool className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Digital Signatures
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Digitally sign attendance sheets and view past signature
+									payloads.
+								</p>
+							</div>
+						</div>
 
-					{/* Group Logos */}
-					<div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 mb-12">
-						<a
-							href="https://www.competences-developpement.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="hover:opacity-80 transition-opacity"
-						>
-							<img
-								src="/logos/cd.svg"
-								alt="Compétences & Développement"
-								className="h-10 md:h-12 w-auto object-contain dark:invert"
-							/>
-						</a>
-						<a
-							href="https://www.igensia.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="hover:opacity-80 transition-opacity"
-						>
-							<img
-								src="/logos/igensia.svg"
-								alt="IGENSIA Education"
-								className="h-10 md:h-12 w-auto object-contain dark:invert"
-							/>
-						</a>
-					</div>
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<BookOpen className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Homeworks & Grades
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Retrieve assignments, homeworks, and detailed grades
+									evaluation endpoints.
+								</p>
+							</div>
+						</div>
 
-					<div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-x-6 gap-y-10 mt-8">
-						{schoolsList.map((school) => (
-							<a
-								key={school.name}
-								href={school.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex flex-col items-center text-center group hover:scale-105 transition-transform duration-200"
-							>
-								<div className="h-16 w-full flex items-center justify-center mb-2">
-									<img
-										src={school.logo}
-										alt={school.name}
-										className="h-12 max-w-full object-contain transition-opacity duration-200"
-									/>
-								</div>
-								<span className="text-[10px] font-semibold text-fd-muted-foreground group-hover:text-fd-foreground transition-colors duration-200 select-none">
-									{school.name}
-								</span>
-							</a>
-						))}
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<FileText className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Documents & Attachments
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Download school attachments and interact with documents that
+									require signing.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<Newspaper className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Announcements & News
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Parse latest announcements, alerts, and news published by the
+									administration.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<MapIcon className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Campus Maps
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Fetch campus locations, interactive maps, and classroom
+									directories.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<Users className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Contacts Directory
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Browse the school's administration and teachers directory
+									seamlessly.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<User className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Student Profile
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Access student profile.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<PieChart className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Satisfaction Surveys
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Retrieve and submit forms, satisfaction surveys, and school
+									evaluations.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<Library className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Knowledge Base
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Search and query the school's internal knowledge base and FAQ.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<School className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Schools Metadata
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Fetch school metadata, logos, group IDs, and multischool
+									account mapping.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<Briefcase className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									Continuing Education
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Access continuing education and professional training modules.
+								</p>
+							</div>
+						</div>
+
+						<div className="flex gap-4">
+							<div className="w-8 h-8 rounded-lg bg-fd-card border border-fd-border flex items-center justify-center shrink-0">
+								<Tag className="w-4 h-4 text-fd-primary" />
+							</div>
+							<div>
+								<h3 className="font-semibold text-fd-foreground text-sm">
+									White-label Support
+								</h3>
+								<p className="text-fd-muted-foreground text-xs mt-1.5 leading-relaxed">
+									Full support for Edusign's whitelabel applications and custom
+									endpoints.
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -684,12 +866,10 @@ for (const lesson of lessons) {
 							@studentsphere/linksign
 						</code>
 						, is an independent open-source tool. It is not affiliated with,
-						authorized, maintained, sponsored, or endorsed by the Compétences &
-						Développement (C&D) group, IGENSIA Education, or the developers of
-						the EdusignServices platform. All trademarks, logos, and brand names
-						are the property of their respective owners. Their mention here is
-						strictly for identification purposes and does not imply any
-						association.
+						authorized, maintained, sponsored, or endorsed by Edusign or its
+						developers. All trademarks, logos, and brand names are the property
+						of their respective owners. Their mention here is strictly for
+						identification purposes and does not imply any association.
 					</p>
 					<p>
 						This tool is provided strictly to facilitate interoperability. The
@@ -699,7 +879,7 @@ for (const lesson of lessons) {
 						terms of service. The software is provided &quot;as is&quot;,
 						without warranty of any kind. The developer assumes no liability for
 						account suspensions, access blocks, or any legal actions taken by
-						the aforementioned groups resulting from the use of this tool.
+						Edusign resulting from the use of this tool.
 					</p>
 					<p>
 						This project is meant to help users interact with their own data

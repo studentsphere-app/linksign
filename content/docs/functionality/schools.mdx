@@ -1,0 +1,27 @@
+---
+title: Schools
+description: Documentation for the schools service.
+---
+
+This page documents the functionalities provided by the `schools.ts` file.
+
+## Exported Functions
+
+- `getSchools`
+- `getSchoolFeatures`
+
+## Example Usage
+
+```typescript
+import { getSchools, getSchoolFeatures } from "@studentsphere/linksign";
+
+async function run() {
+  const schools = await getSchools('YOUR_TOKEN');
+  console.log(schools);
+
+  const schoolFeatures = await getSchoolFeatures('YOUR_TOKEN');
+  console.log(schoolFeatures);
+}
+
+run().catch(console.error);
+```

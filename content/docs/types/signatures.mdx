@@ -1,16 +1,102 @@
 ---
-title: Signatures API
-description: Functions and types for the signatures module.
+title: Signatures
+description: Types and interfaces for the signatures module.
 ---
 
-# Signatures API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `signatures` module.
+This section documents the types and interfaces available in the `signatures` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `SignByQRCodeRequest` (Interface)
+
+```typescript
+export interface SignByQRCodeRequest {
+  signature: string;
+  courseId: string;
+  UUID: string;
+  Model: string;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for signatures functions will be populated here)*
+<TypeTable
+  type={{
+    signature: {
+      type: `string`,
+      description: "Signature",
+    },
+    courseId: {
+      type: `string`,
+      description: "Course id",
+    },
+    UUID: {
+      type: `string`,
+      description: "Uuid",
+    },
+    Model: {
+      type: `string`,
+      description: "Model",
+    },
+  }}
+/>
+
+---
+
+## `SignByEmailRequest` (Interface)
+
+```typescript
+export interface SignByEmailRequest {
+  studentId: string;
+  schoolId: string;
+  base64Signature: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    studentId: {
+      type: `string`,
+      description: "Student id",
+    },
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    base64Signature: {
+      type: `string`,
+      description: "Base64signature",
+    },
+  }}
+/>
+
+---
+
+## `SignByCodeRequest` (Interface)
+
+```typescript
+export interface SignByCodeRequest {
+  studentId: string;
+  base64Signature: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    studentId: {
+      type: `string`,
+      description: "Student id",
+    },
+    base64Signature: {
+      type: `string`,
+      description: "Base64signature",
+    },
+  }}
+/>
+
+---
+

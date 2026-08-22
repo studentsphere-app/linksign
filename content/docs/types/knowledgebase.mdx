@@ -1,16 +1,63 @@
 ---
-title: Knowledgebase API
-description: Functions and types for the knowledgebase module.
+title: Knowledgebase
+description: Types and interfaces for the knowledgebase module.
 ---
 
-# Knowledgebase API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `knowledgebase` module.
+This section documents the types and interfaces available in the `knowledgebase` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `KnowledgeBasePost` (Interface)
+
+```typescript
+export interface KnowledgeBasePost {
+  id: string;
+  type: "category" | "text" | string;
+  title: string;
+  text: string | Record<string, string | null> | null;
+  postCount?: number;
+  imageCoverUrl?: string | null;
+  children?: KnowledgeBasePost[];
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for knowledgebase functions will be populated here)*
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    type: {
+      type: `"category" | "text" | string`,
+      description: "Type",
+    },
+    title: {
+      type: `string`,
+      description: "Title",
+    },
+    text: {
+      type: `string | Record<string, string | null> | null`,
+      description: "Text",
+    },
+    postCount: {
+      type: `number`,
+      description: "Post count",
+      optional: true,
+    },
+    imageCoverUrl: {
+      type: `string | null`,
+      description: "Image cover url",
+      optional: true,
+    },
+    children: {
+      type: `KnowledgeBasePost[]`,
+      description: "Children",
+      optional: true,
+    },
+  }}
+/>
+
+---
+

@@ -1,0 +1,4 @@
+{
+	"title": "Profile",
+	"pages": ["getNotificationsPreferences", "getProfile", "getSchoolsByToken"]
+}

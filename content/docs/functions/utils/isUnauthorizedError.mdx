@@ -1,0 +1,41 @@
+---
+title: isUnauthorizedError
+description: Documentation for the isUnauthorizedError function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `isUnauthorizedError` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    error: {
+      type: `unknown`,
+      description: "Error",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { isUnauthorizedError } from "@studentsphere/linksign";
+
+try {
+  // Simulate an API call
+  // const data = await someApiCall();
+  throw new Error("Simulated API failure");
+} catch (e) {
+  if (isUnauthorizedError(e)) {
+    console.log("This is a known Edusign API error!", e);
+  } else {
+    console.log("Unknown error occurred");
+  }
+}
+```
+
+## Return Value
+
+Returns a **boolean** object.

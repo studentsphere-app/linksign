@@ -1,15 +1,31 @@
 ---
 title: Documents
-description: Retrieve available documents.
+description: Documentation for the documents service.
 ---
 
-# Documents
+This page documents the functionalities provided by the `documents.ts` file.
 
-Retrieve the list of documents available to the student.
+## Exported Functions
 
-```ts
-import { getDocuments } from '@studentsphere/linksign';
+- `getDocuments`
+- `getStudentAttachments`
+- `getProfessors`
 
-const documents = await getDocuments(instance);
-console.log(documents);
+## Example Usage
+
+```typescript
+import { getDocuments, getStudentAttachments, getProfessors } from "@studentsphere/linksign";
+
+async function run() {
+  const documents = await getDocuments('YOUR_TOKEN');
+  console.log(documents);
+
+  const studentAttachments = await getStudentAttachments('YOUR_TOKEN');
+  console.log(studentAttachments);
+
+  const professors = await getProfessors('YOUR_TOKEN');
+  console.log(professors);
+}
+
+run().catch(console.error);
 ```

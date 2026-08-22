@@ -1,16 +1,491 @@
 ---
-title: Planning API
-description: Functions and types for the planning module.
+title: Planning
+description: Types and interfaces for the planning module.
 ---
 
-# Planning API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `planning` module.
+This section documents the types and interfaces available in the `planning` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `StudentSignatureRecord` (Interface)
+
+```typescript
+export interface StudentSignatureRecord {
+  _id: number;
+  studentId: string;
+  courseId: string;
+  schoolId: string;
+  state: boolean;
+  start: string;
+  end: string;
+  absenceId: string | null;
+  excluded: string | null;
+  earlyDeparture: string | null;
+  delay: number;
+  signatureEmail: string | null;
+  justifyAbsenceReminder: string | null;
+  timestamp: string;
+  signature: string | null;
+  comment: string;
+  teamsId: string | null;
+  studentTime: number;
+  platform: string | null;
+  zoom_last_logged_in: string | null;
+  zoom_logged_in: string | null;
+  zoom_name: string | null;
+  zoom_left: string | null;
+  session_duration: number;
+  dateCreated: string;
+  dateUpdated: string;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for planning functions will be populated here)*
+<TypeTable
+  type={{
+    _id: {
+      type: `number`,
+      description: " id",
+    },
+    studentId: {
+      type: `string`,
+      description: "Student id",
+    },
+    courseId: {
+      type: `string`,
+      description: "Course id",
+    },
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    state: {
+      type: `boolean`,
+      description: "State",
+    },
+    start: {
+      type: `string`,
+      description: "Start",
+    },
+    end: {
+      type: `string`,
+      description: "End",
+    },
+    absenceId: {
+      type: `string | null`,
+      description: "Absence id",
+    },
+    excluded: {
+      type: `string | null`,
+      description: "Excluded",
+    },
+    earlyDeparture: {
+      type: `string | null`,
+      description: "Early departure",
+    },
+    delay: {
+      type: `number`,
+      description: "Delay",
+    },
+    signatureEmail: {
+      type: `string | null`,
+      description: "Signature email",
+    },
+    justifyAbsenceReminder: {
+      type: `string | null`,
+      description: "Justify absence reminder",
+    },
+    timestamp: {
+      type: `string`,
+      description: "Timestamp",
+    },
+    signature: {
+      type: `string | null`,
+      description: "Signature",
+    },
+    comment: {
+      type: `string`,
+      description: "Comment",
+    },
+    teamsId: {
+      type: `string | null`,
+      description: "Teams id",
+    },
+    studentTime: {
+      type: `number`,
+      description: "Student time",
+    },
+    platform: {
+      type: `string | null`,
+      description: "Platform",
+    },
+    zoom_last_logged_in: {
+      type: `string | null`,
+      description: "Zoom last logged in",
+    },
+    zoom_logged_in: {
+      type: `string | null`,
+      description: "Zoom logged in",
+    },
+    zoom_name: {
+      type: `string | null`,
+      description: "Zoom name",
+    },
+    zoom_left: {
+      type: `string | null`,
+      description: "Zoom left",
+    },
+    session_duration: {
+      type: `number`,
+      description: "Session duration",
+    },
+    dateCreated: {
+      type: `string`,
+      description: "Date created",
+    },
+    dateUpdated: {
+      type: `string`,
+      description: "Date updated",
+    },
+  }}
+/>
+
+---
+
+## `CourseEntry` (Interface)
+
+```typescript
+export interface CourseEntry {
+  ID: string;
+  NAME: string;
+  START: string;
+  END: string;
+  LOCKED: number;
+  CLASSROOM: string;
+  SCHOOL_GROUP: string[];
+  DESCRIPTION: string;
+  TRAINING_ID: string | null;
+  NEED_STUDENTS_SIGNATURE: number;
+  SURVEY_ID: string;
+  SURVEY_ID_2: string;
+  API_ID: string;
+  PROFESSOR: string;
+  PROFESSOR_SIGNATURE: string | null;
+  idx: number;
+  STUDENTS: StudentSignatureRecord[];
+  surveyCount: number;
+  STUDENT_IS_JUSTIFICATED: boolean;
+  STUDENT_ABSENCE_ID: string | null;
+  JUSTIFIED: boolean;
+  STUDENT_PRESENCE: boolean;
+  STUDENT_SIGNATURE: string | null;
+  SIGNATURE_DATE: string | null;
+  DELAY: number;
+  COMMENT: string;
+  EARLY_DEPARTURE: string | null;
+  WAITING: boolean;
+  EXCLUDED: string | null;
+  REQUEST_STATUS: number;
+  data_type: "attendance_sheet";
+  type: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    START: {
+      type: `string`,
+      description: "Start",
+    },
+    END: {
+      type: `string`,
+      description: "End",
+    },
+    LOCKED: {
+      type: `number`,
+      description: "Locked",
+    },
+    CLASSROOM: {
+      type: `string`,
+      description: "Classroom",
+    },
+    SCHOOL_GROUP: {
+      type: `string[]`,
+      description: "School group",
+    },
+    DESCRIPTION: {
+      type: `string`,
+      description: "Description",
+    },
+    TRAINING_ID: {
+      type: `string | null`,
+      description: "Training id",
+    },
+    NEED_STUDENTS_SIGNATURE: {
+      type: `number`,
+      description: "Need students signature",
+    },
+    SURVEY_ID: {
+      type: `string`,
+      description: "Survey id",
+    },
+    SURVEY_ID_2: {
+      type: `string`,
+      description: "Survey id 2",
+    },
+    API_ID: {
+      type: `string`,
+      description: "Api id",
+    },
+    PROFESSOR: {
+      type: `string`,
+      description: "Professor",
+    },
+    PROFESSOR_SIGNATURE: {
+      type: `string | null`,
+      description: "Professor signature",
+    },
+    idx: {
+      type: `number`,
+      description: "Idx",
+    },
+    STUDENTS: {
+      type: `StudentSignatureRecord[]`,
+      description: "Students",
+    },
+    surveyCount: {
+      type: `number`,
+      description: "Survey count",
+    },
+    STUDENT_IS_JUSTIFICATED: {
+      type: `boolean`,
+      description: "Student is justificated",
+    },
+    STUDENT_ABSENCE_ID: {
+      type: `string | null`,
+      description: "Student absence id",
+    },
+    JUSTIFIED: {
+      type: `boolean`,
+      description: "Justified",
+    },
+    STUDENT_PRESENCE: {
+      type: `boolean`,
+      description: "Student presence",
+    },
+    STUDENT_SIGNATURE: {
+      type: `string | null`,
+      description: "Student signature",
+    },
+    SIGNATURE_DATE: {
+      type: `string | null`,
+      description: "Signature date",
+    },
+    DELAY: {
+      type: `number`,
+      description: "Delay",
+    },
+    COMMENT: {
+      type: `string`,
+      description: "Comment",
+    },
+    EARLY_DEPARTURE: {
+      type: `string | null`,
+      description: "Early departure",
+    },
+    WAITING: {
+      type: `boolean`,
+      description: "Waiting",
+    },
+    EXCLUDED: {
+      type: `string | null`,
+      description: "Excluded",
+    },
+    REQUEST_STATUS: {
+      type: `number`,
+      description: "Request status",
+    },
+    data_type: {
+      type: `"attendance_sheet"`,
+      description: "Data type",
+    },
+    type: {
+      type: `string`,
+      description: "Type",
+    },
+  }}
+/>
+
+---
+
+## `PlanningAssessmentEntry` (Interface)
+
+```typescript
+export interface PlanningAssessmentEntry {
+  id: string;
+  name: string;
+  gradingType: string;
+  deadlineDate: string;
+  status: string;
+  subject: string | null;
+  data_type: "assessment";
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    gradingType: {
+      type: `string`,
+      description: "Grading type",
+    },
+    deadlineDate: {
+      type: `string`,
+      description: "Deadline date",
+    },
+    status: {
+      type: `string`,
+      description: "Status",
+    },
+    subject: {
+      type: `string | null`,
+      description: "Subject",
+    },
+    data_type: {
+      type: `"assessment"`,
+      description: "Data type",
+    },
+  }}
+/>
+
+---
+
+## `EventEntry` (Interface)
+
+```typescript
+export interface EventEntry {
+  ID: string;
+  NAME: string;
+  START: string;
+  END: string;
+  DESCRIPTION: string;
+  CLASSROOM_ID: number;
+  SCHOOL_ID: string;
+  TYPE: string;
+  API_ID: string;
+  API_TYPE: string;
+  COLOR: string;
+  DATE_CREATED: string;
+  DATE_UPDATED: string;
+  PROFESSORS: string;
+  CLASSROOM: string;
+  data_type: "event";
+  type: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+    START: {
+      type: `string`,
+      description: "Start",
+    },
+    END: {
+      type: `string`,
+      description: "End",
+    },
+    DESCRIPTION: {
+      type: `string`,
+      description: "Description",
+    },
+    CLASSROOM_ID: {
+      type: `number`,
+      description: "Classroom id",
+    },
+    SCHOOL_ID: {
+      type: `string`,
+      description: "School id",
+    },
+    TYPE: {
+      type: `string`,
+      description: "Type",
+    },
+    API_ID: {
+      type: `string`,
+      description: "Api id",
+    },
+    API_TYPE: {
+      type: `string`,
+      description: "Api type",
+    },
+    COLOR: {
+      type: `string`,
+      description: "Color",
+    },
+    DATE_CREATED: {
+      type: `string`,
+      description: "Date created",
+    },
+    DATE_UPDATED: {
+      type: `string`,
+      description: "Date updated",
+    },
+    PROFESSORS: {
+      type: `string`,
+      description: "Professors",
+    },
+    CLASSROOM: {
+      type: `string`,
+      description: "Classroom",
+    },
+    data_type: {
+      type: `"event"`,
+      description: "Data type",
+    },
+    type: {
+      type: `string`,
+      description: "Type",
+    },
+  }}
+/>
+
+---
+
+## `PlanningEntry` (Type)
+
+```typescript
+CourseEntry | PlanningAssessmentEntry | EventEntry
+```
+
+---
+

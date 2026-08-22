@@ -1,0 +1,54 @@
+---
+title: sortCoursesByDate
+description: Documentation for the sortCoursesByDate function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `sortCoursesByDate` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    courses: {
+      type: `CourseEntry[]`,
+      description: "Courses",
+    },
+    order: {
+      type: `"asc" | "desc"`,
+      description: "Order",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { sortCoursesByDate } from "@studentsphere/linksign";
+
+const result = sortCoursesByDate([
+  { 
+    ID: "ep98mpyt9yqfyez", 
+    NAME: "Web Development", 
+    START: "2026-09-01T08:00:00Z", 
+    END: "2026-09-01T10:00:00Z", 
+    IS_ABSENT: false, 
+    STATUS: "Present" 
+  },
+  { 
+    ID: "ep52mpyy9yqbyen", 
+    NAME: "Software Architecture", 
+    START: "2026-09-02T14:00:00Z", 
+    END: "2026-09-02T16:00:00Z", 
+    IS_ABSENT: true, 
+    STATUS: "Absent" 
+  }
+], "asc");
+console.log(result);
+```
+
+## Return Value
+
+Returns a **[CourseEntry](/docs/types/planning#courseentry-interface)[]** object.

@@ -1,0 +1,55 @@
+---
+title: getPrivateNewsFeedPosts
+description: Documentation for the getPrivateNewsFeedPosts function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPrivateNewsFeedPosts` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    query: {
+      type: `NewsFeedPostsQuery`,
+      description: "Query",
+      optional: true,
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+    lang: {
+      type: `string`,
+      description: "Lang",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPrivateNewsFeedPosts } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPrivateNewsFeedPosts('SCHOOL_ID', 'YOUR_TOKEN', { channels: ['1', '2'], limit: 10 }, 'OPTIONAL_DEVICE_ID', 'lang');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[NewsFeedPostsResponse](/docs/types/newsfeed#newsfeedpostsresponse-type)** object.

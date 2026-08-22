@@ -1,16 +1,111 @@
 ---
-title: Contactsdirectory API
-description: Functions and types for the contactsdirectory module.
+title: Contactsdirectory
+description: Types and interfaces for the contactsdirectory module.
 ---
 
-# Contactsdirectory API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `contactsdirectory` module.
+This section documents the types and interfaces available in the `contactsdirectory` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `ContactDirectoryEntry` (Interface)
+
+```typescript
+export interface ContactDirectoryEntry {
+  id: string;
+  name: string;
+  phone: string | null;
+  email: string | null;
+  website: string | null;
+  location: string | null;
+  color: string | null;
+  gradient: string | null;
+  imageUrl: string | null;
+  mapLocations: unknown[];
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for contactsdirectory functions will be populated here)*
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    name: {
+      type: `string`,
+      description: "Name",
+    },
+    phone: {
+      type: `string | null`,
+      description: "Phone",
+    },
+    email: {
+      type: `string | null`,
+      description: "Email",
+    },
+    website: {
+      type: `string | null`,
+      description: "Website",
+    },
+    location: {
+      type: `string | null`,
+      description: "Location",
+    },
+    color: {
+      type: `string | null`,
+      description: "Color",
+    },
+    gradient: {
+      type: `string | null`,
+      description: "Gradient",
+    },
+    imageUrl: {
+      type: `string | null`,
+      description: "Image url",
+    },
+    mapLocations: {
+      type: `unknown[]`,
+      description: "Map locations",
+    },
+  }}
+/>
+
+---
+
+## `ContactsDirectoryResponse` (Type)
+
+```typescript
+PaginatedData<ContactDirectoryEntry>
+```
+
+---
+
+## `ContactsDirectoryQuery` (Interface)
+
+```typescript
+export interface ContactsDirectoryQuery {
+  name?: string;
+  page?: string | number;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    name: {
+      type: `string`,
+      description: "Name",
+      optional: true,
+    },
+    page: {
+      type: `string | number`,
+      description: "Page",
+      optional: true,
+    },
+  }}
+/>
+
+---
+

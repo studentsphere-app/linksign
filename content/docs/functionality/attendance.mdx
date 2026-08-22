@@ -1,0 +1,35 @@
+---
+title: Attendance
+description: Documentation for the attendance service.
+---
+
+This page documents the functionalities provided by the `attendance.ts` file.
+
+## Exported Functions
+
+- `getAttendanceStatistics`
+- `getSchoolAbsenceTypes`
+- `getAbsences`
+- `submitAbsence`
+
+## Example Usage
+
+```typescript
+import { getAttendanceStatistics, getSchoolAbsenceTypes, getAbsences, submitAbsence } from "@studentsphere/linksign";
+
+async function run() {
+  const attendanceStatistics = await getAttendanceStatistics('YOUR_TOKEN');
+  console.log(attendanceStatistics);
+
+  const schoolAbsenceTypes = await getSchoolAbsenceTypes('YOUR_TOKEN');
+  console.log(schoolAbsenceTypes);
+
+  const absences = await getAbsences('YOUR_TOKEN');
+  console.log(absences);
+
+  const submitAbsenceResponse = await submitAbsence('YOUR_TOKEN');
+  console.log(submitAbsenceResponse);
+}
+
+run().catch(console.error);
+```

@@ -1,0 +1,36 @@
+---
+title: getPublicCampusMapBySchool
+description: Documentation for the getPublicCampusMapBySchool function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPublicCampusMapBySchool` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPublicCampusMapBySchool } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPublicCampusMapBySchool('SCHOOL_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[CampusMapLocation](/docs/types/campusmap#campusmaplocation-interface)[]** object.

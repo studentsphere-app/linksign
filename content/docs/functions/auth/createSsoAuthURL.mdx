@@ -1,0 +1,32 @@
+---
+title: createSsoAuthURL
+description: Documentation for the createSsoAuthURL function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `createSsoAuthURL` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    config: {
+      type: `SsoConfig`,
+      description: "Config",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { createSsoAuthURL } from "@studentsphere/linksign";
+
+const result = createSsoAuthURL({ SCHOOL_ID: 'SCHOOL_ID', SCHOOL_NAME: 'School Name' });
+console.log(result);
+```
+
+## Return Value
+
+Returns a **string** object.

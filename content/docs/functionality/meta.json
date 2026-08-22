@@ -1,4 +1,20 @@
 {
-	"title": "Functionality",
-	"pages": ["auth", "attendances", "campusmap", "documents", "newsfeed", "planning", "profile"]
+	"title": "Functionalities",
+	"pages": [
+		"auth",
+		"assessments",
+		"attendance",
+		"campusmap",
+		"contactsdirectory",
+		"documents",
+		"knowledgebase",
+		"newsfeed",
+		"planning",
+		"profile",
+		"schools",
+		"signatures",
+		"surveys",
+		"trainings",
+		"whitelabel"
+	]
 }

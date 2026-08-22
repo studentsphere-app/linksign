@@ -1,0 +1,50 @@
+---
+title: loginWithCasSso
+description: Documentation for the loginWithCasSso function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `loginWithCasSso` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    ticket: {
+      type: `string`,
+      description: "Ticket",
+    },
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    isWhitelabelApp: {
+      type: `boolean`,
+      description: "Is whitelabel app",
+      optional: true,
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { loginWithCasSso } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await loginWithCasSso('ticket', 'SCHOOL_ID', true, 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[CasSsoAuthSession](/docs/types/auth#casssoauthsession-type)** object.

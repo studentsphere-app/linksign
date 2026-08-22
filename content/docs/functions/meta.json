@@ -1,0 +1,21 @@
+{
+	"title": "Functions",
+	"pages": [
+		"assessments",
+		"attendance",
+		"auth",
+		"campusmap",
+		"contactsdirectory",
+		"documents",
+		"knowledgebase",
+		"newsfeed",
+		"planning",
+		"profile",
+		"schools",
+		"signatures",
+		"surveys",
+		"trainings",
+		"utils",
+		"whitelabel"
+	]
+}

@@ -1,0 +1,50 @@
+---
+title: getPrivateNewsFeedChannels
+description: Documentation for the getPrivateNewsFeedChannels function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPrivateNewsFeedChannels` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+    lang: {
+      type: `string`,
+      description: "Lang",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPrivateNewsFeedChannels } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPrivateNewsFeedChannels('SCHOOL_ID', 'YOUR_TOKEN', 'OPTIONAL_DEVICE_ID', 'lang');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[NewsFeedChannel](/docs/types/newsfeed#newsfeedchannel-interface)[]** object.

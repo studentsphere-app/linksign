@@ -1,0 +1,31 @@
+---
+title: Signatures
+description: Documentation for the signatures service.
+---
+
+This page documents the functionalities provided by the `signatures.ts` file.
+
+## Exported Functions
+
+- `signByQRCode`
+- `signByEmail`
+- `signByCode`
+
+## Example Usage
+
+```typescript
+import { signByQRCode, signByEmail, signByCode } from "@studentsphere/linksign";
+
+async function run() {
+  const signByQRCodeResponse = await signByQRCode('YOUR_TOKEN');
+  console.log(signByQRCodeResponse);
+
+  const signByEmailResponse = await signByEmail('YOUR_TOKEN');
+  console.log(signByEmailResponse);
+
+  const signByCodeResponse = await signByCode('YOUR_TOKEN');
+  console.log(signByCodeResponse);
+}
+
+run().catch(console.error);
+```

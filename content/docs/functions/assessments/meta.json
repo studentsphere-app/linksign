@@ -1,0 +1,4 @@
+{
+	"title": "Assessments",
+	"pages": ["getAssessmentDetailById", "getAssessments"]
+}

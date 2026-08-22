@@ -1,16 +1,280 @@
 ---
-title: Attendance API
-description: Functions and types for the attendance module.
+title: Attendance
+description: Types and interfaces for the attendance module.
 ---
 
-# Attendance API
+import { TypeTable } from 'fumadocs-ui/components/type-table';
 
-This section documents the functions and types available in the `attendance` module.
+This section documents the types and interfaces available in the `attendance` module.
 
-```ts
-import { ... } from '@studentsphere/linksign';
+## `AttendanceStatistics` (Interface)
+
+```typescript
+export interface AttendanceStatistics {
+  totalCourses: number;
+  absences: number;
+  justified: number;
+  presences: number;
+  justifiedRatio: number;
+  delays: number;
+  presenceRatio: number;
+  pending: number;
+}
 ```
 
-## Functions
+### Properties
 
-*(Documentation for attendance functions will be populated here)*
+<TypeTable
+  type={{
+    totalCourses: {
+      type: `number`,
+      description: "Total courses",
+    },
+    absences: {
+      type: `number`,
+      description: "Absences",
+    },
+    justified: {
+      type: `number`,
+      description: "Justified",
+    },
+    presences: {
+      type: `number`,
+      description: "Presences",
+    },
+    justifiedRatio: {
+      type: `number`,
+      description: "Justified ratio",
+    },
+    delays: {
+      type: `number`,
+      description: "Delays",
+    },
+    presenceRatio: {
+      type: `number`,
+      description: "Presence ratio",
+    },
+    pending: {
+      type: `number`,
+      description: "Pending",
+    },
+  }}
+/>
+
+---
+
+## `SchoolAbsenceType` (Interface)
+
+```typescript
+export interface SchoolAbsenceType {
+  ID: number;
+  NAME: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `number`,
+      description: "Unique identifier",
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+  }}
+/>
+
+---
+
+## `AbsenceStatus` (Type)
+
+```typescript
+"pending" | "accepted" | "refused"
+```
+
+---
+
+## `AbsenceIA` (Interface)
+
+```typescript
+export interface AbsenceIA {
+  state: string;
+  reason: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    state: {
+      type: `string`,
+      description: "State",
+    },
+    reason: {
+      type: `string`,
+      description: "Reason",
+    },
+  }}
+/>
+
+---
+
+## `Absence` (Interface)
+
+```typescript
+export interface Absence {
+  id: string;
+  status: AbsenceStatus;
+  reasonLabel: string;
+  refusalReason: string | null;
+  start: string;
+  end: string;
+  createdAt: string;
+  decisionAt: string | null;
+  requestDate: string;
+  ia: AbsenceIA | null;
+  sessions: string[];
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    id: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+    status: {
+      type: `AbsenceStatus`,
+      description: "Status",
+    },
+    reasonLabel: {
+      type: `string`,
+      description: "Reason label",
+    },
+    refusalReason: {
+      type: `string | null`,
+      description: "Refusal reason",
+    },
+    start: {
+      type: `string`,
+      description: "Start",
+    },
+    end: {
+      type: `string`,
+      description: "End",
+    },
+    createdAt: {
+      type: `string`,
+      description: "Created at",
+    },
+    decisionAt: {
+      type: `string | null`,
+      description: "Decision at",
+    },
+    requestDate: {
+      type: `string`,
+      description: "Request date",
+    },
+    ia: {
+      type: `AbsenceIA | null`,
+      description: "Ia",
+    },
+    sessions: {
+      type: `string[]`,
+      description: "Sessions",
+    },
+  }}
+/>
+
+---
+
+## `NewAbsence` (Interface)
+
+```typescript
+export interface NewAbsence {
+  TYPE: number;
+  hasComment: boolean;
+  COMMENT?: string;
+  START: string;
+  END: string;
+  STATUS: number;
+  STUDENT_ID: string;
+  FILE?: { DATA: string;
+  NAME: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    TYPE: {
+      type: `number`,
+      description: "Type",
+    },
+    hasComment: {
+      type: `boolean`,
+      description: "Has comment",
+    },
+    COMMENT: {
+      type: `string`,
+      description: "Comment",
+      optional: true,
+    },
+    START: {
+      type: `string`,
+      description: "Start",
+    },
+    END: {
+      type: `string`,
+      description: "End",
+    },
+    STATUS: {
+      type: `number`,
+      description: "Status",
+    },
+    STUDENT_ID: {
+      type: `string`,
+      description: "Student id",
+    },
+    FILE: {
+      type: `{ DATA: string`,
+      description: "File",
+      optional: true,
+    },
+    NAME: {
+      type: `string`,
+      description: "Name",
+    },
+  }}
+/>
+
+---
+
+## `SubmittedAbsence` (Interface)
+
+```typescript
+export interface SubmittedAbsence {
+  ID: string;
+}
+```
+
+### Properties
+
+<TypeTable
+  type={{
+    ID: {
+      type: `string`,
+      description: "Unique identifier",
+    },
+  }}
+/>
+
+---
+

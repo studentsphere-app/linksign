@@ -1,0 +1,36 @@
+---
+title: getWhiteLabelConfiguration
+description: Documentation for the getWhiteLabelConfiguration function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getWhiteLabelConfiguration` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    appPackage: {
+      type: `string`,
+      description: "App package",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getWhiteLabelConfiguration } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getWhiteLabelConfiguration('appPackage');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[WhiteLabelAppConfiguration](/docs/types/whitelabel#whitelabelappconfiguration-interface)** object.

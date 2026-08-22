@@ -1,0 +1,41 @@
+---
+title: getSurveys
+description: Documentation for the getSurveys function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getSurveys` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getSurveys } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getSurveys('YOUR_TOKEN', 'OPTIONAL_DEVICE_ID');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[Surveys](/docs/types/surveys#surveys-interface)&lt;[SurveyEntry](/docs/types/surveys#surveyentry-interface)&gt;** object.

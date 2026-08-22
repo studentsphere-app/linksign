@@ -1,0 +1,50 @@
+---
+title: getPrivateContactsDirectory
+description: Documentation for the getPrivateContactsDirectory function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `getPrivateContactsDirectory` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    schoolId: {
+      type: `string`,
+      description: "School id",
+    },
+    token: {
+      type: `string`,
+      description: "Token",
+    },
+    deviceId: {
+      type: `string`,
+      description: "Device id",
+      optional: true,
+    },
+    query: {
+      type: `ContactsDirectoryQuery`,
+      description: "Query",
+      optional: true,
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { getPrivateContactsDirectory } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await getPrivateContactsDirectory('SCHOOL_ID', 'YOUR_TOKEN', 'OPTIONAL_DEVICE_ID', { name: 'John Doe', page: 1 });
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[PaginatedData](/docs/types/common#paginateddata-interface)&lt;[ContactDirectoryEntry](/docs/types/contactsdirectory#contactdirectoryentry-interface)&gt;** object.

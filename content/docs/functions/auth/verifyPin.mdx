@@ -1,0 +1,40 @@
+---
+title: verifyPin
+description: Documentation for the verifyPin function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `verifyPin` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    identifier: {
+      type: `string`,
+      description: "Identifier",
+    },
+    pin: {
+      type: `string`,
+      description: "Pin",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { verifyPin } from "@studentsphere/linksign";
+
+async function run() {
+  const result = await verifyPin('IDENTIFIER', '1234');
+  console.log(result);
+}
+
+run().catch(console.error);
+```
+
+## Return Value
+
+Returns a `Promise` resolving to a **[PinVerification](/docs/types/auth#pinverification-interface)** object.

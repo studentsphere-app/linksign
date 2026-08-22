@@ -38,6 +38,7 @@
 		"@types/react-dom": "^19.2.3",
 		"lefthook": "^2.1.9",
 		"postcss": "^8.5.15",
+		"remark-frontmatter": "^5.0.0",
 		"serve": "^14.2.6",
 		"tailwindcss": "^4.3.0",
 		"typescript": "^6.0.3"

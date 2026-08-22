@@ -1,0 +1,32 @@
+---
+title: extractDomainFromEmail
+description: Documentation for the extractDomainFromEmail function.
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+This page documents the `extractDomainFromEmail` function from the `@studentsphere/linksign` library.
+
+## Parameters
+
+<TypeTable
+  type={{
+    email: {
+      type: `string`,
+      description: "Email",
+    },
+  }}
+/>
+
+## Usage
+
+```typescript
+import { extractDomainFromEmail } from "@studentsphere/linksign";
+
+const result = extractDomainFromEmail('student@school.com');
+console.log(result);
+```
+
+## Return Value
+
+Returns a **string | null** object.
