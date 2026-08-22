@@ -1,0 +1,28 @@
+---
+title: Auth API
+description: Authentication functions.
+---
+
+# Auth API
+
+This module contains authentication functions.
+
+## loginWithCredentials
+
+Logs in a user with a username and password.
+
+```ts
+import { loginWithCredentials } from '@studentsphere/linksign';
+
+const session = await loginWithCredentials('email', 'password');
+```
+
+## loginWithSSO
+
+Logs in a user using Single Sign-On.
+
+```ts
+import { loginWithSSO } from '@studentsphere/linksign';
+
+const session = await loginWithSSO('provider', 'token');
+```

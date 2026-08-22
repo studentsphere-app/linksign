@@ -1,0 +1,69 @@
+---
+title: Profile Parsing
+description: Fetch and parse student profile attributes from Edusign
+---
+
+`linksign` allows you to retrieve student metadata (such as campus location, email address, and full name) from the Central Authentication Service (CAS) attributes.
+
+## How it Works
+
+Upon successful authentication, the CAS server returns an HTML table containing user-specific attributes. `linksign` contains a built-in regex-based HTML table parser that processes these attributes into a clean, typed JavaScript object.
+
+## API Reference
+
+### `getProfile`
+
+Retrieves the student's profile information from the CAS server.
+
+```typescript
+import { getProfile } from 'linksign';
+
+const profile = await getProfile(
+  instanceId, // string: the ID of the school instance (e.g. 'epsi', '3a')
+  token       // string: the session token from loginWithCredentials
+);
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `instanceId` | `string` | The unique identifier of the school instance (e.g. `epsi`, `3a`). |
+| `token` | `string` | The session token. |
+
+#### Return Value
+
+Returns a Promise resolving to a `Profile` object.
+
+```typescript
+interface Profile {
+  firstname: string;
+  lastname: string;
+  email: string;
+  username: string; // The student's login username (e.g. firstname.lastname)
+  cn: string;       // Common Name (e.g. "Jean DUPONT")
+  city: string;     // The student's campus location (e.g. "Lyon", "Paris", "Nantes")
+  country: string;  // Country of the campus
+}
+```
+
+## Code Example
+
+```typescript
+import { getProfile } from 'linksign';
+
+const instanceId = 'epsi';
+const sessionToken = "..."; // Token stored after login
+
+try {
+  const profile = await getProfile(instanceId, sessionToken);
+  
+  console.log(`Student Details:`);
+  console.log(`- Full Name: ${profile.cn}`);
+  console.log(`- Email: ${profile.email}`);
+  console.log(`- Campus: ${profile.city}, ${profile.country}`);
+  console.log(`- Username: ${profile.username}`);
+} catch (error) {
+  console.error("Failed to parse profile:", error.message);
+}
+```

@@ -1,0 +1,74 @@
+---
+title: CAS Authentication
+description: Learn how to authenticate and manage sessions with Edusign
+---
+
+Edusign portals use the **Central Authentication Service (CAS)** for single sign-on. `linksign` handles the entire redirection and authentication sequence automatically.
+
+## How it Works
+
+When you authenticate, `linksign` performs the following steps:
+1. Requests the CAS login page with the target service URL (timetable/schedule server).
+2. Parses the hidden inputs from the login form (such as flow execution tokens and events).
+3. Submits the username, password, and parsed hidden inputs via a `POST` request.
+4. Automatically follows HTTP redirects (up to a limit of 15) to verify credentials and store session state.
+5. Serializes this session state into a JSON string (the session token) and returns it along with the user's name.
+
+## API Reference
+
+### `loginWithCredentials`
+
+Authenticates a user with the CAS server.
+
+```typescript
+import { loginWithCredentials } from 'linksign';
+
+const user = await loginWithCredentials(
+  instanceId, // string: the ID of the school instance (e.g. 'epsi', '3a')
+  username,   // string: the student's login credential (usually 'firstname.lastname')
+  password    // string: the student's account password
+);
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `instanceId` | `string` | The unique identifier of the school instance (e.g. `epsi`, `idrac`, `3a`). |
+| `username` | `string` | The student's login credential. |
+| `password` | `string` | The student's account password. |
+
+#### Return Value
+
+Returns a Promise resolving to a `User` object:
+
+```typescript
+interface User {
+  firstname: string;
+  lastname: string;
+  token: string; // Session token
+}
+```
+
+## Session Token Management
+
+The `token` returned by `loginWithCredentials` is a stringified JSON representation of the session state.
+
+This token contains active session identifiers. **Store it securely** (e.g. in your database, secure keystores, or encrypted state management) and never expose it to client-side browsers or logs.
+
+To verify a user's session or make subsequent calls, pass this token string to `getProfile` or `getPlanning`.
+
+## Code Example
+
+```typescript
+import { loginWithCredentials } from 'linksign';
+
+try {
+  const user = await loginWithCredentials('epsi', 'jean.dupont', 'Secr3tP@ssword');
+  console.log(`Successfully logged in as ${user.firstname} ${user.lastname}`);
+  
+  // Store user.token for future requests
+} catch (error) {
+  console.error("Authentication failed:", error.message);
+}
+```

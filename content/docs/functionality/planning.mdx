@@ -1,0 +1,99 @@
+---
+title: Planning Retrieval
+description: Retrieve and parse student timetables from Edusign
+---
+
+`linksign` resolves the correct timetable endpoint for your school instance and retrieves lesson listings.
+
+## Date Range Auto-Resolution
+
+Timetable queries require a date range. By default, `getPlanning` automatically computes the current academic year date range:
+- **If the current month is August or later (August - December):** It fetches from **September 1st of the current year** to **August 31st of the next year**.
+- **If the current month is before August (January - July):** It fetches from **September 1st of the previous year** to **August 31st of the current year**.
+
+This ensures that the client receives the entire current academic year's schedule.
+
+## API Reference
+
+### `getPlanning`
+
+Fetches the timetable lessons from the schedule server.
+
+```typescript
+import { getPlanning } from 'linksign';
+
+const lessons = await getPlanning(
+  instanceId, // string: the ID of the school instance (e.g. 'epsi', '3a')
+  token       // string: the session token from loginWithCredentials
+);
+```
+
+#### Parameters
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `instanceId` | `string` | The unique identifier of the school instance (e.g. `epsi`, `3a`). |
+| `token` | `string` | The session token. |
+
+#### Return Value
+
+Returns a Promise resolving to an array of `Lesson` objects.
+
+```typescript
+interface Lesson {
+  Commentaire: string | null;
+  NoCours: number;
+  NoGroupe: number;
+  LibelleGroupe: string | null;
+  LibelleSemaine: string | null;
+  Matiere: string | null; // Subject name (e.g. "Algorithmique")
+  Salles: string | null;  // Classroom code / room (e.g. "B-205")
+  NomEcole: string | null;
+  LogoEcole: string | null;
+  CoursMixtePicto: string | null;
+  CoursMixteInfoBulle: string | null;
+  FondCour: string | null;
+  NomProf: string | null;  // Teacher name (e.g. "Jean DUPONT")
+  Duree: number | null;   // Duration in minutes
+  RecurrenceRule: string | null;
+  RecurrenceID: string | null;
+  RecurrenceException: string | null;
+  IsAllDay: boolean;
+  Title: string | null;
+  Description: string | null;
+  Start: string;          // ISO Date string for start time
+  StartTimezone: string | null;
+  End: string;            // ISO Date string for end time
+  EndTimezone: string | null;
+  TeamsURL: string | null;
+  TeamsUrl: string | null;
+  ColorRed: number;
+  ColorGreen: number;
+  ColorBlue: number;
+  Origine: number;
+  LienTrack: string | null;
+}
+```
+
+## Code Example
+
+```typescript
+import { getPlanning } from 'linksign';
+
+const instanceId = 'epsi';
+const sessionToken = "..."; // Token stored after login
+
+try {
+  const lessons = await getPlanning(instanceId, sessionToken);
+  
+  console.log(`Upcoming lessons:`);
+  lessons
+    .filter(lesson => new Date(lesson.Start) > new Date())
+    .slice(0, 5)
+    .forEach(lesson => {
+      console.log(`- [${lesson.Start}] ${lesson.Matiere} in room ${lesson.Salles} with ${lesson.NomProf}`);
+    });
+} catch (error) {
+  console.error("Failed to fetch schedule:", error.message);
+}
+```

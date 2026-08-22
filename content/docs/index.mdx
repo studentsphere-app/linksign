@@ -1,0 +1,84 @@
+---
+title: Introduction
+description: A lightweight TypeScript wrapper for Edusign services
+---
+
+![Banner](/assets/banner.svg)
+
+Welcome to the documentation for **`linksign`**, a modern, lightweight, and zero-dependency TypeScript wrapper designed to interact with Edusign portals.
+
+This project is entirely maintained by the **[StudentSphere](https://github.com/studentsphere-app)** team with the goal of providing open interoperability of digital student tools for everyone.
+
+## Compatibility
+
+`linksign` is designed to interface with the **[Edusign](https://www.edusign.com/)** platform.
+
+## Key Features
+
+- 🔑 **CAS Authentication** - Built-in Central Authentication Service flow automation.
+- 📅 **Planning Retrieval** - Retrieve student timetable/schedules within date ranges.
+- 👤 **Profile Parsing** - Retrieve student profile attributes (name, email, city, etc.) from CAS attributes.
+- 🪶 **Zero Dependencies** - Light package footprint relying on standard Web APIs (like native `fetch`).
+- 📳 **TypeScript First** - Built with TypeScript for full typing support and robust editor autocomplete.
+- 🏫 **Multi-School Support** - Easy routing and configuration of endpoints for multiple campus instances.
+
+## Installation
+
+Install `linksign` using your preferred package manager:
+
+```bash
+# With pnpm
+pnpm add @studentsphere/linksign
+
+# With npm
+npm install @studentsphere/linksign
+
+# With yarn
+yarn add @studentsphere/linksign
+
+# With bun
+bun add @studentsphere/linksign
+```
+
+## Quick Start
+
+Here is a quick example showing how to authenticate a user, fetch their profile, and retrieve their schedule:
+
+```typescript
+import { loginWithCredentials, getPlanning, getProfile } from 'linksign';
+
+async function run() {
+  // 1. Authenticate with the CAS server and retrieve session token
+  const user = await loginWithCredentials('epsi', 'john.doe', 'my_secure_password');
+  console.log(`Hello, ${user.firstname} ${user.lastname}!`);
+
+  // 2. Fetch the student's profile attributes
+  const profile = await getProfile('epsi', user.token);
+  console.log(`Email: ${profile.email}, Campus: ${profile.city}`);
+
+  // 3. Fetch the student's planning lessons
+  const lessons = await getPlanning('epsi', user.token);
+  console.log(`Retrieved ${lessons.length} lessons.`);
+}
+
+run().catch(console.error);
+```
+
+## Next Steps
+
+To dive deeper into how `linksign` works and explore its API, check out these sections:
+
+<Cards>
+  <Card title="CAS Authentication Guide" href="./functionality/auth" />
+  <Card title="Planning Retrieval Guide" href="./functionality/planning" />
+  <Card title="Profile Parsing Guide" href="./functionality/profile" />
+  </Cards>
+
+## Contributing
+
+`linksign` is an open-source project, and we welcome contributions from the community! If you would like to help:
+
+- 🐛 **Report Issues:** Submit bug reports or request features on our [GitHub Issues](https://github.com/studentsphere-app/linksign/issues).
+- 🛠️ **Pull Requests:** Fork the repository, create a branch, and submit a PR with your fixes or improvements.
+- 🏫 **School Portals:** Check our [Supported Schools](./schools) list and open a PR if you want to help add or update configurations for a campus.
+
