@@ -3,28 +3,52 @@ title: Planning
 description: Documentation for the planning service.
 ---
 
-This page documents the functionalities provided by the `planning.ts` file.
+This page documents the functionalities provided by the `planning` service.
 
 ## Exported Functions
 
-- `getPlanning`
-- `getCoursesBetweenDates`
-- `getCourseByCode`
+- [`getPlanning`](/docs/functions/planning/getPlanning)
+- [`getCoursesBetweenDates`](/docs/functions/planning/getCoursesBetweenDates)
+- [`getCourseByCode`](/docs/functions/planning/getCourseByCode)
 
 ## Example Usage
 
 ```typescript
-import { getPlanning, getCoursesBetweenDates, getCourseByCode } from "@studentsphere/linksign";
+import {
+  getPlanning,
+  getCoursesBetweenDates,
+  getCourseByCode,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const planning = await getPlanning('YOUR_TOKEN');
+  const startDate = "2026-09-01T00:00:00Z";
+  const endDate = "2026-09-30T23:59:59Z";
+
+  // 1. Fetch student schedule / planning entries
+  const planning = await getPlanning(
+    "YOUR_TOKEN",
+    startDate,
+    endDate,
+    "OPTIONAL_DEVICE_ID"
+  );
   console.log(planning);
 
-  const coursesBetweenDates = await getCoursesBetweenDates('YOUR_TOKEN');
-  console.log(coursesBetweenDates);
+  // 2. Fetch courses between specified dates
+  const courses = await getCoursesBetweenDates(
+    "YOUR_TOKEN",
+    startDate,
+    endDate,
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(courses);
 
-  const courseByCode = await getCourseByCode('YOUR_TOKEN');
-  console.log(courseByCode);
+  // 3. Fetch a specific course by session/attendance code
+  const course = await getCourseByCode(
+    "YOUR_TOKEN",
+    "AUTH_CODE",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(course);
 }
 
 run().catch(console.error);

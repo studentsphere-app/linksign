@@ -3,24 +3,35 @@ title: Knowledgebase
 description: Documentation for the knowledgebase service.
 ---
 
-This page documents the functionalities provided by the `knowledgebase.ts` file.
+This page documents the functionalities provided by the `knowledgebase` service.
 
 ## Exported Functions
 
-- `getPublicKnowledgeBasePosts`
-- `getPrivateKnowledgeBasePosts`
+- [`getPublicKnowledgeBasePosts`](/docs/functions/knowledgebase/getPublicKnowledgeBasePosts)
+- [`getPrivateKnowledgeBasePosts`](/docs/functions/knowledgebase/getPrivateKnowledgeBasePosts)
 
 ## Example Usage
 
 ```typescript
-import { getPublicKnowledgeBasePosts, getPrivateKnowledgeBasePosts } from "@studentsphere/linksign";
+import {
+  getPublicKnowledgeBasePosts,
+  getPrivateKnowledgeBasePosts,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const publicKnowledgeBasePosts = await getPublicKnowledgeBasePosts('YOUR_TOKEN');
-  console.log(publicKnowledgeBasePosts);
+  const schoolId = "SCHOOL_ID";
 
-  const privateKnowledgeBasePosts = await getPrivateKnowledgeBasePosts('YOUR_TOKEN');
-  console.log(privateKnowledgeBasePosts);
+  // Fetch public knowledge base articles
+  const publicPosts = await getPublicKnowledgeBasePosts(schoolId);
+  console.log(publicPosts);
+
+  // Fetch private/authenticated knowledge base articles
+  const privatePosts = await getPrivateKnowledgeBasePosts(
+    schoolId,
+    "YOUR_TOKEN",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(privatePosts);
 }
 
 run().catch(console.error);

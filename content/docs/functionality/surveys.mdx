@@ -3,28 +3,57 @@ title: Surveys
 description: Documentation for the surveys service.
 ---
 
-This page documents the functionalities provided by the `surveys.ts` file.
+This page documents the functionalities provided by the `surveys` service.
 
 ## Exported Functions
 
-- `getSurveys`
-- `getSurveyById`
-- `answerSurvey`
+- [`getSurveys`](/docs/functions/surveys/getSurveys)
+- [`getSurveyById`](/docs/functions/surveys/getSurveyById)
+- [`answerSurvey`](/docs/functions/surveys/answerSurvey)
 
 ## Example Usage
 
 ```typescript
-import { getSurveys, getSurveyById, answerSurvey } from "@studentsphere/linksign";
+import {
+  getSurveys,
+  getSurveyById,
+  answerSurvey,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const surveys = await getSurveys('YOUR_TOKEN');
+  const schoolId = "SCHOOL_ID";
+  const studentId = "STUDENT_ID";
+  const surveyId = "SURVEY_ID";
+
+  // 1. List available surveys for the student
+  const surveys = await getSurveys("YOUR_TOKEN", "OPTIONAL_DEVICE_ID");
   console.log(surveys);
 
-  const surveyById = await getSurveyById('YOUR_TOKEN');
-  console.log(surveyById);
+  // 2. Fetch questions and details for a specific survey
+  const surveyDetails = await getSurveyById(
+    "YOUR_TOKEN",
+    schoolId,
+    studentId,
+    surveyId,
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(surveyDetails);
 
-  const answerSurveyResponse = await answerSurvey('YOUR_TOKEN');
-  console.log(answerSurveyResponse);
+  // 3. Submit responses to a survey
+  const answerResult = await answerSurvey(
+    "YOUR_TOKEN",
+    schoolId,
+    studentId,
+    surveyId,
+    {
+      answers: {
+        question_1: "Satisfied",
+        question_2: "Relevant course materials",
+      },
+    },
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(answerResult);
 }
 
 run().catch(console.error);

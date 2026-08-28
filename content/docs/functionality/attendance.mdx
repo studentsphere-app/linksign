@@ -3,32 +3,68 @@ title: Attendance
 description: Documentation for the attendance service.
 ---
 
-This page documents the functionalities provided by the `attendance.ts` file.
+This page documents the functionalities provided by the `attendance` service.
 
 ## Exported Functions
 
-- `getAttendanceStatistics`
-- `getSchoolAbsenceTypes`
-- `getAbsences`
-- `submitAbsence`
+- [`getAttendanceStatistics`](/docs/functions/attendance/getAttendanceStatistics)
+- [`getSchoolAbsenceTypes`](/docs/functions/attendance/getSchoolAbsenceTypes)
+- [`getAbsences`](/docs/functions/attendance/getAbsences)
+- [`submitAbsence`](/docs/functions/attendance/submitAbsence)
 
 ## Example Usage
 
 ```typescript
-import { getAttendanceStatistics, getSchoolAbsenceTypes, getAbsences, submitAbsence } from "@studentsphere/linksign";
+import {
+  getAttendanceStatistics,
+  getSchoolAbsenceTypes,
+  getAbsences,
+  submitAbsence,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const attendanceStatistics = await getAttendanceStatistics('YOUR_TOKEN');
-  console.log(attendanceStatistics);
+  const startDate = "2026-09-01T00:00:00Z";
+  const endDate = "2026-09-30T23:59:59Z";
 
-  const schoolAbsenceTypes = await getSchoolAbsenceTypes('YOUR_TOKEN');
-  console.log(schoolAbsenceTypes);
+  // 1. Get attendance statistics for a given time range
+  const statistics = await getAttendanceStatistics(
+    "YOUR_TOKEN",
+    startDate,
+    endDate,
+    "OPTIONAL_TRAINING_ID",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(statistics);
 
-  const absences = await getAbsences('YOUR_TOKEN');
+  // 2. Fetch the school's configured absence types
+  const absenceTypes = await getSchoolAbsenceTypes(
+    "YOUR_TOKEN",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(absenceTypes);
+
+  // 3. List absences within a date range
+  const absences = await getAbsences(
+    "YOUR_TOKEN",
+    startDate,
+    endDate,
+    "OPTIONAL_DEVICE_ID"
+  );
   console.log(absences);
 
-  const submitAbsenceResponse = await submitAbsence('YOUR_TOKEN');
-  console.log(submitAbsenceResponse);
+  // 4. Submit an absence declaration
+  const submittedAbsence = await submitAbsence(
+    "YOUR_TOKEN",
+    {
+      TYPE: 1,
+      hasComment: true,
+      COMMENT: "Medical appointment",
+      START: "2026-09-15T08:00:00Z",
+      END: "2026-09-15T12:00:00Z",
+    },
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(submittedAbsence);
 }
 
 run().catch(console.error);

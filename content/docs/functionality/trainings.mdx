@@ -3,11 +3,11 @@ title: Trainings
 description: Documentation for the trainings service.
 ---
 
-This page documents the functionalities provided by the `trainings.ts` file.
+This page documents the functionalities provided by the `trainings` service.
 
 ## Exported Functions
 
-- `getTrainings`
+- [`getTrainings`](/docs/functions/trainings/getTrainings)
 
 ## Example Usage
 
@@ -15,7 +15,8 @@ This page documents the functionalities provided by the `trainings.ts` file.
 import { getTrainings } from "@studentsphere/linksign";
 
 async function run() {
-  const trainings = await getTrainings('YOUR_TOKEN');
+  // Fetch trainings associated with the authenticated student
+  const trainings = await getTrainings("YOUR_TOKEN", "OPTIONAL_DEVICE_ID");
   console.log(trainings);
 }
 

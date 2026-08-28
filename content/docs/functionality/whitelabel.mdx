@@ -42,20 +42,27 @@ This service allows you to retrieve the specific configuration of a white-label 
 
 ## Exported Functions
 
-- `getWhiteLabelConfiguration`
-- `getWhiteLabelSchools`
+- [`getWhiteLabelConfiguration`](/docs/functions/whitelabel/getWhiteLabelConfiguration)
+- [`getWhiteLabelSchools`](/docs/functions/whitelabel/getWhiteLabelSchools)
 
 ## Example Usage
 
 ```typescript
-import { getWhiteLabelConfiguration, getWhiteLabelSchools } from "@studentsphere/linksign";
+import {
+  getWhiteLabelConfiguration,
+  getWhiteLabelSchools,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const whiteLabelConfiguration = await getWhiteLabelConfiguration('YOUR_TOKEN');
-  console.log(whiteLabelConfiguration);
+  const appPackage = "com.edusign.myedhec";
 
-  const whiteLabelSchools = await getWhiteLabelSchools('YOUR_TOKEN');
-  console.log(whiteLabelSchools);
+  // 1. Fetch white-label application configuration
+  const configuration = await getWhiteLabelConfiguration(appPackage);
+  console.log(configuration);
+
+  // 2. Fetch schools supported by this white-label application
+  const schools = await getWhiteLabelSchools(appPackage);
+  console.log(schools);
 }
 
 run().catch(console.error);

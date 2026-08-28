@@ -3,12 +3,12 @@ title: Assessments
 description: Documentation for the assessments service.
 ---
 
-This page documents the functionalities provided by the `assessments.ts` file.
+This page documents the functionalities provided by the `assessments` service.
 
 ## Exported Functions
 
-- `getAssessments`
-- `getAssessmentDetailById`
+- [`getAssessments`](/docs/functions/assessments/getAssessments)
+- [`getAssessmentDetailById`](/docs/functions/assessments/getAssessmentDetailById)
 
 ## Example Usage
 
@@ -16,11 +16,17 @@ This page documents the functionalities provided by the `assessments.ts` file.
 import { getAssessments, getAssessmentDetailById } from "@studentsphere/linksign";
 
 async function run() {
-  const assessments = await getAssessments('YOUR_TOKEN');
+  // Fetch upcoming/future assessments
+  const assessments = await getAssessments("YOUR_TOKEN", "future", "OPTIONAL_DEVICE_ID");
   console.log(assessments);
 
-  const assessmentDetailById = await getAssessmentDetailById('YOUR_TOKEN');
-  console.log(assessmentDetailById);
+  // Fetch detailed assessment information by ID
+  const assessmentDetail = await getAssessmentDetailById(
+    "YOUR_TOKEN",
+    "ASSESSMENT_ID",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(assessmentDetail);
 }
 
 run().catch(console.error);

@@ -3,28 +3,63 @@ title: Signatures
 description: Documentation for the signatures service.
 ---
 
-This page documents the functionalities provided by the `signatures.ts` file.
+This page documents the functionalities provided by the `signatures` service.
 
 ## Exported Functions
 
-- `signByQRCode`
-- `signByEmail`
-- `signByCode`
+- [`signByQRCode`](/docs/functions/signatures/signByQRCode)
+- [`signByEmail`](/docs/functions/signatures/signByEmail)
+- [`signByCode`](/docs/functions/signatures/signByCode)
 
 ## Example Usage
 
 ```typescript
-import { signByQRCode, signByEmail, signByCode } from "@studentsphere/linksign";
+import {
+  signByQRCode,
+  signByEmail,
+  signByCode,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const signByQRCodeResponse = await signByQRCode('YOUR_TOKEN');
-  console.log(signByQRCodeResponse);
+  // 1. Sign attendance via QR Code
+  const qrCodeResult = await signByQRCode(
+    "YOUR_TOKEN",
+    "QR_CODE_ID",
+    {
+      signature: "BASE64_IMAGE_STRING",
+      courseId: "COURSE_ID",
+      UUID: "DEVICE_UUID",
+      Model: "DEVICE_MODEL",
+    },
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(qrCodeResult);
 
-  const signByEmailResponse = await signByEmail('YOUR_TOKEN');
-  console.log(signByEmailResponse);
+  // 2. Sign attendance via Email link / verification token
+  const emailResult = await signByEmail(
+    "YOUR_TOKEN",
+    "COURSE_ID",
+    "VERIFICATION_TOKEN",
+    {
+      studentId: "STUDENT_ID",
+      schoolId: "SCHOOL_ID",
+      base64Signature: "BASE64_IMAGE_STRING",
+    },
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(emailResult);
 
-  const signByCodeResponse = await signByCode('YOUR_TOKEN');
-  console.log(signByCodeResponse);
+  // 3. Sign attendance with 6-digit session / attendance code
+  const codeResult = await signByCode(
+    "YOUR_TOKEN",
+    "123456",
+    {
+      studentId: "STUDENT_ID",
+      base64Signature: "BASE64_IMAGE_STRING",
+    },
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(codeResult);
 }
 
 run().catch(console.error);

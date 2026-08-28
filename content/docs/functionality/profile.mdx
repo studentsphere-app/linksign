@@ -3,28 +3,38 @@ title: Profile
 description: Documentation for the profile service.
 ---
 
-This page documents the functionalities provided by the `profile.ts` file.
+This page documents the functionalities provided by the `profile` service.
 
 ## Exported Functions
 
-- `getProfile`
-- `getSchoolsByToken`
-- `getNotificationsPreferences`
+- [`getProfile`](/docs/functions/profile/getProfile)
+- [`getSchoolsByToken`](/docs/functions/profile/getSchoolsByToken)
+- [`getNotificationsPreferences`](/docs/functions/profile/getNotificationsPreferences)
 
 ## Example Usage
 
 ```typescript
-import { getProfile, getSchoolsByToken, getNotificationsPreferences } from "@studentsphere/linksign";
+import {
+  getProfile,
+  getSchoolsByToken,
+  getNotificationsPreferences,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const profile = await getProfile('YOUR_TOKEN');
+  // 1. Fetch current student profile
+  const profile = await getProfile("YOUR_TOKEN", "OPTIONAL_DEVICE_ID");
   console.log(profile);
 
-  const schoolsByToken = await getSchoolsByToken('YOUR_TOKEN');
-  console.log(schoolsByToken);
+  // 2. Fetch associated school accounts for this token
+  const schools = await getSchoolsByToken("YOUR_TOKEN", "OPTIONAL_DEVICE_ID");
+  console.log(schools);
 
-  const notificationsPreferences = await getNotificationsPreferences('YOUR_TOKEN');
-  console.log(notificationsPreferences);
+  // 3. Fetch user notification preferences
+  const preferences = await getNotificationsPreferences(
+    "YOUR_TOKEN",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(preferences);
 }
 
 run().catch(console.error);

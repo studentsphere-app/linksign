@@ -3,12 +3,12 @@ title: Schools
 description: Documentation for the schools service.
 ---
 
-This page documents the functionalities provided by the `schools.ts` file.
+This page documents the functionalities provided by the `schools` service.
 
 ## Exported Functions
 
-- `getSchools`
-- `getSchoolFeatures`
+- [`getSchools`](/docs/functions/schools/getSchools)
+- [`getSchoolFeatures`](/docs/functions/schools/getSchoolFeatures)
 
 ## Example Usage
 
@@ -16,10 +16,16 @@ This page documents the functionalities provided by the `schools.ts` file.
 import { getSchools, getSchoolFeatures } from "@studentsphere/linksign";
 
 async function run() {
-  const schools = await getSchools('YOUR_TOKEN');
+  // 1. Fetch schools linked to the authentication token
+  const schools = await getSchools("YOUR_TOKEN", "OPTIONAL_DEVICE_ID");
   console.log(schools);
 
-  const schoolFeatures = await getSchoolFeatures('YOUR_TOKEN');
+  // 2. Fetch enabled features and configurations for a specific school
+  const schoolFeatures = await getSchoolFeatures(
+    "YOUR_TOKEN",
+    "SCHOOL_ID",
+    "OPTIONAL_DEVICE_ID"
+  );
   console.log(schoolFeatures);
 }
 

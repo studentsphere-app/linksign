@@ -3,27 +3,41 @@ title: Documents
 description: Documentation for the documents service.
 ---
 
-This page documents the functionalities provided by the `documents.ts` file.
+This page documents the functionalities provided by the `documents` service.
 
 ## Exported Functions
 
-- `getDocuments`
-- `getStudentAttachments`
-- `getProfessors`
+- [`getDocuments`](/docs/functions/documents/getDocuments)
+- [`getStudentAttachments`](/docs/functions/documents/getStudentAttachments)
+- [`getProfessors`](/docs/functions/documents/getProfessors)
 
 ## Example Usage
 
 ```typescript
-import { getDocuments, getStudentAttachments, getProfessors } from "@studentsphere/linksign";
+import {
+  getDocuments,
+  getStudentAttachments,
+  getProfessors,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const documents = await getDocuments('YOUR_TOKEN');
+  // Fetch school administrative documents
+  const documents = await getDocuments("YOUR_TOKEN", "OPTIONAL_DEVICE_ID");
   console.log(documents);
 
-  const studentAttachments = await getStudentAttachments('YOUR_TOKEN');
-  console.log(studentAttachments);
+  // Fetch student attachments and certificates
+  const attachments = await getStudentAttachments(
+    "YOUR_TOKEN",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(attachments);
 
-  const professors = await getProfessors('YOUR_TOKEN');
+  // Fetch professor details by an array of IDs
+  const professors = await getProfessors(
+    "YOUR_TOKEN",
+    ["PROFESSOR_ID_1", "PROFESSOR_ID_2"],
+    "OPTIONAL_DEVICE_ID"
+  );
   console.log(professors);
 }
 

@@ -3,32 +3,58 @@ title: Newsfeed
 description: Documentation for the newsfeed service.
 ---
 
-This page documents the functionalities provided by the `newsfeed.ts` file.
+This page documents the functionalities provided by the `newsfeed` service.
 
 ## Exported Functions
 
-- `getPublicNewsFeedChannels`
-- `getPrivateNewsFeedChannels`
-- `getPublicNewsFeedPosts`
-- `getPrivateNewsFeedPosts`
+- [`getPublicNewsFeedChannels`](/docs/functions/newsfeed/getPublicNewsFeedChannels)
+- [`getPrivateNewsFeedChannels`](/docs/functions/newsfeed/getPrivateNewsFeedChannels)
+- [`getPublicNewsFeedPosts`](/docs/functions/newsfeed/getPublicNewsFeedPosts)
+- [`getPrivateNewsFeedPosts`](/docs/functions/newsfeed/getPrivateNewsFeedPosts)
 
 ## Example Usage
 
 ```typescript
-import { getPublicNewsFeedChannels, getPrivateNewsFeedChannels, getPublicNewsFeedPosts, getPrivateNewsFeedPosts } from "@studentsphere/linksign";
+import {
+  getPublicNewsFeedChannels,
+  getPrivateNewsFeedChannels,
+  getPublicNewsFeedPosts,
+  getPrivateNewsFeedPosts,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const publicNewsFeedChannels = await getPublicNewsFeedChannels('YOUR_TOKEN');
-  console.log(publicNewsFeedChannels);
+  const schoolId = "SCHOOL_ID";
 
-  const privateNewsFeedChannels = await getPrivateNewsFeedChannels('YOUR_TOKEN');
-  console.log(privateNewsFeedChannels);
+  // 1. Fetch public newsfeed channels
+  const publicChannels = await getPublicNewsFeedChannels(schoolId, "fr");
+  console.log(publicChannels);
 
-  const publicNewsFeedPosts = await getPublicNewsFeedPosts('YOUR_TOKEN');
-  console.log(publicNewsFeedPosts);
+  // 2. Fetch private newsfeed channels (authenticated)
+  const privateChannels = await getPrivateNewsFeedChannels(
+    schoolId,
+    "YOUR_TOKEN",
+    "OPTIONAL_DEVICE_ID",
+    "fr"
+  );
+  console.log(privateChannels);
 
-  const privateNewsFeedPosts = await getPrivateNewsFeedPosts('YOUR_TOKEN');
-  console.log(privateNewsFeedPosts);
+  // 3. Fetch public newsfeed posts
+  const publicPosts = await getPublicNewsFeedPosts(
+    schoolId,
+    { channels: ["CHANNEL_ID_1"], limit: 10 },
+    "fr"
+  );
+  console.log(publicPosts);
+
+  // 4. Fetch private newsfeed posts (authenticated)
+  const privatePosts = await getPrivateNewsFeedPosts(
+    schoolId,
+    "YOUR_TOKEN",
+    { channels: ["CHANNEL_ID_1"], limit: 10 },
+    "OPTIONAL_DEVICE_ID",
+    "fr"
+  );
+  console.log(privatePosts);
 }
 
 run().catch(console.error);

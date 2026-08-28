@@ -3,24 +3,35 @@ title: Campusmap
 description: Documentation for the campusmap service.
 ---
 
-This page documents the functionalities provided by the `campusmap.ts` file.
+This page documents the functionalities provided by the `campusmap` service.
 
 ## Exported Functions
 
-- `getPublicCampusMapBySchool`
-- `getPrivateCampusMapBySchool`
+- [`getPublicCampusMapBySchool`](/docs/functions/campusmap/getPublicCampusMapBySchool)
+- [`getPrivateCampusMapBySchool`](/docs/functions/campusmap/getPrivateCampusMapBySchool)
 
 ## Example Usage
 
 ```typescript
-import { getPublicCampusMapBySchool, getPrivateCampusMapBySchool } from "@studentsphere/linksign";
+import {
+  getPublicCampusMapBySchool,
+  getPrivateCampusMapBySchool,
+} from "@studentsphere/linksign";
 
 async function run() {
-  const publicCampusMapBySchool = await getPublicCampusMapBySchool('YOUR_TOKEN');
-  console.log(publicCampusMapBySchool);
+  const schoolId = "SCHOOL_ID";
 
-  const privateCampusMapBySchool = await getPrivateCampusMapBySchool('YOUR_TOKEN');
-  console.log(privateCampusMapBySchool);
+  // Fetch public campus map locations
+  const publicMap = await getPublicCampusMapBySchool(schoolId);
+  console.log(publicMap);
+
+  // Fetch private/authenticated campus map locations
+  const privateMap = await getPrivateCampusMapBySchool(
+    schoolId,
+    "YOUR_TOKEN",
+    "OPTIONAL_DEVICE_ID"
+  );
+  console.log(privateMap);
 }
 
 run().catch(console.error);
