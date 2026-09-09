@@ -32,8 +32,7 @@ export const metadata: Metadata = {
 	manifest: "/site.webmanifest",
 	openGraph: {
 		title: "Linksign - Lightweight TypeScript Wrapper for Edusign",
-		description:
-			"Interact programmatically with Edusign.",
+		description: "Interact programmatically with Edusign.",
 		url: "https://linksign.studentsphere.app",
 		siteName: "Linksign",
 		images: [
@@ -50,8 +49,7 @@ export const metadata: Metadata = {
 	twitter: {
 		card: "summary_large_image",
 		title: "Linksign - Lightweight TypeScript Wrapper for Edusign",
-		description:
-			"Interact programmatically with Edusign",
+		description: "Interact programmatically with Edusign.",
 		images: ["/banner.png"],
 	},
 };
