@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: "Linksign - Lightweight TypeScript Wrapper for Edusign",
 		description:
-			"Interact programmatically with Edusign school portals. Zero dependencies, TypeScript-first, compatible with 20+ schools from Compétences & Développement and IGENSIA Education.",
+			"Interact programmatically with Edusign.",
 		url: "https://linksign.studentsphere.app",
 		siteName: "Linksign",
 		images: [
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 		card: "summary_large_image",
 		title: "Linksign - Lightweight TypeScript Wrapper for Edusign",
 		description:
-			"Interact programmatically with Edusign school portals. Zero dependencies, TypeScript-first, compatible with 20+ schools from Compétences & Développement and IGENSIA Education.",
+			"Interact programmatically with Edusign",
 		images: ["/banner.png"],
 	},
 };
