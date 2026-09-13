@@ -1,3 +1,4 @@
+export * from "./client";
 export * from "./constants";
 export * from "./core";
 export * from "./models";

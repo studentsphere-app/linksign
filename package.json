@@ -1,6 +1,6 @@
 {
 	"name": "@studentsphere/linksign",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"packageManager": "pnpm@11.24.0",
 	"description": "A Wrapper for Edusign",
 	"author": "Kaelian Baudelet <contact@kaelian.dev> (https://github.com/kaelianbaudelet)",
@@ -16,14 +16,14 @@
 		"edusign",
 		"studentsphere"
 	],
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.js",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.js"
 		}
 	},
 	"files": [
