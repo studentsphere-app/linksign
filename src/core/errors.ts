@@ -69,11 +69,15 @@ export class UnsupportedSsoTypeError extends EduSignAPIError {
 }
 
 export class NewPasswordNeededError extends EduSignAPIError {
+	public token?: string;
+
 	constructor(
 		message: string = "This account requires a password change. Please change your password directly from the Edusign application before authenticating.",
+		token?: string,
 	) {
 		super(message);
 		this.name = "NewPasswordNeededError";
+		this.token = token;
 	}
 }
 

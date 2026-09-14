@@ -47,8 +47,8 @@ export async function loginWithCredentials(
 		},
 	);
 	const result = await handleResponse<AuthSession>(response);
-	if (result.NEW_PASSWORD_NEEDED === 1) {
-		throw new NewPasswordNeededError();
+	if (result.NEW_PASSWORD_NEEDED === true || result.NEW_PASSWORD_NEEDED === 1) {
+		throw new NewPasswordNeededError(undefined, result.NEW_PASSWORD_TOKEN);
 	}
 	return result;
 }
@@ -82,8 +82,8 @@ export async function loginWhitelabelAppWithCredentials(
 		},
 	);
 	const result = await handleResponse<AuthSession>(response);
-	if (result.NEW_PASSWORD_NEEDED === 1) {
-		throw new NewPasswordNeededError();
+	if (result.NEW_PASSWORD_NEEDED === true || result.NEW_PASSWORD_NEEDED === 1) {
+		throw new NewPasswordNeededError(undefined, result.NEW_PASSWORD_TOKEN);
 	}
 	return result;
 }

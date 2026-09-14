@@ -7,7 +7,8 @@ export interface AuthSession {
 	LANGUAGE: string;
 	SCHOOL_ID: string;
 	MULTI_ACCOUNT_LOGIN_CODE: number;
-	NEW_PASSWORD_NEEDED: 0 | 1;
+	NEW_PASSWORD_NEEDED: boolean | 0 | 1;
+	NEW_PASSWORD_TOKEN?: string;
 	USER_TYPE: string;
 	TOKEN: string;
 	NUMBER_OF_ACCOUNTS: number;
