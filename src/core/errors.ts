@@ -87,3 +87,12 @@ export class StudentAccountSsoNotFoundError extends EduSignAPIError {
 		this.name = "StudentAccountSsoNotFoundError";
 	}
 }
+
+export class AmbiguousSsoConfigError extends EduSignAPIError {
+	constructor(
+		message: string = "Multiple SSO configurations found for this domain. Call getSsoConfig with the full email address instead of a bare domain to resolve to the correct school.",
+	) {
+		super(message);
+		this.name = "AmbiguousSsoConfigError";
+	}
+}

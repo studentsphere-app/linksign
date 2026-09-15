@@ -4,6 +4,7 @@ import { chromium } from "playwright";
 import { WHITE_LABEL_APPS } from "../../src/constants";
 import {
 	createWhiteLabelSsoAuthURL,
+	exchangeSamlAuthCode,
 	getWhiteLabelSsoConfig,
 	loginWhitelabelAppWithCredentials,
 	loginWithCasSso,
@@ -341,13 +342,14 @@ export async function authenticateWhitelabel() {
 				safeGoto(authUrl),
 			]);
 			const url = new URL(req.url());
-			const hotlogin = url.searchParams.get("hotlogin");
+			const authCode =
+				url.searchParams.get("auth_code") ?? url.searchParams.get("hotlogin");
 			const multi = url.searchParams.get("multiaccount");
 			const email = url.searchParams.get("email");
 
 			await browser.close();
 
-			if (!hotlogin) throw new Error("No 'hotlogin' parameter found.");
+			if (!authCode) throw new Error("No 'auth_code' parameter found.");
 
 			if (multi === "true" && email) {
 				const acc = await handleMultiAccount(email);
@@ -355,14 +357,13 @@ export async function authenticateWhitelabel() {
 				return acc;
 			}
 
-			console.log(
-				chalk.yellow(
-					"\nWarning: In SAML authentication with a single account, no Refresh Token is provided by Edusign.\n" +
-						"You will not be able to renew the token after it expires (usually 8h) and will need to log in again.\n",
-				),
-			);
+			console.log(chalk.blue("\nExchanging SAML auth code for tokens..."));
+			const session = await exchangeSamlAuthCode(authCode);
 
-			const profile = await printProfileAndTokens(hotlogin);
+			const profile = await printProfileAndTokens(
+				session.TOKEN,
+				session.REFRESH_TOKEN,
+			);
 			return profile;
 		}
 	} catch (err) {

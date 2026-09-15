@@ -1,8 +1,10 @@
 import { input, select } from "@inquirer/prompts";
 import chalk from "chalk";
 import { chromium } from "playwright";
+import { AmbiguousSsoConfigError } from "../../src/core/errors";
 import {
 	createSsoAuthURL,
+	exchangeSamlAuthCode,
 	getSsoConfig,
 	loginWithCasSso,
 	loginWithMicrosoftSso,
@@ -106,7 +108,32 @@ export async function authenticateSso() {
 		chalk.blue(`\nChecking SSO configuration for domain: ${domain}...`),
 	);
 
-	const config = await getSsoConfig(domain).catch(() => {
+	const config = await getSsoConfig(domain).catch(async (err) => {
+		if (err instanceof AmbiguousSsoConfigError) {
+			if (isEmail) {
+				console.log(
+					chalk.yellow(
+						"\nMultiple schools share this domain, retrying with the full email address...",
+					),
+				);
+				return await getSsoConfig(identifier).catch(() => {
+					console.error(
+						chalk.red(
+							"\nError: Could not resolve a unique SSO configuration for this email.",
+						),
+					);
+					process.exit(1);
+				});
+			}
+
+			console.error(
+				chalk.red(
+					"\nError: Multiple schools share this domain. Please enter your full institutional email instead.",
+				),
+			);
+			process.exit(1);
+		}
+
 		console.error(chalk.red(`\nError: No SSO configured for this domain`));
 		process.exit(1);
 	});
@@ -275,13 +302,14 @@ export async function authenticateSso() {
 				safeGoto(authUrl),
 			]);
 			const url = new URL(req.url());
-			const hotlogin = url.searchParams.get("hotlogin");
+			const authCode =
+				url.searchParams.get("auth_code") ?? url.searchParams.get("hotlogin");
 			const multi = url.searchParams.get("multiaccount");
 			const email = url.searchParams.get("email");
 
 			await browser.close();
 
-			if (!hotlogin) throw new Error("No 'hotlogin' parameter found.");
+			if (!authCode) throw new Error("No 'auth_code' parameter found.");
 
 			if (multi === "true" && email) {
 				const acc = await handleMultiAccount(email);
@@ -289,14 +317,13 @@ export async function authenticateSso() {
 				return acc;
 			}
 
-			console.log(
-				chalk.yellow(
-					"\nWarning: In SAML authentication with a single account, no Refresh Token is provided by Edusign.\n" +
-						"You will not be able to renew the token after it expires (usually 8h) and will need to log in again.\n",
-				),
-			);
+			console.log(chalk.blue("\nExchanging SAML auth code for tokens..."));
+			const session = await exchangeSamlAuthCode(authCode);
 
-			const profile = await printProfileAndTokens(hotlogin);
+			const profile = await printProfileAndTokens(
+				session.TOKEN,
+				session.REFRESH_TOKEN,
+			);
 			return profile;
 		}
 	} catch (err) {

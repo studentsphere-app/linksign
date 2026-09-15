@@ -61,7 +61,7 @@ export async function getCourseByCode(
 	}
 
 	const response = await fetch(
-		`${EDUSIGN_API_BASE}/student/courses/code/${encodeURIComponent(code)}`,
+		`${EDUSIGN_API_BASE}/student/courses/${encodeURIComponent(code)}`,
 		{
 			method: "GET",
 			headers,

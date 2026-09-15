@@ -41,6 +41,15 @@ export type MicrosoftSsoAuthSession = MicrosoftOauthAuthSession;
 export type OauthSsoAuthSession = MicrosoftOauthAuthSession;
 export type CasSsoAuthSession = MicrosoftOauthAuthSession;
 
+export interface SamlAuthExchangeSession {
+	TOKEN: string;
+	REFRESH_TOKEN: string;
+	TOKEN_TYPE: string;
+	EXPIRES_IN: number;
+	EMAIL: string;
+	HAS_MULTI_ACCOUNTS: boolean;
+}
+
 export interface RefreshedSession {
 	access_token: string;
 	refresh_token: string;
