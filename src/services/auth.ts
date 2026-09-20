@@ -15,6 +15,7 @@ import type {
 	OauthSsoConfig,
 	PinVerification,
 	RefreshedSession,
+	SamlAuthExchangeSession,
 	SsoConfig,
 	WhiteLabelSsoConfig,
 } from "@/models/auth";
@@ -104,6 +105,48 @@ export async function verifyPin(
 		},
 	);
 	return handleResponse<PinVerification>(response);
+}
+
+interface SamlAuthExchangeRawResponse {
+	access_token: string;
+	refresh_token: string;
+	token_type: string;
+	expires_in: number;
+	email: string;
+	has_multi_accounts: boolean;
+}
+
+export async function exchangeSamlAuthCode(
+	authCode: string,
+	deviceId?: string,
+): Promise<SamlAuthExchangeSession> {
+	const headers: Record<string, string> = {
+		"Content-Type": "application/json",
+	};
+
+	if (deviceId) {
+		headers["x-device-id"] = deviceId;
+	}
+
+	const response = await fetch(
+		`${EDUSIGN_API_BASE}/student/account/auth/exchange`,
+		{
+			method: "POST",
+			headers,
+			body: JSON.stringify({ code: authCode }),
+		},
+	);
+
+	const result = await handleResponse<SamlAuthExchangeRawResponse>(response);
+
+	return {
+		TOKEN: result.access_token,
+		REFRESH_TOKEN: result.refresh_token,
+		TOKEN_TYPE: result.token_type,
+		EXPIRES_IN: result.expires_in,
+		EMAIL: result.email,
+		HAS_MULTI_ACCOUNTS: result.has_multi_accounts,
+	};
 }
 
 export async function loginWithMicrosoft(
@@ -249,9 +292,9 @@ export async function logoutByRefreshToken(
 	return handleResponse<boolean>(response);
 }
 
-export async function getSsoConfig(domain: string): Promise<SsoConfig> {
+export async function getSsoConfig(domainOrEmail: string): Promise<SsoConfig> {
 	const response = await fetch(
-		`${EDUSIGN_API_BASE}/integrations/sso/${domain}`,
+		`${EDUSIGN_API_BASE}/integrations/sso/${encodeURIComponent(domainOrEmail)}`,
 	);
 
 	const result = await handleResponse<SsoConfig[]>(response);
