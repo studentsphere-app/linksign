@@ -15,6 +15,7 @@ export const handleResponse = async <T>(response: Response): Promise<T> => {
 	try {
 		data = await response.json();
 	} catch (_e) {
+		if (response.status === 401) throw new InvalidTokenError();
 		throw new GenericAPIError(
 			`Edusign API Error ${response.status}: ${response.statusText}`,
 		);
